@@ -1,0 +1,31 @@
+# --- Whitelist strategy: ignore all of WordPress, track only our own code ---
+
+# Ignore everything at the root
+/*
+
+# Repo meta
+!/.gitignore
+!/README.md
+!/.github/
+
+# wp-content: only our child theme and custom plugins
+!/wp-content/
+/wp-content/*
+
+!/wp-content/themes/
+/wp-content/themes/*
+!/wp-content/themes/lapin-negotiation-services/
+
+!/wp-content/plugins/
+/wp-content/plugins/*
+!/wp-content/plugins/lapin-core/
+# Add more custom plugins here, one line each:
+# !/wp-content/plugins/my-other-plugin/
+
+# Never track these, even inside tracked folders
+*.log
+.DS_Store
+Thumbs.db
+node_modules/
+vendor/
+.env
