@@ -6,7 +6,13 @@
 # Repo meta
 !/.gitignore
 !/README.md
+!/CLAUDE.md
 !/.github/
+
+# Project docs: locked design system, task log, Hallmark run log
+!/design.md
+!/tasks/
+!/.hallmark/
 
 # wp-content: only our child theme and custom plugins
 !/wp-content/
@@ -19,8 +25,12 @@
 !/wp-content/plugins/
 /wp-content/plugins/*
 !/wp-content/plugins/lapin-core/
+!/wp-content/plugins/lapin/
 # Add more custom plugins here, one line each:
 # !/wp-content/plugins/my-other-plugin/
+
+# wp-content/media/podcasts/Bullies.mp3 (40MB) is NOT tracked — the live
+# server already hosts it at the same path; download it locally if needed.
 
 # Never track these, even inside tracked folders
 *.log

@@ -1,0 +1,78 @@
+<?php
+/**
+ * Contact form handler — plain admin-post.php POST, no form plugin.
+ *
+ * Spam defence is a honeypot field ("company") plus a nonce plus a per-IP
+ * rate limit. On success, redirects back to /contact/?sent=1; on failure,
+ * redirects with an error code and stashes the submitted values in a
+ * short-lived transient so the visitor doesn't retype the message.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+final class Lapin_Contact {
+
+	const ACTION = 'lapin_contact';
+
+	public function __construct() {
+		add_action( 'admin_post_' . self::ACTION, array( $this, 'handle' ) );
+		add_action( 'admin_post_nopriv_' . self::ACTION, array( $this, 'handle' ) );
+	}
+
+	public function handle(): void {
+		$back = home_url( '/contact/' );
+
+		if ( ! isset( $_POST['lapin_contact_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['lapin_contact_nonce'] ), self::ACTION ) ) {
+			$this->redirect( $back, 'expired' );
+		}
+
+		// Honeypot: real visitors never see or fill this field.
+		if ( '' !== trim( (string) ( $_POST['company'] ?? '' ) ) ) {
+			$this->redirect( $back, '', true ); // Pretend success; give bots nothing to learn from.
+		}
+
+		// Rate limit: one message per IP per minute.
+		$ip  = sanitize_text_field( (string) ( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+		$key = 'lapin_contact_' . md5( $ip );
+		if ( get_transient( $key ) ) {
+			$this->redirect( $back, 'rate' );
+		}
+
+		$name    = sanitize_text_field( wp_unslash( (string) ( $_POST['name'] ?? '' ) ) );
+		$email   = sanitize_email( wp_unslash( (string) ( $_POST['email'] ?? '' ) ) );
+		$phone   = sanitize_text_field( wp_unslash( (string) ( $_POST['phone'] ?? '' ) ) );
+		$message = sanitize_textarea_field( wp_unslash( (string) ( $_POST['message'] ?? '' ) ) );
+
+		if ( '' === $name || '' === $message || ! is_email( $email ) ) {
+			set_transient( 'lapin_contact_old_' . md5( $ip ), compact( 'name', 'email', 'phone', 'message' ), 5 * MINUTE_IN_SECONDS );
+			$this->redirect( $back, 'invalid' );
+		}
+
+		$to      = apply_filters( 'lapin_contact_recipient', Lapin::EMAIL );
+		$subject = sprintf( 'Website inquiry from %s', $name );
+		$body    = "Name: {$name}\nEmail: {$email}\nPhone: {$phone}\n\n{$message}\n\n—\nSent from the contact form on " . home_url( '/' );
+		$headers = array( 'Reply-To: ' . $name . ' <' . $email . '>' );
+
+		$sent = wp_mail( $to, $subject, $body, $headers );
+		set_transient( $key, 1, MINUTE_IN_SECONDS );
+
+		$this->redirect( $back, $sent ? '' : 'failed', $sent );
+	}
+
+	/** Old input for re-populating the form after a validation error. */
+	public static function old_input(): array {
+		$ip  = sanitize_text_field( (string) ( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+		$old = get_transient( 'lapin_contact_old_' . md5( $ip ) );
+		return is_array( $old ) ? $old : array();
+	}
+
+	private function redirect( string $back, string $error, bool $ok = false ): void {
+		$url = $ok || '' === $error
+			? add_query_arg( 'sent', '1', $back )
+			: add_query_arg( 'contact_error', rawurlencode( $error ), $back );
+		wp_safe_redirect( $url . '#contact-form' );
+		exit;
+	}
+}

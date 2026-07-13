@@ -1,0 +1,10 @@
+{
+  "scanned": "2026-07-13",
+  "framework": "WordPress block theme — child of Twenty Twenty-Five (wp-content/themes/lapin-negotiation-services)",
+  "font_stack": "none in child theme; parent Twenty Twenty-Five supplies Manrope + Fira Code via its theme.json (child theme.json is empty, parent shows through)",
+  "palette": "none in child theme; child theme.json has empty settings/styles, parent palette active",
+  "motion": "none — no motion library, no JS in child theme or lapin-core plugin",
+  "spacing": "none in child theme; parent preset spacing scale active",
+  "tokens": "none — no tokens.css, no design.md, no Tailwind",
+  "notes": "style.css is a bare child-theme header enqueued via functions.php. lapin-core plugin is an empty module-loader scaffold (includes/ has only .gitkeep). Effectively a blank canvas on top of Twenty Twenty-Five."
+}
