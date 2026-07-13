@@ -34,10 +34,12 @@ $lapin_hero = array(
 );
 ?>
 <style>
-	.svc-list { list-style: none; margin: 0 0 var(--space-md); padding: 0; max-width: 65ch; }
+	.svc-list { list-style: none; margin: 0 0 var(--space-md); padding: 0; }
 	.svc-list li { position: relative; padding-left: 1.5rem; margin-bottom: var(--space-sm); color: var(--color-ink-2); }
 	.svc-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.5rem; height: 0.5rem; background: var(--color-accent); }
 	.sec + .sec { border-top: 1px solid var(--color-rule); }
+	/* Text-only section: match the 65% text column of the split sections. */
+	@media (min-width: 60rem) { #negotiation-advice .wrap > div { max-width: calc(65% - 2.6rem); } }
 </style>
 
 <main id="main">
@@ -93,7 +95,7 @@ $lapin_hero = array(
 
 	<section class="sec" id="negotiation-advice">
 		<div class="wrap">
-			<div class="wrap--narrow" style="margin-inline: 0; padding-inline: 0;">
+			<div>
 				<div class="sec-head">
 					<h2>Negotiation advice &amp; support</h2>
 				</div>
@@ -121,8 +123,8 @@ $lapin_hero = array(
 						<p>But hiring an agent isn’t just about getting the best deal possible. An experienced agent can also bring objectivity to the negotiation process and act as a representative for your interests. Without the expertise and objectivity of an agent, you may be at a disadvantage and miss out on opportunities to secure a better deal.</p>
 					</div>
 				</div>
-				<figure class="split__media" style="background: var(--color-navy); border-radius: var(--radius-card); padding: var(--space-lg);">
-					<img src="<?php echo esc_url( Lapin::asset( 'images/professions.webp' ) ); ?>" alt="Illustration of the professions and industries Lapin Negotiation Services represents" width="1600" height="501" loading="lazy">
+				<figure class="split__media" aria-hidden="true">
+					<?php echo Lapin::icon( 'user-round-check' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				</figure>
 			</div>
 		</div>

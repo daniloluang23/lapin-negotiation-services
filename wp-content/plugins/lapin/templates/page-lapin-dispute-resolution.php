@@ -34,10 +34,17 @@ $lapin_hero = array(
 );
 ?>
 <style>
-	.svc-list { list-style: none; margin: 0 0 var(--space-md); padding: 0; max-width: 65ch; }
+	.svc-list { list-style: none; margin: 0 0 var(--space-md); padding: 0; }
 	.svc-list li { position: relative; padding-left: 1.5rem; margin-bottom: var(--space-sm); color: var(--color-ink-2); }
 	.svc-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.5rem; height: 0.5rem; background: var(--color-accent); }
 	.sec + .sec { border-top: 1px solid var(--color-rule); }
+	/* Text-only sections: match the 65% text column of the split sections. */
+	@media (min-width: 60rem) {
+		#dispute-resolution-settlement-advice .sec-head,
+		#dispute-resolution-settlement-advice .prose,
+		#dispute-resolution-why-a-specialist .sec-head,
+		#dispute-resolution-why-a-specialist .svc-list { max-width: calc(65% - 2.6rem); }
+	}
 </style>
 
 <main id="main">

@@ -22,10 +22,11 @@ asymmetric layouts, no glassmorphism, no gradients.
                                strip, founder diptych, media wall, qualifications, CTA band.
 - Service pages (negotiation,
   dispute-resolution,
-  mediation):                  **Split Studio** — alternating text/proof diptychs,
-                               one module per existing content section.
+  mediation):                  **Split Studio** — 65% text / 35% image per section.
+                               Every text block shares one column width so sections
+                               align down the page; text-only sections match the 65%.
 - Content pages (overview,
-  practice-areas):             **Long Document** — continuous editorial prose with
+  practice-areas):             **Long Document** — full-width editorial prose with
                                inline section heads; practice areas closes with a
                                two-column index list.
 - Contact:                     split utility — form left, contact facts right.
@@ -59,7 +60,7 @@ Slate blue lives only inside the logo mark — never promoted to a UI token.
 - Display tracking: -0.02em
 - Label tracking (small caps rows): 0.08em
 - Type scale: 1.25 ratio — `--text-display: clamp(2.5rem, 4.5vw + 1rem, 4.75rem)`
-- Body 1.0625rem / 1.6. Measure ≤ 65ch.
+- Body 1.0625rem / 1.6. No fixed ch measure — text fills its column: full-width on About Us / Long-Document pages; a uniform 65%-width text column on the split service pages (the other 35% holds the section image/icon).
 - Self-hosted latin-subset variable WOFF2 in `assets/fonts/`, `font-display: swap`, preloaded.
 
 ## Spacing

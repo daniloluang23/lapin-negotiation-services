@@ -235,18 +235,21 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 	content: ""; display: block; width: 3.5rem; height: 3px;
 	background: var(--color-accent); margin-top: var(--space-sm);
 }
-.lead { font-size: var(--text-md); line-height: 1.55; color: var(--color-ink-2); max-width: 42ch; }
+.lead { font-size: var(--text-md); line-height: 1.55; color: var(--color-ink-2); max-width: none; }
 .band .lead { color: var(--color-ink-inverse-2); }
-.prose { max-width: 65ch; }
+.prose { max-width: none; }
 .prose p { color: var(--color-ink-2); }
 .hairline { border: 0; border-top: 1px solid var(--color-rule); margin: 0; }
 
-/* ── Split diptych rows (service pages) ─────────────────────────────── */
-.split { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-2xl); align-items: center; }
-.split--flip { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+/* ── Split rows (service pages) ─────────────────────────────────────── */
+/* Consistent 65 / 35 split: text column left, image/icon column right. Every
+   text block is the same width so sections align down the page. */
+.split, .split--flip { display: grid; grid-template-columns: minmax(0, 65fr) minmax(0, 35fr); gap: var(--space-2xl); align-items: center; }
+/* Flip authors the image first in markup; push it to the right column so the
+   text stays in the left 65% column on every section (uniform text width). */
 .split--flip > :first-child { order: 2; }
-.split__media img { width: min(100%, 24rem); margin-inline: auto; }
-.split__media svg { width: min(60%, 13rem); height: auto; aspect-ratio: 1; display: block; margin-inline: auto; color: var(--color-navy); }
+.split__media img { width: min(100%, 22rem); margin-inline: auto; }
+.split__media svg { width: min(70%, 13rem); height: auto; aspect-ratio: 1; display: block; margin-inline: auto; color: var(--color-navy); }
 @media (max-width: 59.9375rem) {
 	.split, .split--flip { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
 	.split--flip > :first-child { order: 0; }

@@ -52,18 +52,19 @@ $lapin_clients = array(
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-page-hero.php';
 ?>
 <style>
-	.doc { max-width: 46rem; }
+	.doc { max-width: none; }
+	.doc .prose { max-width: none; }
 	.doc .sec-head { margin-bottom: var(--space-lg); }
 	.doc section { padding-block: var(--space-2xl) 0; }
 	.doc section:first-child { padding-top: var(--space-3xl); }
 	.doc-list { list-style: none; margin: 0 0 var(--space-md); padding: 0; }
 	.doc-list li { position: relative; padding-left: 1.5rem; margin-bottom: var(--space-sm); color: var(--color-ink-2); }
 	.doc-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.5rem; height: 0.5rem; background: var(--color-accent); }
-	.founder-figure { float: right; width: min(38%, 15rem); margin: 0 0 var(--space-md) var(--space-lg); }
-	.founder-figure img { border-radius: var(--radius-card); }
+	.founder-figure { float: right; width: min(45%, 23rem); margin: 0 0 var(--space-md) var(--space-xl); }
+	.founder-figure img { width: 100%; height: auto; border-radius: var(--radius-card); }
 	.founder-figure figcaption { font-size: var(--text-sm); color: var(--color-muted); margin-top: var(--space-xs); }
-	@media (max-width: 40rem) { .founder-figure { float: none; width: min(60%, 14rem); margin: 0 0 var(--space-md); } }
-	.media-list { list-style: none; margin: 0; padding: 0; max-width: 46rem; }
+	@media (max-width: 40rem) { .founder-figure { float: none; width: min(70%, 18rem); margin: 0 0 var(--space-md); } }
+	.media-list { list-style: none; margin: 0; padding: 0; max-width: none; }
 	.media-list li { border-top: 1px solid var(--color-rule); }
 	.media-list li:last-child { border-bottom: 1px solid var(--color-rule); }
 	.media-list a {

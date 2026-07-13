@@ -47,6 +47,11 @@ $lapin_pairs = array(
 ?>
 <style>
 	.sec + .sec { border-top: 1px solid var(--color-rule); }
+	/* Text-only section: match the 65% text column of the split sections. */
+	@media (min-width: 60rem) {
+		#mediation-mediation-preparation .sec-head,
+		#mediation-mediation-preparation .prose { max-width: calc(65% - 2.6rem); }
+	}
 	.pull { font-family: var(--font-display); font-weight: 650; font-size: var(--text-lg); color: var(--color-ink); max-width: 24ch; }
 	.pull::after { content: ""; display: block; width: 3.5rem; height: 3px; background: var(--color-accent); margin-top: var(--space-sm); }
 	.vs { border-collapse: collapse; width: 100%; }
