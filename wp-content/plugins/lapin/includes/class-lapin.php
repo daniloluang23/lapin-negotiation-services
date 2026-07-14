@@ -13,12 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Lapin {
 
 	const NAME        = 'Lapin Negotiation Services';
-	const TAGLINE     = 'Building Bridges by Resolving Differences';
+	const TAGLINE     = 'Building Bridges. Resolving Differences.';
+	const SUBLINE     = 'Professional Mediation and Negotiation Services Delivering Practical, Durable Solutions for Businesses, Families, and Organizations.';
 	const PHONE_LOCAL = '310-984-6952';
 	const PHONE_FREE  = '888-964-8884';
 	const PHONE_LOCAL_TEL = '+13109846952';
 	const PHONE_FREE_TEL  = '+18889648884';
 	const EMAIL       = 'info@LapinNegotiationServices.com';
+	const EMAIL_ALT   = 'raphael@lapinnegotiationservices.com';
 	const ADDR_NAME   = 'The Tower';
 	const ADDR_STREET = '10940 Wilshire Blvd, Suite 1600';
 	const ADDR_CITY   = 'Los Angeles';
@@ -35,6 +37,7 @@ final class Lapin {
 	public Lapin_Pages $pages;
 	public Lapin_Contact $contact;
 	public Lapin_Sitemap $sitemap;
+	public Lapin_Submissions $submissions;
 
 	public static function instance(): Lapin {
 		if ( null === self::$instance ) {
@@ -44,9 +47,10 @@ final class Lapin {
 	}
 
 	private function __construct() {
-		$this->pages   = new Lapin_Pages();
-		$this->contact = new Lapin_Contact();
-		$this->sitemap = new Lapin_Sitemap();
+		$this->pages       = new Lapin_Pages();
+		$this->contact     = new Lapin_Contact();
+		$this->sitemap     = new Lapin_Sitemap();
+		$this->submissions = new Lapin_Submissions();
 	}
 
 	/** Absolute URL for a plugin asset. */
@@ -82,6 +86,8 @@ final class Lapin {
 
 	public static function activate(): void {
 		Lapin_Pages::activate();
+		Lapin_Posts::seed();
+		Lapin_Submissions::activate();
 		flush_rewrite_rules();
 	}
 

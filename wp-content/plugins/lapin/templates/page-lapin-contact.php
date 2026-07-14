@@ -15,6 +15,10 @@ $lapin = array(
 	'path'       => 'contact/',
 	'nav'        => 'contact',
 	'body_class' => 'page-contact',
+	'hero'       => array(
+		'title' => 'Contact Us',
+		'lede'  => 'For a free, no-obligation consultation — call, email, or send us a message.',
+	),
 	'schema'     => array(
 		array(
 			'@type' => 'ContactPage',
@@ -28,11 +32,6 @@ $lapin = array(
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-head.php';
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 
-$lapin_hero = array(
-	'title' => 'Contact Us',
-	'lede'  => 'For a free, no-obligation consultation — call, email, or send us a message.',
-);
-
 $lapin_sent  = isset( $_GET['sent'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 $lapin_error = isset( $_GET['contact_error'] ) ? sanitize_key( wp_unslash( $_GET['contact_error'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 $lapin_old   = $lapin_error ? Lapin_Contact::old_input() : array();
@@ -41,6 +40,7 @@ $lapin_error_text = array(
 	'invalid' => 'Your name, a valid email address, and a message are required. Please check the highlighted fields and send again.',
 	'expired' => 'That form session expired. Please send your message again.',
 	'rate'    => 'A message was just sent from this connection. Please wait a minute, then try again.',
+	'captcha' => 'The security check did not complete. Please try sending your message again.',
 	'failed'  => 'The message could not be sent. Please email us directly at ' . Lapin::EMAIL . ' or call ' . Lapin::PHONE_LOCAL . '.',
 );
 ?>
@@ -60,8 +60,6 @@ $lapin_error_text = array(
 </style>
 
 <main id="main">
-	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-page-hero.php'; ?>
-
 	<section class="sec" id="contact-form">
 		<div class="wrap">
 			<div class="contact-grid">
@@ -102,7 +100,8 @@ $lapin_error_text = array(
 							<label for="contact-message">How can we help?</label>
 							<textarea id="contact-message" name="message" rows="6" required><?php echo esc_textarea( $lapin_old['message'] ?? '' ); ?></textarea>
 						</div>
-						<button class="btn btn--gold" type="submit">Send message</button>
+						<?php echo Lapin_Turnstile::slot( 'light' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<button class="btn btn--rose" type="submit">Send message</button>
 					</form>
 				</div>
 

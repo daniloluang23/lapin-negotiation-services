@@ -12,13 +12,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LAPIN_VERSION', '1.0.0' );
+define( 'LAPIN_VERSION', '2.0.0' );
 define( 'LAPIN_PLUGIN_FILE', __FILE__ );
 define( 'LAPIN_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LAPIN_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin.php';
 require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-pages.php';
+require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-posts.php';
+require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-reviews.php';
+require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-submissions.php';
+require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-turnstile.php';
 require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-contact.php';
 require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-sitemap.php';
 

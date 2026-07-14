@@ -16,40 +16,39 @@ $lapin = array(
 	'path'       => 'overview/',
 	'nav'        => 'overview',
 	'body_class' => 'page-overview',
-	'og_image'   => Lapin::asset( 'images/hero-painting.jpg' ),
+	'hero'       => array(
+		'title' => 'About Us',
+		'lede'  => 'A leader in the field of negotiation and dispute resolution — building bridges, resolving differences.',
+	),
 );
 
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-head.php';
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 
-$lapin_hero = array(
-	'title' => 'About Us',
-	'lede'  => 'A leader in the field of negotiation and dispute resolution — building bridges by resolving differences.',
-);
-
+// Each entry anchors to its own card in the home media wall (id="media-<slug>").
 $lapin_media_list = array(
-	array( 'Raphael Lapin with Aljazeera advising on a complex international dispute', home_url( '/#media' ) ),
-	array( 'Raphael Lapin with The WAY to WOW Show on Mediation in Probate & Trust Disputes', home_url( '/#media' ) ),
-	array( '“Working With Difficult People” — Interview on The Way to Wow Show', home_url( '/#media' ) ),
-	array( 'Raphael Lapin Discusses Dealing with Difficult Family Members', home_url( '/#media' ) ),
-	array( 'The Components of a Successful Mediation', home_url( '/#media' ) ),
-	array( 'Bullies', home_url( '/#media' ) ),
-	array( 'Insights on Dispute Resolution', home_url( '/#media' ) ),
-	array( 'Mediation: Raphael Lapin’s Recipe for Success', home_url( '/#media' ) ),
+	array( 'Raphael Lapin with Aljazeera advising on a complex international dispute', home_url( '/#media-aljazeera' ) ),
+	array( 'Raphael Lapin with The WAY to WOW Show on Mediation in Probate & Trust Disputes', home_url( '/#media-probate-trust' ) ),
+	array( '“Working With Difficult People” — Interview on The Way to Wow Show', home_url( '/#media-difficult-people' ) ),
+	array( 'Raphael Lapin Discusses Dealing with Difficult Family Members', home_url( '/#media-difficult-family' ) ),
+	array( 'The Components of a Successful Mediation', home_url( '/#media-successful-mediation' ) ),
+	array( 'Bullies', home_url( '/#media-bullies' ) ),
+	array( 'Insights on Dispute Resolution', home_url( '/#media-dispute-resolution' ) ),
+	array( 'Mediation: Raphael Lapin’s Recipe for Success', home_url( '/#media-recipe-success' ) ),
 );
 
+// The staging site's own rose-tint monochrome logo art, uniform 150x70.
 $lapin_clients = array(
-	array( 'client-microsoft.webp', 'Microsoft', 140, 31 ),
-	array( 'client-att.webp', 'AT&T', 140, 49 ),
-	array( 'client-yahoo.webp', 'Yahoo', 108, 31 ),
-	array( 'client-bt.webp', 'BT', 54, 53 ),
-	array( 'client-booz.webp', 'Booz Allen Hamilton', 46, 46 ),
-	array( 'client-air_force.webp', 'United States Air Force', 55, 53 ),
-	array( 'client-qatar.webp', 'State of Qatar', 87, 108 ),
-	array( 'client-uae.webp', 'United Arab Emirates', 87, 98 ),
+	array( 'client-microsoft-tint.webp', 'Microsoft' ),
+	array( 'client-att-tint.webp', 'AT&T' ),
+	array( 'client-yahoo-tint.webp', 'Yahoo' ),
+	array( 'client-bt-tint.webp', 'BT' ),
+	array( 'client-booz-tint.webp', 'Booz Allen Hamilton' ),
+	array( 'client-air_force-tint.webp', 'United States Air Force' ),
+	array( 'client-qatar-tint.webp', 'State of Qatar' ),
+	array( 'client-uae-tint.webp', 'United Arab Emirates' ),
 );
 
-require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-page-hero.php';
 ?>
 <style>
 	.doc { max-width: none; }
@@ -77,8 +76,6 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-page-hero.php';
 	.mission > div { border-top: 2px solid var(--color-accent); padding-top: var(--space-md); }
 	@media (max-width: 40rem) { .mission { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); } }
 	.clients { display: flex; flex-wrap: wrap; gap: var(--space-xl) var(--space-2xl); align-items: center; }
-	/* Logos are brand slate-blue art on white; multiply melts the white into the paper. */
-	.clients img { mix-blend-mode: multiply; }
 	.hq { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-2xl); align-items: center; }
 	@media (max-width: 59.9375rem) { .hq { grid-template-columns: minmax(0, 1fr); } }
 </style>
@@ -113,16 +110,6 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-page-hero.php';
 					<p>Raphael Lapin is a renowned Harvard-trained expert in the fields of negotiation, mediation, and dispute resolution. With over 25 years of experience, he has made significant contributions to the field by shifting away from traditional adversarial approaches and promoting a more authentic process of dialogue, understanding, and collaborative problem-solving. His approach has resulted in optimal agreements, strong working relationships, and mutually satisfying resolutions.</p>
 					<p>In addition to his practice, Raphael has also made significant contributions to the education of future leaders in the field. He has served as an adjunct professor of law at Whittier School of Law, teaching negotiation and mediation to third-year law students, as well as a visiting professor of law at Southwestern School of Law, where he taught international conflict resolution.</p>
 					<p>His expertise and knowledge have also been shared with the wider public through his published articles in several notable publications such as USA Today, Jerusalem Post, Ahram, Foreign Policy News, The International Crisis Group’s Ethiopia Insights and The Diplomatist. Raphael Lapin is a true leader and a valuable asset to the negotiation and dispute resolution community.</p>
-				</div>
-			</section>
-
-			<section id="unlitigation">
-				<div class="sec-head">
-					<h2>What is Unlitigation™</h2>
-				</div>
-				<div class="prose">
-					<p>Litigation is not always the best solution for resolving disputes. It can lead to high costs, prolonged court battles, and excessive stress. Our dispute resolution services provide a constructive and efficient alternative. We guide you through the process, utilizing negotiation and mediation to resolve disputes without the need for costly and combative litigation.</p>
-					<p>Let us help you save time, money, and stress by choosing our dispute resolution services.</p>
 				</div>
 			</section>
 
@@ -177,7 +164,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-page-hero.php';
 			</div>
 			<div class="clients">
 				<?php foreach ( $lapin_clients as $lapin_client ) : ?>
-				<img src="<?php echo esc_url( Lapin::asset( 'images/' . $lapin_client[0] ) ); ?>" alt="<?php echo esc_attr( $lapin_client[1] ); ?>" width="<?php echo esc_attr( $lapin_client[2] ); ?>" height="<?php echo esc_attr( $lapin_client[3] ); ?>" loading="lazy">
+				<img src="<?php echo esc_url( Lapin::asset( 'images/' . $lapin_client[0] ) ); ?>" alt="<?php echo esc_attr( $lapin_client[1] ); ?>" width="150" height="70" loading="lazy">
 				<?php endforeach; ?>
 			</div>
 		</div>

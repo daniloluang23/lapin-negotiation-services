@@ -14,15 +14,14 @@ $lapin = array(
 	'path'       => 'practice-areas/',
 	'nav'        => 'practice-areas',
 	'body_class' => 'page-practice-areas',
+	'hero'       => array(
+		'title' => 'Targeted Practice Areas',
+		'lede'  => 'We provide both online and in-person negotiation and mediation services in these targeted practice areas.',
+	),
 );
 
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-head.php';
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
-
-$lapin_hero = array(
-	'title' => 'Targeted Practice Areas',
-	'lede'  => 'We provide both online and in-person negotiation and mediation services in these targeted practice areas.',
-);
 
 $lapin_areas = array(
 	'Commercial Disputes',
@@ -56,14 +55,12 @@ $lapin_areas = array(
 	@media (max-width: 40rem) { .areas { columns: 1; } }
 	.areas-figure {
 		margin: var(--space-2xl) 0 0;
-		background: var(--color-navy); border-radius: var(--radius-card);
+		background: var(--color-onyx); border-radius: var(--radius-card);
 		padding: var(--space-xl) var(--space-lg);
 	}
 </style>
 
 <main id="main">
-	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-page-hero.php'; ?>
-
 	<section class="sec">
 		<div class="wrap">
 			<ul class="areas">

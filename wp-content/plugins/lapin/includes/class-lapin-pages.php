@@ -34,7 +34,10 @@ final class Lapin_Pages {
 		'dispute-resolution' => array( 'page-lapin-dispute-resolution.php', 'Dispute Resolution' ),
 		'mediation'          => array( 'page-lapin-mediation.php', 'Mediation' ),
 		'contact'            => array( 'page-lapin-contact.php', 'Contact' ),
+		'blog'               => array( 'page-lapin-blog.php', 'Blog' ),
 	);
+
+	const POST_TEMPLATE = 'single-lapin-post.php';
 
 	const HOME_TEMPLATE = 'page-lapin-home.php';
 	const HOME_TITLE    = 'Home';
@@ -114,6 +117,9 @@ final class Lapin_Pages {
 		if ( is_front_page() && ! is_home() ) {
 			return self::HOME_TEMPLATE;
 		}
+		if ( is_singular( 'post' ) ) {
+			return self::POST_TEMPLATE;
+		}
 		if ( is_page() ) {
 			$slug = get_post_field( 'post_name', get_queried_object_id() );
 			if ( isset( self::ROUTES[ $slug ] ) ) {
@@ -125,9 +131,15 @@ final class Lapin_Pages {
 
 	/**
 	 * Create the routed pages on activation and point the front page at Home.
-	 * Existing pages (matched by slug) are left untouched.
+	 * Existing pages (matched by slug) are left untouched. Blog posts live at
+	 * root-level slugs (URLs identical to the approved staging site), which
+	 * requires the /%postname%/ permalink structure.
 	 */
 	public static function activate(): void {
+		if ( '/%postname%/' !== get_option( 'permalink_structure' ) ) {
+			update_option( 'permalink_structure', '/%postname%/' );
+		}
+
 		$pages = array_merge(
 			array( 'home' => array( self::HOME_TEMPLATE, self::HOME_TITLE ) ),
 			self::ROUTES

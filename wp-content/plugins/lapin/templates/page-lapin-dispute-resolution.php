@@ -14,6 +14,11 @@ $lapin = array(
 	'path'       => 'dispute-resolution/',
 	'nav'        => 'dispute-resolution',
 	'body_class' => 'page-dispute-resolution',
+	'hero'       => array(
+		'eyebrow' => 'Services',
+		'title'   => 'Dispute Resolution Services',
+		'lede'    => 'Free consultation with a specialist — call ' . Lapin::PHONE_LOCAL . ' or toll-free ' . Lapin::PHONE_FREE . '.',
+	),
 	'schema'     => array(
 		array(
 			'@type'       => 'Service',
@@ -27,11 +32,6 @@ $lapin = array(
 
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-head.php';
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
-
-$lapin_hero = array(
-	'title' => 'Dispute Resolution Services',
-	'lede'  => 'Free consultation with a specialist — call ' . Lapin::PHONE_LOCAL . ' or toll-free ' . Lapin::PHONE_FREE . '.',
-);
 ?>
 <style>
 	.svc-list { list-style: none; margin: 0 0 var(--space-md); padding: 0; }
@@ -48,8 +48,6 @@ $lapin_hero = array(
 </style>
 
 <main id="main">
-	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-page-hero.php'; ?>
-
 	<section class="sec" id="dispute-resolution-out-of-court">
 		<div class="wrap">
 			<div class="split">

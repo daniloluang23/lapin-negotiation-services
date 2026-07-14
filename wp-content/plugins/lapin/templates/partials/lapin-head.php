@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $lapin_home     = home_url( '/' );
 $lapin_url      = $lapin_home . ( $lapin['path'] ?? '' );
-$lapin_og_image = $lapin['og_image'] ?? Lapin::asset( 'images/hero-painting.jpg' );
+$lapin_og_image = $lapin['og_image'] ?? Lapin::asset( 'images/logo-on-light.png' );
 
 // Title is emitted here; Lapin_Pages removed WP's own title/canonical/robots.
 add_filter( 'pre_get_document_title', static fn() => $lapin['title'] );
@@ -31,8 +31,8 @@ $lapin_graph = array(
 		'name'       => Lapin::NAME,
 		'slogan'     => Lapin::TAGLINE,
 		'url'        => $lapin_home,
-		'logo'       => Lapin::asset( 'images/logo-dark.png' ),
-		'image'      => Lapin::asset( 'images/hero-painting.jpg' ),
+		'logo'       => Lapin::asset( 'images/logo-on-light.png' ),
+		'image'      => Lapin::asset( 'images/logo-on-light.png' ),
 		'telephone'  => Lapin::PHONE_LOCAL_TEL,
 		'email'      => Lapin::EMAIL,
 		'areaServed' => 'Southern California',
@@ -61,7 +61,19 @@ $lapin_graph = array(
 		'isPartOf'    => array( '@id' => $lapin_home . '#organization' ),
 	),
 );
-if ( '' !== ( $lapin['path'] ?? '' ) ) {
+if ( ! empty( $lapin['breadcrumb'] ) ) {
+	// Explicit trail: array of [ name, url ] pairs, Home added automatically.
+	$lapin_trail = array(
+		array( '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => $lapin_home ),
+	);
+	foreach ( $lapin['breadcrumb'] as $lapin_i => $lapin_crumb ) {
+		$lapin_trail[] = array( '@type' => 'ListItem', 'position' => $lapin_i + 2, 'name' => $lapin_crumb[0], 'item' => $lapin_crumb[1] );
+	}
+	$lapin_graph[] = array(
+		'@type'           => 'BreadcrumbList',
+		'itemListElement' => $lapin_trail,
+	);
+} elseif ( '' !== ( $lapin['path'] ?? '' ) ) {
 	$lapin_graph[] = array(
 		'@type'           => 'BreadcrumbList',
 		'itemListElement' => array(
@@ -82,12 +94,16 @@ foreach ( ( $lapin['schema'] ?? array() ) as $lapin_node ) {
 	<title><?php echo esc_html( $lapin['title'] ); ?></title>
 	<meta name="description" content="<?php echo esc_attr( $lapin['desc'] ); ?>">
 	<meta name="robots" content="index, follow, max-image-preview:large">
-	<meta name="theme-color" content="#023047">
+	<meta name="theme-color" content="#49494B">
 	<link rel="canonical" href="<?php echo esc_url( $lapin_url ); ?>">
 	<link rel="icon" href="<?php echo esc_url( Lapin::asset( 'favicon/favicon-32.png' ) ); ?>" sizes="32x32">
 	<link rel="icon" href="<?php echo esc_url( Lapin::asset( 'favicon/favicon-192.png' ) ); ?>" sizes="192x192">
 	<link rel="apple-touch-icon" href="<?php echo esc_url( Lapin::asset( 'favicon/favicon-192.png' ) ); ?>">
-	<meta property="og:type" content="website">
+	<meta property="og:type" content="<?php echo esc_attr( $lapin['og_type'] ?? 'website' ); ?>">
+	<?php if ( ! empty( $lapin['article'] ) ) : ?>
+	<meta property="article:published_time" content="<?php echo esc_attr( $lapin['article']['published'] ); ?>">
+	<meta property="article:modified_time" content="<?php echo esc_attr( $lapin['article']['modified'] ); ?>">
+	<?php endif; ?>
 	<meta property="og:site_name" content="<?php echo esc_attr( Lapin::NAME ); ?>">
 	<meta property="og:title" content="<?php echo esc_attr( $lapin['title'] ); ?>">
 	<meta property="og:description" content="<?php echo esc_attr( $lapin['desc'] ); ?>">

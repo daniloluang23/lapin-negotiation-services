@@ -1,5 +1,18 @@
 [
   {
+    "date": "2026-07-14",
+    "scope": "app",
+    "macrostructure": "Marquee Hero (home) / Split Studio (services) / Long Document (content) / card-grid (blog)",
+    "theme": "studied-DNA",
+    "theme_source": "url https://stg-lapinnegotiationservices-staging.kinsta.cloud/ (client's own staging site) + client design concept",
+    "theme_axes": "dark-masthead-light-body / geometric-sans / warm-rose (~35)",
+    "vibe": "warm metallics on onyx, abstract bridge, consulting gravitas",
+    "enrichment": "hand-built inline SVG bridge masthead (Tier B)",
+    "nav": "N1b on onyx masthead (staging DNA)",
+    "footer": "Ft3-index 4-col + newsletter (staging DNA)",
+    "brief": "Lapin Negotiation Services · v2 redesign to approved staging/SULTIN DNA + option-1 logo palette + blog"
+  },
+  {
     "date": "2026-07-13",
     "scope": "app",
     "macrostructure": "Marquee Hero (home) / Split Studio (services) / Long Document (content)",

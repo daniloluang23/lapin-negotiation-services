@@ -14,6 +14,11 @@ $lapin = array(
 	'path'       => 'mediation/',
 	'nav'        => 'mediation',
 	'body_class' => 'page-mediation',
+	'hero'       => array(
+		'eyebrow' => 'Services',
+		'title'   => 'Mediation Services',
+		'lede'    => 'Free consultation with a specialist — call ' . Lapin::PHONE_LOCAL . ' or toll-free ' . Lapin::PHONE_FREE . '.',
+	),
 	'schema'     => array(
 		array(
 			'@type'       => 'Service',
@@ -27,11 +32,6 @@ $lapin = array(
 
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-head.php';
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
-
-$lapin_hero = array(
-	'title' => 'Mediation Services',
-	'lede'  => 'Free consultation with a specialist — call ' . Lapin::PHONE_LOCAL . ' or toll-free ' . Lapin::PHONE_FREE . '.',
-);
 
 $lapin_pairs = array(
 	array( 'Most disputes can be resolved within a day.', 'Can take years before case comes before a judge or jury.' ),
@@ -85,7 +85,6 @@ $lapin_pairs = array(
 </style>
 
 <main id="main">
-	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-page-hero.php'; ?>
 
 	<section class="sec" id="mediation-alternative-to-litigation">
 		<div class="wrap">
