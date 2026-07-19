@@ -19,7 +19,6 @@ define( 'LAPIN_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin.php';
 require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-pages.php';
-require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-posts.php';
 require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-reviews.php';
 require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-submissions.php';
 require_once LAPIN_PLUGIN_DIR . 'includes/class-lapin-turnstile.php';

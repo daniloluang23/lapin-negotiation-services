@@ -19,12 +19,12 @@ if ( defined( 'LAPIN_TOKENS_EMITTED' ) ) {
 define( 'LAPIN_TOKENS_EMITTED', true );
 ?>
 <style>
-/* Hallmark · macrostructure: Marquee Hero (home) / Split Studio (services) / Long Document (content) / card-grid (blog)
- * theme: studied-DNA (source: url https://stg-lapinnegotiationservices-staging.kinsta.cloud/ — client's own staging site)
+/* Hallmark · macrostructure: Marquee Hero split (home) / Split Studio (services) / Long Document (content)
+ * theme: studied-DNA (source: url https://stg-lapinnegotiationservices-staging.kinsta.cloud/ — client's own staging site + client mockups 2026-07-19)
  * paper oklch(98.2% 0.005 80) · onyx #49494B · accent rose-gold #BD8C7D ≤5% · soft-gold #D1BFA7 · silver #8E8E90
  * display: DM Sans 700 (roman) · body: Poppins 400/600 · axes: light / geometric-sans / warm-rose (~35°)
- * nav: N1b three-section on onyx masthead (staging DNA; rotation suspended) · footer: Ft3-index 4-col + newsletter (staging DNA)
- * signature: abstract-bridge inline-SVG masthead on every page · design-system: design.md v2 · studied: yes
+ * nav: N1b three-section on onyx masthead (staging DNA; rotation suspended; no blog) · footer: Ft3-index 4-col + newsletter (staging DNA)
+ * signature: abstract-bridge inline-SVG masthead on every page (home: art right-shifted for the split hero) · design-system: design.md v2.1 · studied: yes
  * contrast: pass (40-41) · slop: pass (42-45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48)
  * responsive: pass (34, 49-57) · icons: pass (30)
  * Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4
@@ -285,19 +285,39 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 	color: var(--color-accent); margin-bottom: var(--space-md);
 }
 .hero h1 { color: var(--color-ink-inverse); margin: 0; }
-.hero--home h1 { font-size: var(--text-body); font-weight: 400; }
-.hero__display {
-	display: block; font-family: var(--font-display); font-weight: 700;
-	letter-spacing: var(--tracking-display);
-	font-size: var(--text-display); line-height: 1.08; max-width: 14ch;
-	color: var(--color-ink-inverse);
+/* Home: split composition — tagline H1 + service lead in a left column, the
+   bridge art right (client mockup 2026-07-19). display-s so each tagline
+   sentence holds one line inside the ~60% column. */
+.hero--home h1 { font-size: var(--text-display-s); line-height: 1.12; max-width: 22ch; }
+.hero__line { display: block; }
+.hero--home .hero__copy { max-width: min(60%, 38rem); }
+.hero__divider {
+	display: block; width: 0.625rem; height: 0.625rem;
+	margin: var(--space-lg) 0; background: var(--color-gold);
+	/* clip-path, not transform: the .reveal keyframe ends at transform:none. */
+	clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
 }
-.hero__display-accent { color: var(--color-gold); }
+.hero__lead {
+	font-family: var(--font-body); font-weight: 600; font-size: var(--text-md);
+	line-height: 1.45; color: var(--color-ink-inverse); margin: 0 0 var(--space-2xs);
+}
 .hero__sub {
 	font-size: var(--text-md); line-height: 1.6; color: var(--color-ink-inverse-2);
 	max-width: 52ch; margin: var(--space-lg) 0 0;
 }
+.hero--home .hero__sub { font-size: var(--text-base); margin-top: 0; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md); margin-top: var(--space-xl); }
+/* Home only: the bridge art shifts right and gains presence — hero text no
+   longer sits on it. Subpage mastheads keep the full-bleed quiet art. */
+.page-home .masthead__art { inset: 0 0 0 auto; width: 58%; }
+.page-home .art-arcs { opacity: 0.4; }
+.page-home .art-bridge { opacity: 0.55; }
+@media (max-width: 63.9375rem) {
+	.hero--home .hero__copy { max-width: none; }
+	.page-home .masthead__art { inset: 0; width: 100%; }
+	.page-home .art-arcs { opacity: 0.28; }
+	.page-home .art-bridge { opacity: 0.3; }
+}
 .hero--page .wrap { padding-block: var(--space-2xl) var(--space-2xl); }
 .hero--page h1 { font-size: var(--text-3xl); max-width: 24ch; }
 .hero--page .hero__sub { font-size: var(--text-base); margin-top: var(--space-sm); }
@@ -381,57 +401,33 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .media-embed { aspect-ratio: 16 / 9; }
 .media-embed--audio { aspect-ratio: auto; height: 166px; }
 .audio-native { width: 100%; margin-top: var(--space-xs); }
-.sc-load {
-	display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-	width: 100%; height: 9rem; border: 1px solid var(--color-rule);
-	border-radius: var(--radius-card); background: var(--color-paper-2);
-	font: 600 0.9375rem var(--font-body); color: var(--color-ink); cursor: pointer;
-	transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+/* Audio facades: same-ratio bridge-motif panel as the video thumbs, still
+   click-to-load (ties the podcasts to the masthead art — client request). */
+.facade--audio {
+	background:
+		radial-gradient(26rem 14rem at 50% 88%, var(--color-glow), transparent 70%),
+		linear-gradient(168deg, var(--color-onyx-deeper) 0%, var(--color-onyx-deep) 55%, var(--color-onyx-warm) 100%);
 }
-.sc-load:hover { border-color: var(--color-accent); background: var(--color-paper); }
-.sc-load:active { transform: translateY(1px); }
-
-/* ── Cards (qualifications, blog) ───────────────────────────────────── */
-.card {
-	background: var(--color-paper); border: 1px solid var(--color-rule);
-	border-radius: var(--radius-card); overflow: hidden;
-	transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+.facade--audio .facade__art {
+	position: absolute; inset: auto 0 0 0; width: 100%; height: 82%;
+	opacity: 0.55; transition: opacity var(--dur-short) var(--ease-out);
 }
-.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
-@media (prefers-reduced-motion: reduce) { .card:hover { transform: none; } }
-
-.post-card { display: flex; flex-direction: column; }
-.post-card__img { aspect-ratio: 16 / 9; overflow: hidden; background: var(--color-paper-2); }
-.post-card__img img { width: 100%; height: 100%; object-fit: cover; }
-.post-card__body { padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-xs); flex: 1; }
-.post-card__date { font-size: var(--text-sm); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-ink-2); }
-.post-card__body h3 { font-size: var(--text-md); line-height: 1.3; margin: 0; }
-.post-card__body h3 a { text-decoration: none; }
-.post-card__body h3 a:hover { text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 3px; }
-.post-card__body h3 a::after { content: ""; position: absolute; inset: 0; }
-.post-card { position: relative; }
-.post-card p { color: var(--color-ink-2); font-size: 0.9375rem; margin: 0; }
-.post-card__more { margin-top: auto; padding-top: var(--space-sm); font-weight: 600; font-size: 0.9375rem; color: var(--color-accent-strong); }
+.facade--audio:hover .facade__art { opacity: 0.7; }
+.facade__label {
+	position: absolute; left: 0; right: 0; bottom: var(--space-md); z-index: var(--z-raised);
+	font: 600 var(--text-sm) var(--font-body); letter-spacing: 0.06em; text-transform: uppercase;
+	color: var(--color-ink-inverse-2); text-align: center; padding-inline: var(--space-md);
+}
 
 /* ── Testimonials (Google reviews) ──────────────────────────────────── */
 .reviews-head { text-align: center; }
 .reviews-head::after { margin-inline: auto; }
-/* Dynamic mode: the Trustindex widget hydrates into this container. */
-.reviews-widget { min-height: 26rem; }
-/* Static fallback: scroll-snap track of review cards, 3-up on desktop. */
-.reviews-track {
-	display: grid; grid-auto-flow: column;
-	grid-auto-columns: calc((100% - 2 * var(--space-lg)) / 3);
-	gap: var(--space-lg);
-	overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-	padding-block: var(--space-2xs) var(--space-md);
-	scrollbar-width: none; /* slider chrome: arrows + autoplay, no scrollbar */
-}
-.reviews-track::-webkit-scrollbar { display: none; }
-@media (max-width: 63.9375rem) { .reviews-track { grid-auto-columns: calc((100% - var(--space-lg)) / 2); } }
-@media (max-width: 40rem) { .reviews-track { grid-auto-columns: 86%; } }
+/* Static grid of review cards — 3×2 desktop, 2-up tablet, 1-up phones
+   (real reviews run 90–700+ chars; two phone columns would be unreadable). */
+.reviews-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-lg); align-items: stretch; }
+@media (max-width: 63.9375rem) { .reviews-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 40rem) { .reviews-grid { grid-template-columns: minmax(0, 1fr); } }
 .review-card {
-	scroll-snap-align: start;
 	background: var(--color-paper); border: 1px solid var(--color-rule);
 	border-radius: var(--radius-card); box-shadow: var(--shadow-whisper);
 	padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-sm);
@@ -459,16 +455,11 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 }
 .review-card__more:hover { color: var(--color-accent-deep); }
 .review-card__via { margin-top: auto; padding-top: var(--space-2xs); font-size: var(--text-sm); color: var(--color-muted); font-weight: 600; }
-.reviews-foot { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-sm); }
-.reviews-nav { display: flex; gap: var(--space-xs); }
-.reviews-nav button {
-	display: grid; place-items: center; width: 2.75rem; height: 2.75rem;
-	border: 1px solid var(--color-rule); border-radius: 50%; background: var(--color-paper);
-	color: var(--color-ink); cursor: pointer;
-	transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
-}
-.reviews-nav button:hover { border-color: var(--color-accent-strong); color: var(--color-accent-strong); }
-.reviews-nav button:active { transform: translateY(1px); }
+/* Summary band under the grid: stars + client-supplied count + Google link. */
+.reviews-band { display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); text-align: center; margin-top: var(--space-xl); }
+.reviews-band__stars { display: flex; gap: 0.2rem; color: var(--color-star); }
+.reviews-band__stars svg { width: 1.35rem; height: 1.35rem; }
+.reviews-band strong { font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); letter-spacing: var(--tracking-display); color: var(--color-ink); }
 .reviews-link { font-weight: 600; text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 3px; }
 .reviews-link:hover { color: var(--color-accent-strong); }
 .ti-badge {

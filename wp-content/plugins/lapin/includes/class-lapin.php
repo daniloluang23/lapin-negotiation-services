@@ -14,7 +14,8 @@ final class Lapin {
 
 	const NAME        = 'Lapin Negotiation Services';
 	const TAGLINE     = 'Building Bridges. Resolving Differences.';
-	const SUBLINE     = 'Professional Mediation and Negotiation Services Delivering Practical, Durable Solutions for Businesses, Families, and Organizations.';
+	const SUBLINE_LEAD = 'Professional Mediation and Negotiation Services';
+	const SUBLINE_BODY = 'Delivering practical, durable solutions for businesses, families, and organizations.';
 	const PHONE_LOCAL = '310-984-6952';
 	const PHONE_FREE  = '888-964-8884';
 	const PHONE_LOCAL_TEL = '+13109846952';
@@ -86,7 +87,6 @@ final class Lapin {
 
 	public static function activate(): void {
 		Lapin_Pages::activate();
-		Lapin_Posts::seed();
 		Lapin_Submissions::activate();
 		flush_rewrite_rules();
 	}

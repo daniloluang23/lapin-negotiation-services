@@ -34,7 +34,6 @@ $lapin_nl_error = isset( $_GET['nl_error'] ); // phpcs:ignore WordPress.Security
 					<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
 					<li><a href="<?php echo esc_url( home_url( '/overview/' ) ); ?>">About Us</a></li>
 					<li><a href="<?php echo esc_url( home_url( '/practice-areas/' ) ); ?>">Practice Areas</a></li>
-					<li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>">Blog</a></li>
 					<li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Contact</a></li>
 				</ul>
 			</nav>
@@ -137,40 +136,6 @@ $lapin_nl_error = isset( $_GET['nl_error'] ); // phpcs:ignore WordPress.Security
 		var expanded = !p.classList.toggle('is-clamped');
 		btn.textContent = expanded ? 'Read less' : 'Read more';
 		btn.setAttribute('aria-expanded', String(expanded));
-	});
-
-	/* Review slider: arrows + 6s autoplay (pauses on hover/focus/touch,
-	   loops back at the end, disabled under prefers-reduced-motion) */
-	var rtrack = document.getElementById('reviews-track');
-	var rtimer = null;
-	function slideReviews(dir) {
-		if (!rtrack || !rtrack.firstElementChild) { return; }
-		var step = rtrack.firstElementChild.getBoundingClientRect().width + 24;
-		var max = rtrack.scrollWidth - rtrack.clientWidth;
-		if (dir > 0 && rtrack.scrollLeft >= max - 10) {
-			rtrack.scrollTo({ left: 0, behavior: 'smooth' });
-		} else {
-			rtrack.scrollBy({ left: step * dir, behavior: 'smooth' });
-		}
-	}
-	function startReviews() {
-		if (rtimer || !rtrack || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
-		rtimer = setInterval(function () { slideReviews(1); }, 6000);
-	}
-	function stopReviews() { clearInterval(rtimer); rtimer = null; }
-	if (rtrack) {
-		startReviews();
-		var rsection = rtrack.closest('section') || rtrack;
-		rsection.addEventListener('pointerenter', stopReviews);
-		rsection.addEventListener('pointerleave', startReviews);
-		rsection.addEventListener('focusin', stopReviews);
-		rsection.addEventListener('focusout', startReviews);
-		rtrack.addEventListener('touchstart', stopReviews, { passive: true });
-	}
-	document.addEventListener('click', function (e) {
-		var btn = e.target.closest('[data-slide]');
-		if (!btn) { return; }
-		slideReviews(btn.getAttribute('data-slide') === 'prev' ? -1 : 1);
 	});
 
 	/* Click-to-load media facades (YouTube + SoundCloud + Apple Podcasts) */

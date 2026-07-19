@@ -1,5 +1,18 @@
 [
   {
+    "date": "2026-07-19",
+    "scope": "app",
+    "macrostructure": "Marquee Hero split (home) / Split Studio (services) / Long Document (content)",
+    "theme": "studied-DNA",
+    "theme_source": "v2 system + client mockups & email 2026-07-19 (split hero, reviews grid)",
+    "theme_axes": "dark-masthead-light-body / geometric-sans / warm-rose (~35)",
+    "vibe": "warm metallics on onyx, abstract bridge, consulting gravitas",
+    "enrichment": "bridge SVG reused: right-shifted hero art + lapin-bridge-mini audio facades + numeral quals marks (Tier B)",
+    "nav": "N1b on onyx masthead (Blog removed)",
+    "footer": "Ft3-index 4-col + newsletter (staging DNA)",
+    "brief": "Client home revision: split tagline hero, reviews slider → 6-card grid + 40+ band (Trustindex), creds stars, audio facades, quals numerals, blog removed site-wide"
+  },
+  {
     "date": "2026-07-14",
     "scope": "app",
     "macrostructure": "Marquee Hero (home) / Split Studio (services) / Long Document (content) / card-grid (blog)",

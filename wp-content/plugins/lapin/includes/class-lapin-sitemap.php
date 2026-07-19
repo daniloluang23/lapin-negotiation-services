@@ -1,6 +1,6 @@
 <?php
 /**
- * Serves /sitemap.xml for the seven Lapin pages.
+ * Serves /sitemap.xml for the routed Lapin pages.
  *
  * The sitemap is generated on request (no static file to go stale, nothing
  * outside wp-content to deploy) and intercepted in `parse_request`, so it
@@ -52,8 +52,7 @@ final class Lapin_Sitemap {
 	}
 
 	/**
-	 * loc/lastmod pairs for the home page, every routed slug, and every
-	 * published blog post (root-level slugs, same URLs as the staging site).
+	 * loc/lastmod pairs for the home page and every routed slug.
 	 * Pages missing from the database would 404, so they are skipped.
 	 */
 	private function entries(): array {
@@ -68,14 +67,6 @@ final class Lapin_Sitemap {
 			$entries[] = array(
 				'loc'     => $home . $slug . '/',
 				'lastmod' => $this->lastmod( $slug ),
-			);
-		}
-		foreach ( get_posts( array( 'post_type' => 'post', 'post_status' => 'publish', 'numberposts' => -1 ) ) as $post ) {
-			$entries[] = array(
-				'loc'     => $home . $post->post_name . '/',
-				'lastmod' => '0000-00-00 00:00:00' === $post->post_modified_gmt
-					? ''
-					: gmdate( 'Y-m-d\TH:i:sP', strtotime( $post->post_modified_gmt . ' +0000' ) ),
 			);
 		}
 		return $entries;

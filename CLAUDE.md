@@ -49,7 +49,7 @@ The plugin bypasses the theme entirely ("legalia architecture" — self-containe
 
 ## Hard constraints
 
-- **Content law**: all copy from lapinnegotiationservices.com is retained verbatim (client requirement). Heading case may change; wording may not. Never invent metrics, testimonials, or client logos. The live site's injected footer casino spam must never be carried over (the live install is likely compromised).
+- **Content law**: all copy from lapinnegotiationservices.com is retained verbatim (client requirement) except client-directed changes recorded in design.md's content law. Never invent metrics, testimonials, or client logos. The live site's injected footer casino spam must never be carried over (the live install is likely compromised).
 - **Performance law** (targets: Lighthouse 95+ mobile/desktop, 100 SEO): all CSS inline, no external render-blocking requests, two self-hosted font files max (preloaded), LCP image preloaded with `fetchpriority="high"` and never lazy, third-party embeds behind click-to-load facades, WebP images with width/height attrs.
-- **Design system**: use the named tokens from `design.md` / `partials/lapin-tokens.php` only — never raw px spacing or off-token colors. Gold accent ≤5% of any viewport. Fraunces (roman only, no italic headers) + IBM Plex Sans, no third family.
+- **Design system**: use the named tokens from `design.md` / `partials/lapin-tokens.php` only — never raw px spacing or off-token colors. Rose-gold accent ≤5% of any viewport. DM Sans (roman only, no italic headers) + Poppins, no third family.
 - `wp-content/media/podcasts/Bullies.mp3` (40MB) is deliberately untracked; the live server already hosts it at the same path.

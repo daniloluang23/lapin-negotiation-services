@@ -1,9 +1,10 @@
 <?php
 /**
- * Home — brand-tagline hero on the shared bridge masthead, credentials band,
- * founder diptych, client-logo marquee, media wall (static grid), four
- * qualification cards, latest blog posts, CTA band. Section order mirrors the
- * approved staging design; all body copy retained verbatim.
+ * Home — split tagline hero on the shared bridge masthead (copy left, art
+ * right), credentials band, practice areas, founder diptych, reviews grid,
+ * client-logo marquee, media wall (static grid), four qualification cards,
+ * CTA band. Section order mirrors the approved staging design; body copy
+ * verbatim except client-directed changes (see design.md content law).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -52,6 +53,7 @@ $lapin_media = array(
 		'slug'  => 'successful-mediation',
 		'type'  => 'soundcloud',
 		'url'   => 'https://soundcloud.com/lapin-negotiation-service/the-components-of-a-successful-mediation',
+		'label' => 'Play episode · SoundCloud',
 		'title' => 'The Components of a Successful Mediation',
 		'text'  => 'What are the necessary ingredients that make for a successful mediation? Is there a difference between a great mediation and an average mediation? How is mediation different from arbitration and litigation?',
 	),
@@ -67,6 +69,7 @@ $lapin_media = array(
 		'slug'  => 'dispute-resolution',
 		'type'  => 'soundcloud',
 		'url'   => 'https://soundcloud.com/lapin-negotiation-service/dispute-resolution',
+		'label' => 'Play episode · SoundCloud',
 		'title' => 'Insights on Dispute Resolution',
 		'text'  => 'A lot of us forget about is the cost of conflict, and the cost of not being able to manage conflict effectively. Raphael tells about the inner workings of conflict resolution, dispute resolution, and mediation and arbitration.',
 	),
@@ -74,6 +77,7 @@ $lapin_media = array(
 		'slug'  => 'recipe-success',
 		'type'  => 'soundcloud',
 		'url'   => 'https://api.soundcloud.com/tracks/1415053330',
+		'label' => 'Play episode · SoundCloud',
 		'title' => 'Mediation: Raphael Lapin’s Recipe for Success',
 		'text'  => 'There IS a difference between an average and a great mediation. So what is Raphael Lapin’s secret? What strategies does he employ to anticipate the interests of the other party? How does he help parties follow through on their commitments?',
 	),
@@ -91,14 +95,6 @@ $lapin_clients = array(
 	array( 'client-uae-tint.webp', 'United Arab Emirates' ),
 );
 
-$lapin_latest = get_posts( array(
-	'post_type'   => 'post',
-	'post_status' => 'publish',
-	'numberposts' => 3,
-	'orderby'     => 'date',
-	'order'       => 'DESC',
-) );
-
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-head.php';
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 ?>
@@ -111,6 +107,9 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	.creds__item { display: flex; gap: var(--space-md); align-items: flex-start; border-left: 1px solid var(--color-rule-onyx); padding-left: var(--space-lg); }
 	.creds__item:first-child { border-left: 0; padding-left: 0; }
 	.creds__item > svg { width: 1.75rem; height: 1.75rem; flex-shrink: 0; color: var(--color-accent); margin-top: 0.15rem; }
+	.creds__item--stack { flex-direction: column; gap: var(--space-xs); }
+	.creds__stars { display: flex; gap: 0.2rem; color: var(--color-star); }
+	.creds__stars svg { width: 1.05rem; height: 1.05rem; }
 	.creds__item strong { display: block; font-size: var(--text-sm); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-inverse); }
 	.creds__item span { font-size: var(--text-sm); color: var(--color-ink-inverse-2); }
 	a.creds__item { text-decoration: none; }
@@ -131,7 +130,6 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	}
 	.clients-band .sec-head { margin-bottom: var(--space-lg); }
 	.pa-head { text-align: center; }
-	.pa-head .sec-head__eyebrow { color: var(--color-accent-strong); }
 	.pa-head::after { margin-inline: auto; }
 	.pa-grid {
 		display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -145,7 +143,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	.pa-item strong { font-size: 0.9375rem; font-weight: 600; line-height: 1.35; color: var(--color-ink); }
 	.pa-item:hover strong { text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 	.pa-all { text-align: center; margin: var(--space-xl) 0 0; }
-	/* Qualified — staging's 2×2 numbered-photo layout (client preference). */
+	/* Qualified — 2×2 numbered layout; numeral marks replace the photos. */
 	.quals__head { text-align: center; }
 	.quals__head::after { margin-inline: auto; }
 	.quals__grid {
@@ -153,21 +151,23 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 		gap: var(--space-2xl) var(--space-3xl); text-align: center;
 	}
 	@media (max-width: 40rem) { .quals__grid { grid-template-columns: minmax(0, 1fr); } }
-	.qual__img { position: relative; display: inline-block; margin: 0 0 var(--space-xl); }
-	.qual__img img { width: 190px; height: 190px; border-radius: var(--radius-card); }
-	.qual__num {
-		position: absolute; left: 50%; bottom: -1.5rem; transform: translateX(-50%);
-		display: grid; place-items: center; width: 3.5rem; height: 3.5rem;
-		border-radius: 50%; background: var(--color-accent-strong); color: var(--color-on-accent);
-		font-weight: 600; font-size: 0.9375rem; letter-spacing: 0.04em;
-		border: 3px solid var(--color-paper-2);
+	/* Numeral marks (client choice 2026-07-19: no photos) — paper disc,
+	   hairline ring, inner rose-gold ring; the numeral IS the number. */
+	.qual__mark {
+		position: relative; display: grid; place-items: center;
+		width: 190px; height: 190px; margin: 0 auto var(--space-xl);
+		background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: 50%;
+	}
+	.qual__mark::after {
+		content: ""; position: absolute; inset: 10px;
+		border: 1px solid var(--color-accent); border-radius: 50%; opacity: 0.55;
+	}
+	.qual__mark span {
+		font-family: var(--font-display); font-weight: 700; font-size: var(--text-3xl);
+		letter-spacing: var(--tracking-display); color: var(--color-accent-strong);
 	}
 	.qual h3 { font-size: var(--text-body); text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.4; margin-bottom: var(--space-sm); }
 	.qual p { color: var(--color-ink-2); font-size: 0.9375rem; max-width: 52ch; margin: 0 auto; }
-	.post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl); }
-	@media (max-width: 63.9375rem) { .post-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-	@media (max-width: 40rem) { .post-grid { grid-template-columns: minmax(0, 1fr); } }
-	.blog-teaser__all { margin-top: var(--space-xl); }
 </style>
 
 <main id="main">
@@ -177,8 +177,12 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 				<?php echo Lapin::icon( 'award' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<div><strong>Harvard trained</strong><span>Negotiation, mediation and dispute resolution</span></div>
 			</div>
-			<a class="creds__item rv" style="--i:1" href="<?php echo esc_url( Lapin::GOOGLE_REVIEWS ); ?>" target="_blank" rel="noopener">
-				<?php echo Lapin::icon( 'messages-square' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			<a class="creds__item creds__item--stack rv" style="--i:1" href="<?php echo esc_url( Lapin::GOOGLE_REVIEWS ); ?>" target="_blank" rel="noopener">
+				<span class="creds__stars" aria-hidden="true">
+					<?php for ( $lapin_s = 0; $lapin_s < 5; $lapin_s++ ) : ?>
+					<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2l-6.1 3.4 1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+					<?php endfor; ?>
+				</span>
 				<div><strong>Top rated in Southern California</strong><span>Read our Google Reviews&nbsp;↗</span></div>
 			</a>
 			<div class="creds__item rv" style="--i:2">
@@ -191,8 +195,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	<section class="sec sec--tight" id="practice-areas" aria-labelledby="pa-title">
 		<div class="wrap">
 			<div class="sec-head pa-head rv">
-				<span class="sec-head__eyebrow">Practice Areas</span>
-				<h2 id="pa-title">Targeted Practice Areas</h2>
+				<h2 id="pa-title">Practice Areas</h2>
 			</div>
 			<div class="pa-grid">
 				<?php
@@ -228,7 +231,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 						<h2>Raphael E. Lapin</h2>
 					</div>
 					<div class="prose rv" style="--i:1">
-						<p class="lead">Looking for a skilled and experienced negotiator to help you navigate a complex negotiation or resolve an acrimonious dispute?</p>
+						<p class="lead">Whether you’re involved in a business dispute, family conflict, trust litigation or high stakes negotiation, we help parties reach durable agreements while preserving relationships wherever possible.</p>
 						<p>Raphael Lapin is a Harvard-trained expert in the field of negotiation, dispute resolution and mediation. With extensive experience working with Fortune 500 corporations and governments around the world, Raphael has the knowledge and expertise to help you achieve the best possible outcome in any negotiation or mediation situation.</p>
 						<p>As the principal of Lapin Negotiation Services and an adjunct professor of law at Whittier School of Law in Southern California, Raphael has a wealth of knowledge and experience to draw upon. He has taught negotiation and mediation at some of the most prestigious universities, and has lectured on international conflict resolution at Southwestern School of Law in Los Angeles.</p>
 						<p>Whether you’re an individual, family, organization, business or corporation, Raphael can help you navigate negotiations, resolve differences and restore relationships with his expertise in negotiation, dispute resolution and mediation. Trust in his expertise, and let Raphael Lapin help you achieve a successful outcome in any negotiation, dispute or mediation.</p>
@@ -247,10 +250,10 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 		<div class="wrap">
 			<div class="sec-head reviews-head rv">
 				<span class="sec-head__eyebrow">Our Testimonials</span>
-				<h2 id="testimonials-title">What they say?</h2>
+				<h2 id="testimonials-title">What Clients Are Saying</h2>
 			</div>
-			<div class="reviews-track rv" id="reviews-track" tabindex="0" aria-label="Google reviews — scroll for more">
-				<?php foreach ( Lapin_Reviews::get() as $lapin_review ) : ?>
+			<div class="reviews-grid rv">
+				<?php foreach ( array_slice( Lapin_Reviews::get(), 0, 6 ) as $lapin_review ) : ?>
 				<article class="review-card">
 					<div class="review-card__head">
 						<span class="review-card__avatar" aria-hidden="true"><?php echo esc_html( mb_substr( $lapin_review['name'], 0, 1 ) ); ?></span>
@@ -270,15 +273,13 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 				</article>
 				<?php endforeach; ?>
 			</div>
-			<div class="reviews-foot rv">
-				<div class="reviews-nav">
-					<button type="button" data-slide="prev" aria-controls="reviews-track" aria-label="Previous reviews">
-						<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-					</button>
-					<button type="button" data-slide="next" aria-controls="reviews-track" aria-label="Next reviews">
-						<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-					</button>
-				</div>
+			<div class="reviews-band rv">
+				<span class="reviews-band__stars" aria-hidden="true">
+					<?php for ( $lapin_s = 0; $lapin_s < 5; $lapin_s++ ) : ?>
+					<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2l-6.1 3.4 1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+					<?php endfor; ?>
+				</span>
+				<strong>40+ Five-Star Google Reviews</strong>
 				<a class="reviews-link" href="<?php echo esc_url( Lapin::GOOGLE_REVIEWS ); ?>" rel="noopener" target="_blank">Read all our reviews on Google&nbsp;↗</a>
 				<a class="ti-badge" href="https://www.trustindex.io/" rel="noopener" target="_blank">
 					Verified by Trustindex
@@ -313,6 +314,24 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 				<span class="sec-head__eyebrow">In the Media</span>
 				<h2>Media Appearances</h2>
 			</div>
+			<?php // Simplified masthead-bridge motif (cable-stayed, matching the header art) for the audio facades. ?>
+			<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+				<symbol id="lapin-bridge-mini" viewBox="0 0 480 270" preserveAspectRatio="xMidYMax slice">
+					<path d="M 20 186 C 150 176, 270 188, 368 226 C 412 244, 448 260, 480 276" fill="none" stroke="#E8D9B8" stroke-width="2.2"/>
+					<path d="M 20 196 C 150 186, 268 200, 364 238 C 408 256, 446 272, 480 290" fill="none" stroke="#AA7F3D" stroke-width="1" opacity=".55"/>
+					<polygon points="332,-10 344,-10 366,276 348,276" fill="#000000" opacity=".5"/>
+					<path d="M 332 -10 L 348 276" fill="none" stroke="#E8D9B8" stroke-width="1.6" opacity=".9"/>
+					<g fill="none" stroke="#D1BFA7" stroke-width="1">
+						<path d="M 334 6 L 84 184" opacity=".45"/>
+						<path d="M 336 34 L 140 181" opacity=".55"/>
+						<path d="M 338 64 L 196 180" opacity=".65"/>
+						<path d="M 340 96 L 252 184" opacity=".75"/>
+						<path d="M 342 130 L 304 194" opacity=".85"/>
+						<path d="M 336 20 L 424 250" opacity=".45"/>
+						<path d="M 338 60 L 452 262" opacity=".38"/>
+					</g>
+				</symbol>
+			</svg>
 			<div class="media-grid">
 				<?php foreach ( $lapin_media as $lapin_i => $lapin_item ) : ?>
 				<article class="media-card rv" id="media-<?php echo esc_attr( $lapin_item['slug'] ); ?>" style="--i:<?php echo esc_attr( $lapin_i % 2 ); ?>">
@@ -332,12 +351,15 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 						? $lapin_item['embed']
 						: 'https://w.soundcloud.com/player/?url=' . rawurlencode( $lapin_item['url'] ) . '&color=%23bd8c7d&auto_play=true&visual=false';
 					?>
-					<button class="sc-load" type="button"
+					<button class="facade facade--audio" type="button"
 					        data-embed="<?php echo esc_url( $lapin_embed ); ?>"
 					        data-embed-title="<?php echo esc_attr( $lapin_item['title'] ); ?>" data-embed-audio
 					        <?php if ( 'apple' === $lapin_item['type'] ) : ?>data-embed-h="175"<?php endif; ?>>
-						<svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M4 8v4h2V8H4zm4-3v10h2V5H8zm4-2v14h2V3h-2zm4 4v6h2V7h-2zM0 10v2h2v-2H0z"/></svg>
-						<?php echo esc_html( $lapin_item['label'] ?? 'Load audio player' ); ?>
+						<svg class="facade__art" aria-hidden="true" focusable="false"><use href="#lapin-bridge-mini"/></svg>
+						<span class="facade__play" aria-hidden="true">
+							<svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M4 8v4h2V8H4zm4-3v10h2V5H8zm4-2v14h2V3h-2zm4 4v6h2V7h-2zM0 10v2h2v-2H0z"/></svg>
+						</span>
+						<span class="facade__label"><?php echo esc_html( $lapin_item['label'] ?? 'Load audio player' ); ?></span>
 					</button>
 					<?php endif; ?>
 					<div class="media-card__body">
@@ -358,70 +380,28 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 			</div>
 			<div class="quals__grid">
 				<article class="qual rv">
-					<figure class="qual__img">
-						<img src="<?php echo esc_url( Lapin::asset( 'images/qual-2.webp' ) ); ?>" alt="" width="190" height="190" loading="lazy">
-						<span class="qual__num" aria-hidden="true">01</span>
-					</figure>
+					<div class="qual__mark" aria-hidden="true"><span>01</span></div>
 					<h3>Highly qualified &amp; experienced specialists</h3>
 					<p>Our negotiation and dispute resolution practice is unrivaled in its level of expertise. Our team of seasoned specialists have acquired decades of experience in the field and continue to demonstrate a proven track record of delivering positive outcomes for clients in even the most difficult negotiations. With over 1,000 disputes successfully resolved, we have a proven ability to save clients significant costs and resources by successfully resolving conflicts without the need for ongoing litigation.</p>
 				</article>
 				<article class="qual rv" style="--i:1">
-					<figure class="qual__img">
-						<img src="<?php echo esc_url( Lapin::asset( 'images/qual-1.webp' ) ); ?>" alt="" width="190" height="190" loading="lazy">
-						<span class="qual__num" aria-hidden="true">02</span>
-					</figure>
+					<div class="qual__mark" aria-hidden="true"><span>02</span></div>
 					<h3>Broad range of subject matter expertise</h3>
 					<p>Our negotiation and dispute resolution practice is unmatched in its breadth and depth, as we specialize in a wide range of areas including but not limited to personal, family, small business and partnership matters, intellectual property disputes, construction disputes, business disputes, healthcare disputes, employment and labor disputes, and medical malpractice claims.</p>
 				</article>
 				<article class="qual rv">
-					<figure class="qual__img">
-						<img src="<?php echo esc_url( Lapin::asset( 'images/qual-3.webp' ) ); ?>" alt="" width="190" height="190" loading="lazy">
-						<span class="qual__num" aria-hidden="true">03</span>
-					</figure>
+					<div class="qual__mark" aria-hidden="true"><span>03</span></div>
 					<h3>Creative, innovative &amp; valuable solutions</h3>
 					<p>At our company, we pride ourselves in our ability to help parties identify creative, innovative and valuable resolutions to reach a mutually agreeable conclusion to negotiations and to put an end to conflicts and disputes. We strive to exceed expectations by uncovering creative options that can minimize risk and maximize returns, all while fostering strong, long-lasting relationships.</p>
 				</article>
 				<article class="qual rv" style="--i:1">
-					<figure class="qual__img">
-						<img src="<?php echo esc_url( Lapin::asset( 'images/qual-4.webp' ) ); ?>" alt="" width="190" height="190" loading="lazy">
-						<span class="qual__num" aria-hidden="true">04</span>
-					</figure>
+					<div class="qual__mark" aria-hidden="true"><span>04</span></div>
 					<h3>Continued research, learning &amp; development</h3>
 					<p>Our team is composed of experts in negotiation and dispute resolution who not only practice, but also teach and conduct research at the graduate level. We are committed to ongoing learning and development, which enables us to bring our clients the most current and cutting-edge approaches, fresh insights and innovative thinking to successfully resolve their problems.</p>
 				</article>
 			</div>
 		</div>
 	</section>
-
-	<?php if ( ! empty( $lapin_latest ) ) : ?>
-	<section class="sec" id="blog">
-		<div class="wrap">
-			<div class="sec-head rv">
-				<span class="sec-head__eyebrow">From the Blog</span>
-				<h2>Latest blog posts</h2>
-			</div>
-			<div class="post-grid">
-				<?php foreach ( $lapin_latest as $lapin_i => $lapin_post ) : ?>
-				<?php $lapin_img = Lapin_Posts::image( $lapin_post->post_name, true ); ?>
-				<article class="card post-card rv" style="--i:<?php echo esc_attr( $lapin_i ); ?>">
-					<?php if ( $lapin_img ) : ?>
-					<div class="post-card__img">
-						<img src="<?php echo esc_url( $lapin_img[0] ); ?>" alt="" width="<?php echo esc_attr( $lapin_img[1] ); ?>" height="<?php echo esc_attr( $lapin_img[2] ); ?>" loading="lazy">
-					</div>
-					<?php endif; ?>
-					<div class="post-card__body">
-						<span class="post-card__date"><?php echo esc_html( get_the_date( 'F j, Y', $lapin_post ) ); ?></span>
-						<h3><a href="<?php echo esc_url( get_permalink( $lapin_post ) ); ?>"><?php echo esc_html( $lapin_post->post_title ); ?></a></h3>
-						<p><?php echo esc_html( wp_trim_words( wp_strip_all_tags( $lapin_post->post_content ), 20, '…' ) ); ?></p>
-						<span class="post-card__more" aria-hidden="true">Read the article →</span>
-					</div>
-				</article>
-				<?php endforeach; ?>
-			</div>
-			<p class="blog-teaser__all rv"><a class="btn btn--outline" href="<?php echo esc_url( home_url( '/blog/' ) ); ?>">View all articles</a></p>
-		</div>
-	</section>
-	<?php endif; ?>
 
 	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-cta-band.php'; ?>
 </main>

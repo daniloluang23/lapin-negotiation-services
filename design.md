@@ -10,6 +10,14 @@ kinsta.cloud) rebuilt as hand-authored templates, plus the approved option-1
 logo palette. `studied: yes · DNA-source: url (client's own staging site)`.
 The v1 navy/gold "treaty painting" system is retired.
 
+**v2.1 (2026-07-19):** client-directed home revision — split tagline hero
+(copy left / bridge art right at raised presence), reviews slider → 6-card
+grid + "40+ Five-Star Google Reviews" band, five-star creds item, "Practice
+Areas" H2, new bio lead, bridge-motif audio facades, numeral qualification
+marks, blog removed site-wide. Header artwork recreated in-house as inline
+SVG (cable-stayed bridge per the client's reference images); their raster
+file remains a fallback if the literal image is wanted.
+
 Implementation home: `wp-content/plugins/lapin/` (self-contained PHP page
 templates served via `template_include`, all CSS inline — legalia architecture).
 
@@ -25,15 +33,18 @@ Quiet motion, generous negative space, warm metallic accents on deep onyx.
                                nav (prominent logo), and a hero on an abstract
                                bridge inline-SVG background. Home gets the full
                                tagline hero + CTAs; subpages a compact title hero.
-- Home (marketing):            **Marquee Hero** — tagline over the bridge, then
-                               creds strip, founder diptych, client-logo marquee,
-                               media wall, qualification cards, latest blog posts,
+- Home (marketing):            **Marquee Hero, split** — tagline H1 + diamond
+                               divider + service lead in a left ~60% column,
+                               bridge art right at raised presence; then creds
+                               strip (five-star Google item), practice areas,
+                               founder diptych, reviews grid + 40+ band,
+                               client-logo marquee, media wall (bridge-motif
+                               audio facades), numeral qualification cards,
                                CTA band.
 - Service pages:               **Split Studio** — 65/35 text/icon diptychs.
 - Content pages:               **Long Document** — editorial prose, inline heads.
-- Blog index:                  card grid (image, date, title, excerpt) at /blog/.
-- Blog single:                 single column article, featured image, article schema.
 - Contact:                     split utility — form left, contact facts right.
+- No blog anywhere (client direction 2026-07-19).
 
 ## Theme
 
@@ -83,9 +94,19 @@ generous (`--space-3xl`).
 ## Signature: the bridge masthead
 
 One `.masthead` block opens every page: onyx gradient + hand-built inline SVG
-(abstract suspension-bridge line art — arch, deck, cables, fan curves, angular
-planes; rose-gold/soft-gold strokes ≤6% coverage, aria-hidden, ~2KB). Topbar,
-nav and hero all sit on it. No raster hero image anywhere — LCP is the H1 text.
+(abstract cable-stayed bridge, drawn to the client's 2026-07-19 reference —
+glowing pylon exiting the top edge, dense stay-cable fan, twin-edged deck
+sweeping into a pool of warm light, faint skyline, light-trail arcs;
+rose-gold/soft-gold strokes, aria-hidden, ~3KB). Topbar, nav and hero all sit
+on it. No raster hero image anywhere — LCP is the H1 text.
+Home variant (v2.1): the art fills a right 58% box at raised opacity
+(`.page-home` scoping) with a right-anchored crop (`xMaxYMax slice`, set
+per-page in the header partial) so the split hero's copy sits left on clean
+onyx; subpages keep the quiet centered full-bleed. A simplified
+`lapin-bridge-mini` inline symbol echoes the same cable-stayed motif on the
+media wall's audio facades. The client's raster artwork remains a fallback
+(would need the original ≥1600px file plus a preload/size-budget amendment to
+the performance law) if they want the literal image.
 Logo `logo-on-dark.webp` at 260×92 desktop (header must feature the logo
 prominently — client direction), `logo-on-light.*` for schema/OG use.
 
@@ -122,10 +143,13 @@ prominently — client direction), `logo-on-light.*` for schema/OG use.
 ## Per-page allowances
 
 - Home: creds strip (real facts only: Harvard trained, 25+ years, 1,000+
-  disputes), client-logo marquee (the eight real logos as the staging site's
-  rose-tint monochrome art — `client-*-tint.webp`, uniform 150×70, alpha;
-  marquee is contained in the content column with a soft edge fade, never
-  full-bleed — client direction), three latest blog cards.
+  disputes; Google item carries five stars), client-logo marquee (the eight
+  real logos as the staging site's rose-tint monochrome art —
+  `client-*-tint.webp`, uniform 150×70, alpha; marquee is contained in the
+  content column with a soft edge fade, never full-bleed — client direction),
+  reviews grid (first 6 Google reviews via Trustindex sync, bundled snapshot
+  fallback) + centered 40+ five-star band, bridge-motif audio facades on the
+  media wall, numeral marks (no photos) on the qualification cards.
 - Service pages: inline Lucide icons, no icon-tile grids.
 - Blog cards: featured image (WebP, width/height, lazy), date, title, excerpt.
 - No page invents metrics, testimonials, or logos.
@@ -133,7 +157,7 @@ prominently — client direction), `logo-on-light.*` for schema/OG use.
 ## What pages MUST share
 
 - The masthead (bridge SVG, logo, nav: Home · About Us · Practice Areas ·
-  Services▾ · Blog · Contact · "Call Now" CTA) and the footer.
+  Services▾ · Contact · "Call Now" CTA) and the footer.
 - Onyx/rose-gold/soft-gold/silver token set; rose gold ≤5% per viewport.
 - DM Sans + Poppins. CTA voice above.
 - Footer Ft-index: logo mast + tagline "Building Bridges. Resolving Differences."
@@ -147,11 +171,19 @@ prominently — client direction), `logo-on-light.*` for schema/OG use.
 All copy from lapinnegotiationservices.com is retained verbatim (client
 requirement) except client-directed removals: the "Negotiation Mediation
 Unlitigation™" kicker, the About "What is Unlitigation™" section, and the
-footer Unlitigation line. New hero copy is client-supplied:
-H1 "Building Bridges. Resolving Differences." + sub "Professional Mediation and
-Negotiation Services Delivering Practical, Durable Solutions for Businesses,
-Families, and Organizations." Blog posts migrated verbatim (script-extracted)
-from the client's staging site; slugs unchanged (root-level, same as staging).
+footer Unlitigation line. Client-directed revision (2026-07-19): the home H1
+IS the tagline "Building Bridges. Resolving Differences." (two lines;
+"Experienced. Strategic. Results-Focused." removed); the sub splits into lead
+"Professional Mediation and Negotiation Services" + body "Delivering
+practical, durable solutions for businesses, families, and organizations."
+(sentence case). Bio lead replaced with client copy: "Whether you're involved
+in a business dispute, family conflict, trust litigation or high stakes
+negotiation, we help parties reach durable agreements while preserving
+relationships wherever possible." Practice-areas H2 is "Practice Areas"
+(eyebrow dropped). Reviews H2 is "What Clients Are Saying"; the band metric
+"40+ Five-Star Google Reviews" is client-supplied — verify against the
+listing before launch. Blog removed site-wide (nav, footer, home section,
+routes, templates, seeding, sitemap).
 Phones 310-984-6952 / 888-964-8884, email info@LapinNegotiationServices.com,
 address The Tower, 10940 Wilshire Blvd, Suite 1600, Los Angeles, CA 90024.
 The live footer's injected casino spam is NOT carried over.
@@ -164,7 +196,7 @@ The live footer's injected casino spam is NOT carried over.
 - Third-party embeds behind click-to-load facades.
 - JSON-LD: ProfessionalService + WebPage per page; Article + BreadcrumbList on
   posts; Blog on the index. Unique title/description/canonical per URL.
-- /sitemap.xml lists home, the 7 pages, /blog/, and every published post.
+- /sitemap.xml lists home and the routed pages (no blog, no posts).
 
 ## Exports
 

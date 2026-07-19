@@ -140,3 +140,79 @@ plugin (keep 95+ Lighthouse mobile/desktop, 100 SEO), plus client art direction:
 - Full-page screenshots of scroll-reveal pages need a slow (~400px/150ms) pre-scroll
   or armed .rv elements read as blank sections.
 
+---
+
+# Client home revision — split hero, reviews grid, blog removal (2026-07-19)
+
+## Plan (code + docs complete; site-up steps pending)
+- [x] Hero: H1 = brand tagline (two lines) + diamond divider + SUBLINE split into
+      lead/body; "Experienced. Strategic. Results-Focused." removed; copy in a left
+      ~60% column, masthead bridge SVG right-shifted (58% box, raised opacity,
+      .page-home scoped — subpage mastheads untouched)
+- [x] Creds: Google-reviews item icon → five gold stars (text + link unchanged)
+- [x] "Targeted Practice Areas" → "Practice Areas" (redundant eyebrow dropped)
+- [x] Bio lead swapped to the client-supplied sentence
+- [x] Reviews: scroll-snap slider + autoplay/arrows JS removed → static 6-card grid
+      (3/2/1 cols) + centered "40+ Five-Star Google Reviews" band + Google link +
+      Trustindex badge; H2 "What Clients Are Saying"; read-more clamp kept
+- [x] Media: the 4 audio cards get 16:9 bridge-motif facades (inline
+      lapin-bridge-mini symbol); click-to-load attributes unchanged
+- [x] Quals: stock photos removed → 190px numeral marks (paper disc, hairline +
+      inner rose-gold ring, accent-strong numeral)
+- [x] Blog fully removed: home section/query + CSS, nav + footer links, /blog/
+      route, single-post routing, activation seeding, sitemap posts loop; deleted
+      page-lapin-blog.php, single-lapin-post.php, class-lapin-posts.php,
+      lapin-posts-data.php, assets/images/blog/ (12), qual-1..4.webp (git rm)
+- [x] design.md v2.1 amendments; CLAUDE.md staleness fixes (DM Sans + Poppins,
+      content-law exception); .hallmark/log.json entry; tokens stamp updated
+- [x] php -l: 9 edited files clean
+- [x] DB cleanup: trashed the `blog` page (23) + the 6 seeded posts
+      (14/18/19/20/21/22) via WP-CLI (trash, reversible); page_for_posts unset
+- [x] Trustindex installed + activated (wp-reviews-plugin-for-google). REMAINS
+      MANUAL: connect the Google listing (place id ChIJCcA3BH67woARJ5tpawFYfUI)
+      in Trustindex admin → server-rendered list/grid widget → then
+      `wp transient delete lapin_reviews_v1`. Snapshot fallback renders 6 cards
+      meanwhile (verified).
+- [x] Verification: 7 pages 200; old post slugs 404; /blog/ resolves 404 (after
+      one canonical bounce); sitemap = home + 6 pages only; home has zero
+      "blog" strings; 6 review cards + 40+ band + Trustindex badge render;
+      audio facades show the cable-stayed motif; quals numerals render;
+      responsive 320/375/414/768 no horizontal scroll (puppeteer-core + Edge);
+      mobile hero/creds stack verified. Not exercised headless: facade
+      click-to-load embeds and a manual keyboard tab-through — spot-check by
+      hand.
+- [x] Creds Google item restacked per client: stars on top, then "Top rated in
+      Southern California", then "Read our Google Reviews" (creds__item--stack)
+- [x] Header artwork recreated in-house as inline SVG (cable-stayed bridge per
+      the client's reference images, 2026-07-19): glowing pylon + cable fan +
+      sweeping deck + skyline; home right-anchored via per-page
+      preserveAspectRatio (xMaxYMax slice), subpages centered; audio-facade
+      mini symbol redrawn to match. Raster Phase B kept only as a fallback if
+      the client wants the literal image (needs original ≥1600px + perf-law
+      amendment).
+
+## Review
+- Every copy change is client-directed and recorded in design.md's content law.
+  "40+ Five-Star Google Reviews" is client-supplied — verify the live listing
+  count before launch.
+- Reviews pipeline untouched (Lapin_Reviews::get() → first 6); renders the bundled
+  snapshot until Trustindex is installed/configured — and production needs its own
+  Trustindex install (third-party plugins untracked; deploy is upload-only).
+- Deploy is upload-only: the 16 deleted files must be removed from the server
+  manually at launch; the old post slugs are the live site's article URLs — 404 vs
+  410/redirect needs client sign-off.
+- Work sits on branch feat/home-revision (pushing main auto-deploys — merge only
+  after verification + explicit go-ahead).
+
+## Lessons
+- The whitelist .gitignore blinds ripgrep-backed tools (Grep/Glob): repo-root
+  searches return false "no matches" for files that exist (SUBLINE, .hallmark/).
+  Plain grep -r / ls are the reliable fallback in this repo.
+- Lightning-services binaries now live under %APPDATA%\Roaming\Local\
+  lightning-services (not Programs\Local\...\extraResources); this site's ports:
+  site nginx 10022, php-cgi upstream 10020/10021, mysql 10023 (socket
+  run/<id>/mysql/mysqld.sock). nginx.exe is under bin/win32/ (not win64);
+  mysqld.exe under bin/win64/bin/. A headless mysqld start can be blocked by
+  tool-permission policy — starting the site in the Local app is the dependable
+  route.
+
