@@ -31,8 +31,10 @@ Quiet motion, generous negative space, warm metallic accents on deep onyx.
 
 - Every page:                  **shared masthead** — onyx band carrying topbar,
                                nav (prominent logo), and a hero on an abstract
-                               bridge inline-SVG background. Home gets the full
-                               tagline hero + CTAs; subpages a compact title hero.
+                               bridge background (home: recolored raster artwork
+                               per the claude-design handoff; subpages: quiet
+                               inline SVG). Home gets the full tagline hero +
+                               CTAs; subpages a compact title hero.
 - Home (marketing):            **Marquee Hero, split** — tagline H1 + diamond
                                divider + service lead in a left ~60% column,
                                bridge art right at raised presence; then creds
@@ -99,14 +101,29 @@ glowing pylon exiting the top edge, dense stay-cable fan, twin-edged deck
 sweeping into a pool of warm light, faint skyline, light-trail arcs;
 rose-gold/soft-gold strokes, aria-hidden, ~3KB). Topbar, nav and hero all sit
 on it. No raster hero image anywhere — LCP is the H1 text.
-Home variant (v2.1): the art fills a right 58% box at raised opacity
-(`.page-home` scoping) with a right-anchored crop (`xMaxYMax slice`, set
-per-page in the header partial) so the split hero's copy sits left on clean
-onyx; subpages keep the quiet centered full-bleed. A simplified
-`lapin-bridge-mini` inline symbol echoes the same cable-stayed motif on the
-media wall's audio facades. The client's raster artwork remains a fallback
-(would need the original ≥1600px file plus a preload/size-budget amendment to
-the performance law) if they want the literal image.
+Home variant (v2.3, claude-design handoff 2026-07-20, `claude-design/`): the
+drawn SVG is hidden (`.page-home .masthead__art { display: none }`) and the
+home masthead recreates the handoff prototype. Canvas: `linear-gradient(to
+right, --color-hero-deep #161418, --color-hero-mid #241D21 55%,
+--color-hero-warm #2F262B)`, no border-bottom (the stats strip's 1px rose rule
+replaces it). Bridge: the handoff's recolored 2560×1707 `bridge-theme.png`
+(luminance→palette gradient map of the client's render) exported as
+`bridge-theme-{960,1600,2560}.webp` (9/17/33KB), rendered as
+`<img class="hero__bridge">` inside `.hero--home` — right 66%, `object-fit:
+cover` at 60%/45%, left-fade mask intersected with a top fade so neither edge
+seams (mobile: full-bleed at 0.55 under a to-bottom scrim). LCP image:
+preloaded with imagesrcset/imagesizes + `fetchpriority="high"`, never lazy.
+Hero type per handoff mapped to the two-font law (Archivo → DM Sans var):
+H1 `--text-display` 800/1.02, lead DM Sans 700 `--text-lg`, body
+`--color-hero-muted`, 640px copy column; primary CTA filled `--color-accent`
+on `--color-hero-onyx` (hover `--color-accent-hover`), secondary outline
+`#6F6F72`. Stats strip: `--color-strip` bg, accent-35% top rule, muted-20%
+dividers. Fold law (client, 2026-07-20): hero padding compressed from the
+handoff's 96/120px to `--space-2xl`/`--space-2xl` and the H1 capped at
+`--text-display` so hero + stats strip fit a 1080p first viewport
+(verified at 1920×907: strip fully visible). Subpages keep the quiet centered full-bleed SVG and the 3px accent
+masthead border. The `lapin-bridge-mini` facade symbol was redrawn to the same
+tied-arch motif (arch + hangers + deck + V piers).
 Logo `logo-on-dark.webp` at 260×92 desktop (header must feature the logo
 prominently — client direction), `logo-on-light.*` for schema/OG use.
 

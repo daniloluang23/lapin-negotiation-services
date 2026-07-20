@@ -18,6 +18,16 @@ $lapin = array(
 	'nav'        => 'home',
 	'body_class' => 'page-home',
 	'hero'       => array( 'type' => 'home' ),
+	'preload'    => array(
+		array(
+			'as'            => 'image',
+			'href'          => Lapin::asset( 'images/bridge-theme-1600.webp' ),
+			'imagesrcset'   => Lapin::asset( 'images/bridge-theme-960.webp' ) . ' 960w, ' . Lapin::asset( 'images/bridge-theme-1600.webp' ) . ' 1600w, ' . Lapin::asset( 'images/bridge-theme-2560.webp' ) . ' 2560w',
+			'imagesizes'    => '(max-width: 63.9375rem) 100vw, 66vw',
+			'type'          => 'image/webp',
+			'fetchpriority' => 'high',
+		),
+	),
 );
 
 $lapin_media = array(
@@ -99,19 +109,23 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-head.php';
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 ?>
 <style>
-	.creds { background: var(--color-onyx-deep); }
+	/* Stats strip per the claude-design handoff: near-black bg, 1px rose top rule. */
+	.creds {
+		background: var(--color-strip);
+		border-top: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+	}
 	.creds .wrap {
 		display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: var(--space-lg); padding-block: var(--space-lg);
 	}
-	.creds__item { display: flex; gap: var(--space-md); align-items: flex-start; border-left: 1px solid var(--color-rule-onyx); padding-left: var(--space-lg); }
+	.creds__item { display: flex; gap: var(--space-md); align-items: flex-start; border-left: 1px solid color-mix(in srgb, var(--color-muted) 20%, transparent); padding-left: var(--space-lg); }
 	.creds__item:first-child { border-left: 0; padding-left: 0; }
 	.creds__item > svg { width: 1.75rem; height: 1.75rem; flex-shrink: 0; color: var(--color-accent); margin-top: 0.15rem; }
 	.creds__item--stack { flex-direction: column; gap: var(--space-xs); }
 	.creds__stars { display: flex; gap: 0.2rem; color: var(--color-star); }
 	.creds__stars svg { width: 1.05rem; height: 1.05rem; }
-	.creds__item strong { display: block; font-size: var(--text-sm); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-inverse); }
-	.creds__item span { font-size: var(--text-sm); color: var(--color-ink-inverse-2); }
+	.creds__item strong { display: block; font-size: var(--text-sm); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-hero-text); }
+	.creds__item span { font-size: var(--text-sm); color: var(--color-hero-muted); }
 	a.creds__item { text-decoration: none; }
 	a.creds__item span { transition: color var(--dur-micro) var(--ease-out); }
 	a.creds__item:hover span { color: var(--color-gold); text-decoration: underline; text-underline-offset: 3px; }
@@ -314,22 +328,38 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 				<span class="sec-head__eyebrow">In the Media</span>
 				<h2>Media Appearances</h2>
 			</div>
-			<?php // Simplified masthead-bridge motif (cable-stayed, matching the header art) for the audio facades. ?>
+			<?php // Simplified bridge motif (tied arch + hangers + V piers, matching the hero artwork) for the audio facades. ?>
 			<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
 				<symbol id="lapin-bridge-mini" viewBox="0 0 480 270" preserveAspectRatio="xMidYMax slice">
-					<path d="M 20 186 C 150 176, 270 188, 368 226 C 412 244, 448 260, 480 276" fill="none" stroke="#E8D9B8" stroke-width="2.2"/>
-					<path d="M 20 196 C 150 186, 268 200, 364 238 C 408 256, 446 272, 480 290" fill="none" stroke="#AA7F3D" stroke-width="1" opacity=".55"/>
-					<polygon points="332,-10 344,-10 366,276 348,276" fill="#000000" opacity=".5"/>
-					<path d="M 332 -10 L 348 276" fill="none" stroke="#E8D9B8" stroke-width="1.6" opacity=".9"/>
+					<!-- sweeping light arcs behind the span -->
+					<path d="M -10 150 C 100 90, 220 40, 340 -10" fill="none" stroke="#D1BFA7" stroke-width="1" opacity=".3"/>
+					<path d="M 150 -10 C 280 60, 380 110, 490 130" fill="none" stroke="#AA7F3D" stroke-width="1" opacity=".3"/>
+					<!-- tied arch over the deck -->
+					<path d="M 60 200 Q 240 0 420 200" fill="none" stroke="#E8D9B8" stroke-width="2.4"/>
+					<path d="M 66 206 Q 240 10 414 206" fill="none" stroke="#AA7F3D" stroke-width="1" opacity=".5"/>
+					<!-- hangers -->
 					<g fill="none" stroke="#D1BFA7" stroke-width="1">
-						<path d="M 334 6 L 84 184" opacity=".45"/>
-						<path d="M 336 34 L 140 181" opacity=".55"/>
-						<path d="M 338 64 L 196 180" opacity=".65"/>
-						<path d="M 340 96 L 252 184" opacity=".75"/>
-						<path d="M 342 130 L 304 194" opacity=".85"/>
-						<path d="M 336 20 L 424 250" opacity=".45"/>
-						<path d="M 338 60 L 452 262" opacity=".38"/>
+						<path d="M 114 149 V 200" opacity=".55"/>
+						<path d="M 150 125 V 200" opacity=".65"/>
+						<path d="M 186 109 V 200" opacity=".75"/>
+						<path d="M 222 101 V 200" opacity=".85"/>
+						<path d="M 258 101 V 200" opacity=".85"/>
+						<path d="M 294 109 V 200" opacity=".75"/>
+						<path d="M 330 125 V 200" opacity=".65"/>
+						<path d="M 366 149 V 200" opacity=".55"/>
 					</g>
+					<!-- deck -->
+					<path d="M 0 200 L 480 200" fill="none" stroke="#E8D9B8" stroke-width="2"/>
+					<path d="M 0 208 L 480 208" fill="none" stroke="#AA7F3D" stroke-width="1" opacity=".45"/>
+					<!-- V piers, gold rim light on the inner faces -->
+					<polygon points="96,208 148,208 196,276 58,276" fill="#000000" opacity=".4"/>
+					<polygon points="332,208 384,208 422,276 284,276" fill="#000000" opacity=".4"/>
+					<path d="M 148 208 L 196 276" fill="none" stroke="#E8D9B8" stroke-width="1.6" opacity=".85"/>
+					<path d="M 332 208 L 284 276" fill="none" stroke="#E8D9B8" stroke-width="1.6" opacity=".85"/>
+					<path d="M 96 208 L 58 276" fill="none" stroke="#AA7F3D" stroke-width="1" opacity=".5"/>
+					<path d="M 384 208 L 422 276" fill="none" stroke="#AA7F3D" stroke-width="1" opacity=".5"/>
+					<!-- underside arch between the piers -->
+					<path d="M 148 210 Q 240 292 332 210" fill="none" stroke="#D1BFA7" stroke-width="1.2" opacity=".5"/>
 				</symbol>
 			</svg>
 			<div class="media-grid">

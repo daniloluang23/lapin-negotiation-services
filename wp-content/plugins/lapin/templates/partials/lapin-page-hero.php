@@ -22,6 +22,12 @@ if ( null === $lapin_hero_cfg ) {
 
 if ( 'home' === ( $lapin_hero_cfg['type'] ?? '' ) ) : ?>
 <div class="hero hero--home">
+	<?php // Recolored bridge layer (claude-design handoff 2026-07-20): covers the right 66%, left edge masked in CSS so it fades clear of the headline. Home LCP image. ?>
+	<img class="hero__bridge"
+	     src="<?php echo esc_url( Lapin::asset( 'images/bridge-theme-1600.webp' ) ); ?>"
+	     srcset="<?php echo esc_attr( Lapin::asset( 'images/bridge-theme-960.webp' ) . ' 960w, ' . Lapin::asset( 'images/bridge-theme-1600.webp' ) . ' 1600w, ' . Lapin::asset( 'images/bridge-theme-2560.webp' ) . ' 2560w' ); ?>"
+	     sizes="(max-width: 63.9375rem) 100vw, 66vw"
+	     alt="" width="2560" height="1707" fetchpriority="high" decoding="async">
 	<div class="wrap">
 		<div class="hero__copy">
 			<?php // H1 wording mirrors Lapin::TAGLINE — keep them in sync. ?>

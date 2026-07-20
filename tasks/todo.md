@@ -216,3 +216,73 @@ plugin (keep 95+ Lighthouse mobile/desktop, 100 SEO), plus client art direction:
   tool-permission policy — starting the site in the Local app is the dependable
   route.
 
+
+# Client bridge artwork in the home hero (2026-07-20)
+
+## Plan (complete)
+- [x] Feather the client's bridge image (Downloads/image0.png, 640×427) so all
+      four edges fade to transparent — GD smoothstep alpha fade (110px sides,
+      90px top, 80px bottom) → `assets/images/hero-bridge.webp` (17KB alpha WebP).
+- [x] Home masthead: hide the drawn SVG (`.page-home .masthead__art`), render
+      `<img class="masthead__bridge">` home-only in lapin-header.php, anchored
+      bottom-right `min(56%, 46rem)` (mobile `min(100%, 30rem)`, 0.85 opacity).
+- [x] Perf law: preload via `$lapin['preload']` + `fetchpriority="high"` (home
+      LCP image). Subpages keep the quiet SVG art untouched.
+- [x] design.md amended to v2.2 (signature section + macrostructure).
+
+## Review
+- Verified: PHP lint clean; all 7 pages 200; home HTML has preload + img, no
+  bridge img on subpages; Playwright screenshots at 1440px and 390px show
+  seamless blending — no crop lines on any edge (matches the client's mock).
+- Source is only 640×427 (upscaled to ~736px CSS on desktop). Acceptable for
+  soft abstract art, but ask the client for a ≥1280px export to re-feather at
+  2× with the same recipe.
+
+## Lessons
+- Local's PHP has GD (with WebP+alpha) as an ext dll: run with
+  `-d extension_dir=<php>\ext -d extension=php_gd.dll`. sharp/ImageMagick are
+  not installed; GD covers image work.
+- Playwright chromium is cached in %LOCALAPPDATA%\ms-playwright — `npm i
+  playwright-core` in the scratchpad + executablePath gives screenshots
+  without any browser download.
+
+# Claude-design hero handoff recreation (2026-07-20, supersedes the feathered-image hero above)
+
+## Plan (complete)
+- [x] Convert the handoff's recolored `bridge-theme.png` (2560×1707) to
+      `bridge-theme-{960,1600,2560}.webp` (9/17/33KB); delete hero-bridge.webp.
+- [x] Home masthead → handoff gradient (#161418→#241D21→#2F262B, tokens
+      --color-hero-*), border-bottom off; bridge as `<img.hero__bridge>` inside
+      .hero--home (right 66%, cover 60%/45%, left-fade mask ∩ top fade; mobile
+      full-bleed 0.55 under to-bottom scrim). Scrim ::before z-flip above layer.
+- [x] Hero type per handoff (Archivo→DM Sans var): H1 --text-display-l 800/1.02,
+      lead DM Sans 700, muted body, 40rem column; CTA rose fill #BD8C7D on
+      #17171A (hover #A97968), outline #6F6F72; radius 4px, 17/30px padding.
+- [x] Stats strip: #141416 bg, accent-35% top rule, muted-20% dividers.
+- [x] Preload with imagesrcset/imagesizes + fetchpriority=high (home LCP).
+- [x] Redrew `lapin-bridge-mini` facade symbol as the tied-arch motif (user
+      mid-task request: "replace this bridge with the new bridge").
+- [x] design.md → v2.3; tokens header comment updated.
+
+## Review
+- Lint clean; all 7 pages 200; subpages keep SVG art + 3px accent border.
+- Screenshots 1600/1280/390: matches the prototype (3-line H1 at ≤1600 matches
+  the handoff's own screenshot); no visible layer seams after the top-fade mask.
+- mask-composite:intersect needs Chrome 120+/FF/Safari 15.4+; -webkit fallback
+  gets left fade only (acceptable — top edge is dark).
+
+## Lessons
+- Design handoffs land in claude-design/ (dc.html prototype + README + assets);
+  the README's "recreate in your codebase" means map fonts/tokens to the locked
+  design system (Archivo → DM Sans), not import new families.
+
+## Addendum (2026-07-20, later)
+- Hero image replaced with the client's crisper copper re-render (same
+  2560×1707 → regenerated bridge-theme-{960,1600,2560}.webp at 13/24/46KB;
+  untracked claude-design/ copies refreshed too).
+- Fold fix (client: stats strip must be visible on first load at 1080p): hero
+  padding 96/120 → --space-2xl/--space-2xl, H1 --text-display-l → --text-display
+  (token removed), divider top margin --space-xl → --space-lg. Verified at
+  1920×907: creds strip fully above the fold (y751–875). At 1920/DPR1 the layer
+  renders 1267px CSS from the 1600w asset (downscale = no srcset pixelation;
+  remaining softness is inherent to the 4×-upscaled source).

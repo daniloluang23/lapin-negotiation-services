@@ -24,7 +24,7 @@ define( 'LAPIN_TOKENS_EMITTED', true );
  * paper oklch(98.2% 0.005 80) · onyx #49494B · accent rose-gold #BD8C7D ≤5% · soft-gold #D1BFA7 · silver #8E8E90
  * display: DM Sans 700 (roman) · body: Poppins 400/600 · axes: light / geometric-sans / warm-rose (~35°)
  * nav: N1b three-section on onyx masthead (staging DNA; rotation suspended; no blog) · footer: Ft3-index 4-col + newsletter (staging DNA)
- * signature: abstract-bridge inline-SVG masthead on every page (home: art right-shifted for the split hero) · design-system: design.md v2.1 · studied: yes
+ * signature: abstract-bridge masthead on every page (home: claude-design handoff hero — recolored raster layer, masked right 66%; subpages: quiet inline SVG) · design-system: design.md v2.3 · studied: yes
  * contrast: pass (40-41) · slop: pass (42-45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48)
  * responsive: pass (34, 49-57) · icons: pass (30)
  * Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4
@@ -60,6 +60,16 @@ define( 'LAPIN_TOKENS_EMITTED', true );
 	--color-error:         oklch(45% 0.17 25);
 	--color-error-rule:    oklch(52% 0.19 25);
 	--color-overlay:       oklch(28% 0.01 300 / 0.18);
+	/* Home-hero palette (claude-design handoff 2026-07-20). */
+	--color-hero-deep:     #161418;
+	--color-hero-mid:      #241D21;
+	--color-hero-warm:     #2F262B;
+	--color-hero-title:    #F4F0E9;
+	--color-hero-text:     #E8E4DD;
+	--color-hero-muted:    #A9A49B;
+	--color-hero-onyx:     #17171A;
+	--color-accent-hover:  #A97968;
+	--color-strip:         #141416;
 	--shadow-whisper:      0 1px 2px oklch(20% 0.01 300 / 0.06);
 	--shadow-card:         0 10px 28px -14px oklch(20% 0.02 300 / 0.35);
 
@@ -277,46 +287,82 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 	background: radial-gradient(70rem 26rem at 22% 45%, oklch(19% 0.008 300 / 0.7), transparent 62%);
 }
 .hero .wrap { padding-block: var(--space-2xl) var(--space-3xl); }
-/* Home hero fits a 1280×800 fold: lighter top, weightier bottom (≥1.3×). */
-.hero--home .wrap { padding-block: var(--space-xl) var(--space-2xl); }
+/* Home hero, compressed from the handoff's 96/120px so the hero + stats strip
+   fit a 1080p first viewport (client request 2026-07-20). */
+.hero--home .wrap { padding-block: var(--space-2xl) var(--space-2xl); }
 .hero__eyebrow {
 	display: block; font-size: var(--text-sm); font-weight: 600;
 	letter-spacing: var(--tracking-label); text-transform: uppercase;
 	color: var(--color-accent); margin-bottom: var(--space-md);
 }
 .hero h1 { color: var(--color-ink-inverse); margin: 0; }
-/* Home: split composition — tagline H1 + service lead in a left column, the
-   bridge art right (client mockup 2026-07-19). display-s so each tagline
-   sentence holds one line inside the ~60% column. */
-.hero--home h1 { font-size: var(--text-display-s); line-height: 1.12; max-width: 22ch; }
+/* Home: claude-design handoff (2026-07-20) — big two-line display H1 in a
+   640px left column over the right-side recolored bridge layer. */
+.hero--home h1 {
+	font-size: var(--text-display); font-weight: 800; line-height: 1.02;
+	letter-spacing: -0.013em; color: var(--color-hero-title);
+}
 .hero__line { display: block; }
-.hero--home .hero__copy { max-width: min(60%, 38rem); }
+.hero--home .hero__copy { max-width: 40rem; }
 .hero__divider {
-	display: block; width: 0.625rem; height: 0.625rem;
-	margin: var(--space-lg) 0; background: var(--color-gold);
+	display: block; width: 0.875rem; height: 0.875rem;
+	margin: var(--space-lg) 0 var(--space-lg) var(--space-2xs); background: var(--color-accent);
 	/* clip-path, not transform: the .reveal keyframe ends at transform:none. */
 	clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
 }
 .hero__lead {
-	font-family: var(--font-body); font-weight: 600; font-size: var(--text-md);
-	line-height: 1.45; color: var(--color-ink-inverse); margin: 0 0 var(--space-2xs);
+	font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg);
+	line-height: 1.3; color: var(--color-hero-text); margin: 0 0 var(--space-sm);
 }
 .hero__sub {
 	font-size: var(--text-md); line-height: 1.6; color: var(--color-ink-inverse-2);
 	max-width: 52ch; margin: var(--space-lg) 0 0;
 }
-.hero--home .hero__sub { font-size: var(--text-base); margin-top: 0; }
+.hero--home .hero__sub {
+	font-size: var(--text-md); line-height: 1.55; color: var(--color-hero-muted);
+	max-width: 29rem; margin-top: 0;
+}
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md); margin-top: var(--space-xl); }
-/* Home only: the bridge art shifts right and gains presence — hero text no
-   longer sits on it. Subpage mastheads keep the full-bleed quiet art. */
-.page-home .masthead__art { inset: 0 0 0 auto; width: 58%; }
-.page-home .art-arcs { opacity: 0.4; }
-.page-home .art-bridge { opacity: 0.55; }
+.hero--home .btn {
+	padding: 1.0625rem 1.875rem; font-size: var(--text-base); font-weight: 700;
+	border-radius: var(--radius-card);
+}
+.hero--home .btn--rose { background: var(--color-accent); color: var(--color-hero-onyx); }
+.hero--home .btn--rose:hover { background: var(--color-accent-hover); }
+.hero--home .btn--light { border-color: #6F6F72; color: var(--color-hero-text); }
+/* Home only (claude-design handoff): the masthead swaps to a right-warming
+   gradient canvas; the recolored bridge artwork covers the hero's right 66%,
+   its left edge masked to fade clear of the headline, with a left scrim above
+   it. Subpage mastheads keep the quiet full-bleed SVG art. */
+.page-home .masthead {
+	background: linear-gradient(to right, var(--color-hero-deep) 0%, var(--color-hero-mid) 55%, var(--color-hero-warm) 100%);
+	border-bottom: 0;
+}
+.page-home .masthead__art { display: none; }
+.hero__bridge {
+	position: absolute; top: 0; right: 0; width: 66%; height: 100%;
+	object-fit: cover; object-position: 60% 45%; pointer-events: none;
+	/* Handoff's left fade, intersected with a top fade so the layer's upper
+	   edge never reads as a seam under the nav. -webkit- fallback: left only. */
+	-webkit-mask-image: linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.4) 22%, #000 55%);
+	mask-image: linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.4) 22%, #000 55%), linear-gradient(to bottom, transparent 0%, #000 22%);
+	mask-composite: intersect;
+}
+/* The home scrim sits ABOVE the bridge layer (subpages keep z:-1 radial). */
+.hero--home::before {
+	z-index: 1;
+	background: linear-gradient(to right, var(--color-hero-deep) 20%, rgb(22 20 24 / 0.55) 48%, transparent 72%);
+}
+.hero--home .wrap { position: relative; z-index: 2; }
 @media (max-width: 63.9375rem) {
 	.hero--home .hero__copy { max-width: none; }
-	.page-home .masthead__art { inset: 0; width: 100%; }
-	.page-home .art-arcs { opacity: 0.28; }
-	.page-home .art-bridge { opacity: 0.3; }
+	.hero__bridge {
+		width: 100%; opacity: 0.55;
+		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%);
+		mask-image: linear-gradient(to bottom, transparent 0%, #000 20%);
+		mask-composite: add;
+	}
+	.hero--home::before { background: linear-gradient(to bottom, rgb(22 20 24 / 0.8), rgb(22 20 24 / 0.35)); }
 }
 .hero--page .wrap { padding-block: var(--space-2xl) var(--space-2xl); }
 .hero--page h1 { font-size: var(--text-3xl); max-width: 24ch; }
