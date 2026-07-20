@@ -122,8 +122,8 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	.creds__item:first-child { border-left: 0; padding-left: 0; }
 	.creds__item > svg { width: 1.75rem; height: 1.75rem; flex-shrink: 0; color: var(--color-accent); margin-top: 0.15rem; }
 	.creds__item--stack { flex-direction: column; gap: var(--space-xs); }
-	.creds__stars { display: flex; gap: 0.2rem; color: var(--color-star); }
-	.creds__stars svg { width: 1.05rem; height: 1.05rem; }
+	.creds__stars { display: flex; gap: 0.2rem; }
+	.creds__stars svg { width: 1.05rem; height: 1.05rem; color: var(--color-accent); }
 	.creds__item strong { display: block; font-size: var(--text-sm); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-hero-text); }
 	.creds__item span { font-size: var(--text-sm); color: var(--color-hero-muted); }
 	a.creds__item { text-decoration: none; }
