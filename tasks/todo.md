@@ -286,3 +286,24 @@ plugin (keep 95+ Lighthouse mobile/desktop, 100 SEO), plus client art direction:
   1920×907: creds strip fully above the fold (y751–875). At 1920/DPR1 the layer
   renders 1267px CSS from the 1600w asset (downscale = no srcset pixelation;
   remaining softness is inherent to the 4×-upscaled source).
+
+## Subpage masthead: raster bridge site-wide (2026-07-20, later)
+User: subpage SVG art looked off next to the new home banner → "replace it and
+use the homepage background".
+- [x] lapin-header.php: inline SVG removed; subpages render the home hero's
+      bridge-theme-{960,1600,2560}.webp as `<img class="masthead__art">`
+      (full-bleed, sizes=100vw, fetchpriority=high; skipped on home — its hero
+      renders the layer itself).
+- [x] lapin-tokens.php: .masthead__art → object-fit cover 60%/45%, opacity .55,
+      to-bottom mask (solid by 40%) so the topbar stays on clean onyx; dead
+      `.page-home .masthead__art{display:none}` removed.
+- [x] lapin-head.php: bridge preload now emitted site-wide (imagesizes 100vw on
+      subpages, 66vw-pattern on home); home template's per-page preload removed.
+- [x] design.md → v2.4 note + signature/macrostructure/perf-law sections updated.
+
+### Review
+- Lint clean; all 7 pages 200; preload + img verified in rendered HTML (home:
+  no masthead__art img, keeps hero__bridge).
+- Screenshots (puppeteer 1600×900 + 390×844): About/Negotiation masthead now
+  matches home's artwork; H1/lede contrast fine over the dimmed layer; home
+  unchanged.

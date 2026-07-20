@@ -114,6 +114,16 @@ foreach ( ( $lapin['schema'] ?? array() ) as $lapin_node ) {
 	<meta name="twitter:description" content="<?php echo esc_attr( $lapin['desc'] ); ?>">
 	<meta name="twitter:image" content="<?php echo esc_url( $lapin_og_image ); ?>">
 	<script type="application/ld+json"><?php echo wp_json_encode( array( '@context' => 'https://schema.org', '@graph' => $lapin_graph ), JSON_UNESCAPED_SLASHES ); ?></script>
+	<?php
+	// Bridge masthead art — on every page (home: hero__bridge right 66%;
+	// subpages: full-bleed masthead__art) and the LCP image, so always preloaded.
+	// imagesizes must mirror the img sizes attr or the preload is wasted.
+	$lapin_bridge_sizes = 'home' === ( $lapin['nav'] ?? '' ) ? '(max-width: 63.9375rem) 100vw, 66vw' : '100vw';
+	?>
+	<link rel="preload" as="image" type="image/webp" fetchpriority="high"
+	      href="<?php echo esc_url( Lapin::asset( 'images/bridge-theme-1600.webp' ) ); ?>"
+	      imagesrcset="<?php echo esc_attr( Lapin::asset( 'images/bridge-theme-960.webp' ) . ' 960w, ' . Lapin::asset( 'images/bridge-theme-1600.webp' ) . ' 1600w, ' . Lapin::asset( 'images/bridge-theme-2560.webp' ) . ' 2560w' ); ?>"
+	      imagesizes="<?php echo esc_attr( $lapin_bridge_sizes ); ?>">
 	<?php foreach ( ( $lapin['preload'] ?? array() ) as $lapin_preload ) : ?>
 	<link rel="preload"<?php foreach ( $lapin_preload as $lapin_attr => $lapin_val ) { printf( ' %s="%s"', esc_attr( $lapin_attr ), esc_attr( $lapin_val ) ); } ?>>
 	<?php endforeach; ?>

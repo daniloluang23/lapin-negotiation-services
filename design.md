@@ -18,6 +18,11 @@ marks, blog removed site-wide. Header artwork recreated in-house as inline
 SVG (cable-stayed bridge per the client's reference images); their raster
 file remains a fallback if the literal image is wanted.
 
+**v2.4 (2026-07-20):** subpage mastheads switched from the drawn inline SVG to
+the home hero's recolored bridge raster (`bridge-theme-*.webp`), full-bleed and
+dimmed — one artwork site-wide (client direction after the v2.3 home hero).
+The inline SVG is retired; `lapin-bridge-mini` (facades) keeps the drawn motif.
+
 Implementation home: `wp-content/plugins/lapin/` (self-contained PHP page
 templates served via `template_include`, all CSS inline — legalia architecture).
 
@@ -30,10 +35,10 @@ Quiet motion, generous negative space, warm metallic accents on deep onyx.
 ## Macrostructure family
 
 - Every page:                  **shared masthead** — onyx band carrying topbar,
-                               nav (prominent logo), and a hero on an abstract
-                               bridge background (home: recolored raster artwork
-                               per the claude-design handoff; subpages: quiet
-                               inline SVG). Home gets the full tagline hero +
+                               nav (prominent logo), and a hero on the recolored
+                               bridge raster (home: right 66% per the
+                               claude-design handoff; subpages: full-bleed,
+                               dimmed). Home gets the full tagline hero +
                                CTAs; subpages a compact title hero.
 - Home (marketing):            **Marquee Hero, split** — tagline H1 + diamond
                                divider + service lead in a left ~60% column,
@@ -95,14 +100,10 @@ generous (`--space-3xl`).
 
 ## Signature: the bridge masthead
 
-One `.masthead` block opens every page: onyx gradient + hand-built inline SVG
-(abstract cable-stayed bridge, drawn to the client's 2026-07-19 reference —
-glowing pylon exiting the top edge, dense stay-cable fan, twin-edged deck
-sweeping into a pool of warm light, faint skyline, light-trail arcs;
-rose-gold/soft-gold strokes, aria-hidden, ~3KB). Topbar, nav and hero all sit
-on it. No raster hero image anywhere — LCP is the H1 text.
+One `.masthead` block opens every page: onyx gradient + the recolored bridge
+raster. Topbar, nav and hero all sit on it. (v2.1's hand-drawn inline SVG is
+retired as of v2.4 — the raster is the one artwork site-wide.)
 Home variant (v2.3, claude-design handoff 2026-07-20, `claude-design/`): the
-drawn SVG is hidden (`.page-home .masthead__art { display: none }`) and the
 home masthead recreates the handoff prototype. Canvas: `linear-gradient(to
 right, --color-hero-deep #161418, --color-hero-mid #241D21 55%,
 --color-hero-warm #2F262B)`, no border-bottom (the stats strip's 1px rose rule
@@ -121,8 +122,14 @@ on `--color-hero-onyx` (hover `--color-accent-hover`), secondary outline
 dividers. Fold law (client, 2026-07-20): hero padding compressed from the
 handoff's 96/120px to `--space-2xl`/`--space-2xl` and the H1 capped at
 `--text-display` so hero + stats strip fit a 1080p first viewport
-(verified at 1920×907: strip fully visible). Subpages keep the quiet centered full-bleed SVG and the 3px accent
-masthead border. The `lapin-bridge-mini` facade symbol was redrawn to the same
+(verified at 1920×907: strip fully visible). Subpage variant (v2.4): the same
+`bridge-theme-*.webp` set as `<img class="masthead__art">` — full-bleed behind
+topbar/nav/hero, `object-fit: cover` at 60%/45%, opacity 0.55 over the onyx
+gradient, to-bottom mask (transparent → solid by 40%) so the topbar stays on
+clean onyx; the existing `.hero::before` radial scrim keeps the text zone
+readable. Preload for the set is emitted site-wide by `lapin-head.php`
+(imagesizes 66vw-pattern on home, 100vw on subpages). Subpages keep the 3px
+accent masthead border. The `lapin-bridge-mini` facade symbol keeps the drawn
 tied-arch motif (arch + hangers + deck + V piers).
 Logo `logo-on-dark.webp` at 260×92 desktop (header must feature the logo
 prominently — client direction), `logo-on-light.*` for schema/OG use.
@@ -208,8 +215,10 @@ The live footer's injected casino spam is NOT carried over.
 ## Performance law (95+ mobile/desktop, 100 SEO)
 
 - Zero builder CSS/JS; theme styles dequeued; WP head cruft stripped.
-- All CSS inline; three font files max (two preloaded); hero is SVG+text (no
-  LCP image); images WebP with width/height, lazy below fold.
+- All CSS inline; three font files max (two preloaded); the masthead bridge
+  raster is the LCP image on every page — preloaded with imagesrcset +
+  `fetchpriority="high"`, never lazy; images WebP with width/height, lazy
+  below fold.
 - Third-party embeds behind click-to-load facades.
 - JSON-LD: ProfessionalService + WebPage per page; Article + BreadcrumbList on
   posts; Blog on the index. Unique title/description/canonical per URL.

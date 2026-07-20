@@ -24,7 +24,7 @@ define( 'LAPIN_TOKENS_EMITTED', true );
  * paper oklch(98.2% 0.005 80) · onyx #49494B · accent rose-gold #BD8C7D ≤5% · soft-gold #D1BFA7 · silver #8E8E90
  * display: DM Sans 700 (roman) · body: Poppins 400/600 · axes: light / geometric-sans / warm-rose (~35°)
  * nav: N1b three-section on onyx masthead (staging DNA; rotation suspended; no blog) · footer: Ft3-index 4-col + newsletter (staging DNA)
- * signature: abstract-bridge masthead on every page (home: claude-design handoff hero — recolored raster layer, masked right 66%; subpages: quiet inline SVG) · design-system: design.md v2.3 · studied: yes
+ * signature: recolored bridge raster on every masthead (home: claude-design handoff hero — masked right 66%; subpages: full-bleed, dimmed 0.55, top-fade) · design-system: design.md v2.3 · studied: yes
  * contrast: pass (40-41) · slop: pass (42-45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48)
  * responsive: pass (34, 49-57) · icons: pass (30)
  * Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4
@@ -190,9 +190,14 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 	color: var(--color-ink-inverse);
 	border-bottom: 3px solid var(--color-accent);
 }
+/* Subpage full-bleed bridge layer (same asset as the home hero), dimmed so
+   topbar/nav/hero text keep contrast; top fade keeps the topbar on clean onyx. */
 .masthead__art {
 	position: absolute; inset: 0; width: 100%; height: 100%;
-	pointer-events: none;
+	object-fit: cover; object-position: 60% 45%;
+	opacity: 0.55; pointer-events: none;
+	-webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%);
+	mask-image: linear-gradient(to bottom, transparent 0%, #000 40%);
 }
 .masthead > .topbar, .masthead > .nav-panel, .masthead > .hero {
 	position: relative; z-index: var(--z-raised);
@@ -333,12 +338,12 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 /* Home only (claude-design handoff): the masthead swaps to a right-warming
    gradient canvas; the recolored bridge artwork covers the hero's right 66%,
    its left edge masked to fade clear of the headline, with a left scrim above
-   it. Subpage mastheads keep the quiet full-bleed SVG art. */
+   it. Subpages render the same artwork full-bleed via .masthead__art
+   (the header partial skips that img on home). */
 .page-home .masthead {
 	background: linear-gradient(to right, var(--color-hero-deep) 0%, var(--color-hero-mid) 55%, var(--color-hero-warm) 100%);
 	border-bottom: 0;
 }
-.page-home .masthead__art { display: none; }
 .hero__bridge {
 	position: absolute; top: 0; right: 0; width: 66%; height: 100%;
 	object-fit: cover; object-position: 60% 45%; pointer-events: none;

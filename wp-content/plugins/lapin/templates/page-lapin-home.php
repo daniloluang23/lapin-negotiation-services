@@ -18,16 +18,7 @@ $lapin = array(
 	'nav'        => 'home',
 	'body_class' => 'page-home',
 	'hero'       => array( 'type' => 'home' ),
-	'preload'    => array(
-		array(
-			'as'            => 'image',
-			'href'          => Lapin::asset( 'images/bridge-theme-1600.webp' ),
-			'imagesrcset'   => Lapin::asset( 'images/bridge-theme-960.webp' ) . ' 960w, ' . Lapin::asset( 'images/bridge-theme-1600.webp' ) . ' 1600w, ' . Lapin::asset( 'images/bridge-theme-2560.webp' ) . ' 2560w',
-			'imagesizes'    => '(max-width: 63.9375rem) 100vw, 66vw',
-			'type'          => 'image/webp',
-			'fetchpriority' => 'high',
-		),
-	),
+	// Bridge art preload is emitted for every page by lapin-head.php.
 );
 
 $lapin_media = array(
