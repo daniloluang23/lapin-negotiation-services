@@ -38,13 +38,6 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	.svc-list li { position: relative; padding-left: 1.5rem; margin-bottom: var(--space-sm); color: var(--color-ink-2); }
 	.svc-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.5rem; height: 0.5rem; background: var(--color-accent); }
 	.sec + .sec { border-top: 1px solid var(--color-rule); }
-	/* Text-only sections: match the 65% text column of the split sections. */
-	@media (min-width: 60rem) {
-		#dispute-resolution-settlement-advice .sec-head,
-		#dispute-resolution-settlement-advice .prose,
-		#dispute-resolution-why-a-specialist .sec-head,
-		#dispute-resolution-why-a-specialist .svc-list { max-width: calc(65% - 2.6rem); }
-	}
 </style>
 
 <main id="main">
@@ -72,14 +65,21 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 
 	<section class="sec" id="dispute-resolution-settlement-advice">
 		<div class="wrap">
-			<div class="sec-head">
-				<h2>Settlement negotiation advice and coaching</h2>
-			</div>
-			<div class="prose">
-				<p class="lead">If you choose to use direct negotiation to resolve your dispute, it may be helpful to seek behind-the-scenes guidance from one of our dispute resolution specialists.</p>
-				<p>They can help you prepare for the negotiation, design a negotiation strategy, communicate effectively with the other side, handle aggressive behavior, explore settlement options, and support you throughout the process.</p>
-				<p>With the help of a specialist, you can increase your chances of reaching a successful resolution and minimize the time and effort required to resolve the dispute.</p>
-				<p>Contact us today to schedule a free consultation and learn more about how we can help you.</p>
+			<div class="split split--flip">
+				<figure class="split__media" aria-hidden="true">
+					<?php echo Lapin::icon( 'lightbulb' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				</figure>
+				<div>
+					<div class="sec-head">
+						<h2>Settlement negotiation advice and coaching</h2>
+					</div>
+					<div class="prose">
+						<p class="lead">If you choose to use direct negotiation to resolve your dispute, it may be helpful to seek behind-the-scenes guidance from one of our dispute resolution specialists.</p>
+						<p>They can help you prepare for the negotiation, design a negotiation strategy, communicate effectively with the other side, handle aggressive behavior, explore settlement options, and support you throughout the process.</p>
+						<p>With the help of a specialist, you can increase your chances of reaching a successful resolution and minimize the time and effort required to resolve the dispute.</p>
+						<p>Contact us today to schedule a free consultation and learn more about how we can help you.</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -105,17 +105,24 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 
 	<section class="sec" id="dispute-resolution-why-a-specialist">
 		<div class="wrap">
-			<div class="sec-head">
-				<h2>Why a dispute resolution specialist?</h2>
+			<div class="split">
+				<div>
+					<div class="sec-head">
+						<h2>Why a dispute resolution specialist?</h2>
+					</div>
+					<ul class="svc-list">
+						<li>A dispute resolution specialist can help you generate innovative solutions that create value, while a lawyer will typically only approach the dispute from a legal perspective.</li>
+						<li>They are trained to address all dimensions of the dispute, including legal, emotional, and psychological aspects.</li>
+						<li>They are more cost-effective than ongoing legal fees and court costs.</li>
+						<li>They work hard to resolve disputes through negotiation, which leads to more compliant and durable agreements than court-ordered stipulations.</li>
+						<li>If negotiation with a dispute resolution specialist fails, mediation, arbitration, or litigation are still options for resolving the dispute.</li>
+						<li>By hiring a dispute resolution specialist, you can start with less costly and contentious options and escalate to more expensive and adversarial methods if needed. When you hire a lawyer, you immediately launch the most costly and contentious process, which is difficult to de-escalate.</li>
+					</ul>
+				</div>
+				<figure class="split__media" aria-hidden="true">
+					<?php echo Lapin::icon( 'award' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				</figure>
 			</div>
-			<ul class="svc-list">
-				<li>A dispute resolution specialist can help you generate innovative solutions that create value, while a lawyer will typically only approach the dispute from a legal perspective.</li>
-				<li>They are trained to address all dimensions of the dispute, including legal, emotional, and psychological aspects.</li>
-				<li>They are more cost-effective than ongoing legal fees and court costs.</li>
-				<li>They work hard to resolve disputes through negotiation, which leads to more compliant and durable agreements than court-ordered stipulations.</li>
-				<li>If negotiation with a dispute resolution specialist fails, mediation, arbitration, or litigation are still options for resolving the dispute.</li>
-				<li>By hiring a dispute resolution specialist, you can start with less costly and contentious options and escalate to more expensive and adversarial methods if needed. When you hire a lawyer, you immediately launch the most costly and contentious process, which is difficult to de-escalate.</li>
-			</ul>
 		</div>
 	</section>
 

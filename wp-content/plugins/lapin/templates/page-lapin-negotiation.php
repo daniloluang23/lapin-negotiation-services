@@ -38,8 +38,6 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	.svc-list li { position: relative; padding-left: 1.5rem; margin-bottom: var(--space-sm); color: var(--color-ink-2); }
 	.svc-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.5rem; height: 0.5rem; background: var(--color-accent); }
 	.sec + .sec { border-top: 1px solid var(--color-rule); }
-	/* Text-only section: match the 65% text column of the split sections. */
-	@media (min-width: 60rem) { #negotiation-advice .wrap > div { max-width: calc(65% - 2.6rem); } }
 </style>
 
 <main id="main">
@@ -93,15 +91,20 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 
 	<section class="sec" id="negotiation-advice">
 		<div class="wrap">
-			<div>
-				<div class="sec-head">
-					<h2>Negotiation advice &amp; support</h2>
-				</div>
-				<div class="prose">
-					<p class="lead">Are you struggling to negotiate a salary increase, close a business deal, or resolve a conflict?</p>
-					<p>You don’t have to navigate these tricky negotiations alone and risk being taken advantage of.</p>
-					<p>Our team of experienced professionals is here to help and support you every step of the way, from preparation through to post-negotiation and implementation. With their deep understanding of the negotiation process, our consultants can provide expert guidance, coaching, and behind-the-scenes advice to help you achieve the best possible outcomes efficiently.</p>
-					<p>Don’t miss out on this opportunity to achieve your negotiation objectives. Contact us today to schedule a free consultation and learn more about our negotiation consulting services. Let us help you get the results you deserve.</p>
+			<div class="split split--flip">
+				<figure class="split__media" aria-hidden="true">
+					<?php echo Lapin::icon( 'messages-square' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				</figure>
+				<div>
+					<div class="sec-head">
+						<h2>Negotiation advice &amp; support</h2>
+					</div>
+					<div class="prose">
+						<p class="lead">Are you struggling to negotiate a salary increase, close a business deal, or resolve a conflict?</p>
+						<p>You don’t have to navigate these tricky negotiations alone and risk being taken advantage of.</p>
+						<p>Our team of experienced professionals is here to help and support you every step of the way, from preparation through to post-negotiation and implementation. With their deep understanding of the negotiation process, our consultants can provide expert guidance, coaching, and behind-the-scenes advice to help you achieve the best possible outcomes efficiently.</p>
+						<p>Don’t miss out on this opportunity to achieve your negotiation objectives. Contact us today to schedule a free consultation and learn more about our negotiation consulting services. Let us help you get the results you deserve.</p>
+					</div>
 				</div>
 			</div>
 		</div>

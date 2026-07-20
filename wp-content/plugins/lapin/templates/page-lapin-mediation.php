@@ -47,11 +47,6 @@ $lapin_pairs = array(
 ?>
 <style>
 	.sec + .sec { border-top: 1px solid var(--color-rule); }
-	/* Text-only section: match the 65% text column of the split sections. */
-	@media (min-width: 60rem) {
-		#mediation-mediation-preparation .sec-head,
-		#mediation-mediation-preparation .prose { max-width: calc(65% - 2.6rem); }
-	}
 	.pull { font-family: var(--font-display); font-weight: 650; font-size: var(--text-lg); color: var(--color-ink); max-width: 24ch; }
 	.pull::after { content: ""; display: block; width: 3.5rem; height: 3px; background: var(--color-accent); margin-top: var(--space-sm); }
 	.vs { border-collapse: collapse; width: 100%; }
@@ -126,13 +121,20 @@ $lapin_pairs = array(
 
 	<section class="sec" id="mediation-mediation-preparation">
 		<div class="wrap">
-			<div class="sec-head">
-				<h2>Mediation preparation, support and coaching</h2>
-			</div>
-			<div class="prose">
-				<p class="lead">Are you facing an upcoming mediation and feeling uncertain about how to prepare?</p>
-				<p>Don’t worry, you’re not alone. Mediation can be a confusing and emotional process, but with the right support and guidance, you can increase your chances of a successful outcome. By working with a skilled mediator, you’ll gain the tools you need to understand the process, clarify your goals, communicate effectively, make compelling arguments, and manage your emotions.</p>
-				<p>Don’t go into your mediation unprepared — invest in the support you need to feel confident and ready for the process. Contact us today to learn more about how we can help you succeed in your upcoming mediation.</p>
+			<div class="split">
+				<div>
+					<div class="sec-head">
+						<h2>Mediation preparation, support and coaching</h2>
+					</div>
+					<div class="prose">
+						<p class="lead">Are you facing an upcoming mediation and feeling uncertain about how to prepare?</p>
+						<p>Don’t worry, you’re not alone. Mediation can be a confusing and emotional process, but with the right support and guidance, you can increase your chances of a successful outcome. By working with a skilled mediator, you’ll gain the tools you need to understand the process, clarify your goals, communicate effectively, make compelling arguments, and manage your emotions.</p>
+						<p>Don’t go into your mediation unprepared — invest in the support you need to feel confident and ready for the process. Contact us today to learn more about how we can help you succeed in your upcoming mediation.</p>
+					</div>
+				</div>
+				<figure class="split__media" aria-hidden="true">
+					<?php echo Lapin::icon( 'book-open' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				</figure>
 			</div>
 		</div>
 	</section>
