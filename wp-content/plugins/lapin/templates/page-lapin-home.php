@@ -49,6 +49,7 @@ $lapin_media = array(
 		'slug'  => 'difficult-people',
 		'type'  => 'youtube',
 		'id'    => 'D6VG_odqIoo',
+		'start' => 385, // Client request 2026-07-20: skip the off-topic 1:13–6:25 segment (starting here also drops the 0:00–1:13 show intro).
 		'title' => '“Working With Difficult People” — Interview on The Way to Wow Show',
 		'text'  => 'Watch this great interview with Raphael Lapin on The Way to Wow Show! In the interview hosted by Kevin Bemel, Raphael discusses his book, “Working with Difficult People.”',
 	),
@@ -367,7 +368,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 				<article class="media-card rv" id="media-<?php echo esc_attr( $lapin_item['slug'] ); ?>" style="--i:<?php echo esc_attr( $lapin_i % 2 ); ?>">
 					<?php if ( 'youtube' === $lapin_item['type'] ) : ?>
 					<button class="facade" type="button"
-					        data-embed="https://www.youtube-nocookie.com/embed/<?php echo esc_attr( $lapin_item['id'] ); ?>?autoplay=1"
+					        data-embed="https://www.youtube-nocookie.com/embed/<?php echo esc_attr( $lapin_item['id'] ); ?>?autoplay=1<?php echo empty( $lapin_item['start'] ) ? '' : '&amp;start=' . (int) $lapin_item['start']; ?>"
 					        data-embed-title="<?php echo esc_attr( $lapin_item['title'] ); ?>"
 					        aria-label="Play video: <?php echo esc_attr( $lapin_item['title'] ); ?>">
 						<img src="<?php echo esc_url( Lapin::asset( 'images/yt-' . $lapin_item['id'] . '.webp' ) ); ?>" alt="" width="480" height="270" loading="lazy">
