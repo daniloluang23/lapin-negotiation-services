@@ -220,6 +220,21 @@ JS; href to Google kept as no-JS fallback). A floating gold tap-to-call
 button (`.call-fab`, black phone glyph) shows bottom-right at collapsed-nav
 widths on every page. The "Difficult People" video plays from 0:00 — the
 host re-edited it in place, retiring the 6:26 skip.
+Client-supplied copy replacement (2026-07-21, from the client's Word doc,
+verbatim incl. unhyphenated "Harvard trained" / "high stakes" / "cross
+disciplinary"): the founder section is now "Meet Raphael Lapin" + role line
+"Negotiator. Mediator. Problem Solver." + four new shorter paragraphs; the
+quals section drops the "Why Choose Us" eyebrow, H2 is title-case "What
+Makes Us Uniquely Qualified", and all four card titles + bodies are the
+client's new shortened versions. Client typo fix: "Insights on Dispute
+Resolution" blurb reads "A lot of us forget about the cost of conflict"
+(stray "is" deleted).
+Client-directed revisions (2026-07-21, later): home hero CTA reads "Schedule
+a Free Consultation". Footer newsletter column removed entirely (UI + the
+Lapin_Contact newsletter handler; foot__cols is 3 columns now — client: "we
+don't need that"). Mobile hero bridge un-muted: the art ramps in vertically
+(faint behind the headline, ~full behind the CTA row) instead of a flat
+0.55 opacity, so the bridge pops on mobile without costing text contrast.
 Phones 310-984-6952 / 888-964-8884, email info@LapinNegotiationServices.com,
 address The Tower, 10940 Wilshire Blvd, Suite 1600, Los Angeles, CA 90024.
 The live footer's injected casino spam is NOT carried over.

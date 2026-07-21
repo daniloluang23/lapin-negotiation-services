@@ -73,7 +73,7 @@ $lapin_media = array(
 		'url'   => 'https://soundcloud.com/lapin-negotiation-service/dispute-resolution',
 		'label' => 'Play episode · SoundCloud',
 		'title' => 'Insights on Dispute Resolution',
-		'text'  => 'A lot of us forget about is the cost of conflict, and the cost of not being able to manage conflict effectively. Raphael tells about the inner workings of conflict resolution, dispute resolution, and mediation and arbitration.',
+		'text'  => 'A lot of us forget about the cost of conflict, and the cost of not being able to manage conflict effectively. Raphael tells about the inner workings of conflict resolution, dispute resolution, and mediation and arbitration.',
 	),
 	array(
 		'slug'  => 'recipe-success',
@@ -126,6 +126,12 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 		.creds__item { border-left: 0; padding-left: 0; }
 	}
 	.founder { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-2xl); align-items: start; }
+	/* Role line under the founder heading — eyebrow voice, below the name. */
+	.founder__role {
+		display: block; font-size: var(--text-sm); font-weight: 600;
+		letter-spacing: var(--tracking-label); text-transform: uppercase;
+		color: var(--color-accent-strong);
+	}
 	.founder__portrait img { border-radius: var(--radius-card); }
 	.founder__link { font-weight: 600; text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 3px; }
 	.founder__link:hover { color: var(--color-accent-strong); }
@@ -278,13 +284,14 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 				</figure>
 				<div>
 					<div class="sec-head rv">
-						<h2>Meet Raphael E. Lapin</h2>
+						<h2>Meet Raphael Lapin</h2>
+						<span class="founder__role">Negotiator. Mediator. Problem Solver.</span>
 					</div>
 					<div class="prose rv" style="--i:1">
-						<p class="lead">Whether you’re involved in a business dispute, family conflict, trust litigation or high stakes negotiation, we help parties reach durable agreements while preserving relationships wherever possible.</p>
-						<p>Raphael Lapin is a Harvard-trained expert in the field of negotiation, dispute resolution and mediation. With extensive experience working with Fortune 500 corporations and governments around the world, Raphael has the knowledge and expertise to help you achieve the best possible outcome in any negotiation or mediation situation.</p>
-						<p>As the principal of Lapin Negotiation Services and an adjunct professor of law at Whittier School of Law in Southern California, Raphael has a wealth of knowledge and experience to draw upon. He has taught negotiation and mediation at some of the most prestigious universities, and has lectured on international conflict resolution at Southwestern School of Law in Los Angeles.</p>
-						<p>Whether you’re an individual, family, organization, business or corporation, Raphael can help you navigate negotiations, resolve differences and restore relationships with his expertise in negotiation, dispute resolution and mediation. Trust in his expertise, and let Raphael Lapin help you achieve a successful outcome in any negotiation, dispute or mediation.</p>
+						<p class="lead">Whether you’re facing a business dispute, family conflict, trust litigation, or a high stakes negotiation, Raphael Lapin helps parties reach practical, lasting agreements while preserving relationships wherever possible.</p>
+						<p>A Harvard trained negotiation and dispute resolution expert, Raphael has advised Fortune 500 companies, government agencies, and organizations around the world. His work blends deep expertise with a calm, structured approach that moves parties from impasse to resolution.</p>
+						<p>As principal of Lapin Negotiation Services and former adjunct professor of law at Whittier School of Law, Raphael has taught negotiation and mediation at leading universities and lectured on international conflict resolution at Southwestern School of Law in Los Angeles.</p>
+						<p>Individuals, families, businesses, and organizations turn to Raphael for guidance through complex negotiations, disputes, and relationship sensitive conflicts. His focus is simple: clear process, constructive dialogue, and durable agreements.</p>
 						<p><a class="founder__link" href="<?php echo esc_url( home_url( '/overview/' ) ); ?>">More about the firm →</a></p>
 						<div class="founder__actions">
 							<a class="btn btn--rose" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Schedule a Consultation</a>
@@ -427,29 +434,28 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	<section class="sec band--cream" id="qualified">
 		<div class="wrap">
 			<div class="sec-head quals__head rv">
-				<span class="sec-head__eyebrow">Why Choose Us</span>
-				<h2>What makes us uniquely qualified</h2>
+				<h2>What Makes Us Uniquely Qualified</h2>
 			</div>
 			<div class="quals__grid">
 				<article class="qual rv">
 					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'award' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-					<h3>Highly qualified &amp; experienced specialists</h3>
-					<p>Our negotiation and dispute resolution practice is unrivaled in its level of expertise. Our team of seasoned specialists have acquired decades of experience in the field and continue to demonstrate a proven track record of delivering positive outcomes for clients in even the most difficult negotiations. With over 1,000 disputes successfully resolved, we have a proven ability to save clients significant costs and resources by successfully resolving conflicts without the need for ongoing litigation.</p>
+					<h3>Expertise You Can Trust in High Stakes Negotiation</h3>
+					<p>With decades of specialist experience and more than 1,000 disputes resolved, we deliver consistently exceptional outcomes. Clients rely on us to navigate their most complex matters and to secure durable resolutions that avoid the cost and disruption of litigation.</p>
 				</article>
 				<article class="qual rv" style="--i:1">
 					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'network' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-					<h3>Broad range of subject matter expertise</h3>
-					<p>Our negotiation and dispute resolution practice is unmatched in its breadth and depth, as we specialize in a wide range of areas including but not limited to personal, family, small business and partnership matters, intellectual property disputes, construction disputes, business disputes, healthcare disputes, employment and labor disputes, and medical malpractice claims.</p>
+					<h3>Breadth of Expertise Across Complex Matters</h3>
+					<p>Our practice brings deep, cross disciplinary experience to a wide range of disputes&mdash;from personal, family, and small business matters to partnership, intellectual property, construction, healthcare, employment, and malpractice claims. This breadth allows us to navigate diverse challenges with clarity, precision, and sound judgment.</p>
 				</article>
 				<article class="qual rv">
 					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'lightbulb' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-					<h3>Creative, innovative &amp; valuable solutions</h3>
-					<p>At our company, we pride ourselves in our ability to help parties identify creative, innovative and valuable resolutions to reach a mutually agreeable conclusion to negotiations and to put an end to conflicts and disputes. We strive to exceed expectations by uncovering creative options that can minimize risk and maximize returns, all while fostering strong, long-lasting relationships.</p>
+					<h3>Creative Solutions That Move Negotiations Forward</h3>
+					<p>We help parties uncover thoughtful, innovative options that lead to mutually beneficial resolutions. Our approach emphasizes clarity, creativity, and long term value&mdash;minimizing risk, strengthening relationships, and guiding clients toward outcomes that stand the test of time.</p>
 				</article>
 				<article class="qual rv" style="--i:1">
 					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'book-open' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-					<h3>Continued research, learning &amp; development</h3>
-					<p>Our team is composed of experts in negotiation and dispute resolution who not only practice, but also teach and conduct research at the graduate level. We are committed to ongoing learning and development, which enables us to bring our clients the most current and cutting-edge approaches, fresh insights and innovative thinking to successfully resolve their problems.</p>
+					<h3>Continual Advancement in Negotiation and Dispute Resolution Excellence</h3>
+					<p>We blend active practice with ongoing learning, development and research, ensuring our methods remain at the forefront of the field. This continual investment in learning allows us to offer clients sharper analysis, more advanced strategies, and fresh, well grounded insights that meaningfully strengthen their position in any negotiation.</p>
 				</article>
 			</div>
 		</div>

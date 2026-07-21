@@ -1,7 +1,7 @@
 <?php
 /**
- * Footer — Ft-index on onyx: light logo + tagline mast, four columns
- * (contact facts / explore / services / newsletter), social, copyright.
+ * Footer — Ft-index on onyx: light logo + tagline mast, three columns
+ * (contact facts / explore / services), social, copyright.
  * Ends the document (wp_footer + closing tags) and carries the site's only
  * JavaScript: mobile menu toggle, click-to-load media facades, form submit
  * state, and the scroll-reveal observer (staging fade-up DNA, hand-rolled).
@@ -10,9 +10,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-$lapin_nl_sent  = isset( $_GET['nl'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-$lapin_nl_error = isset( $_GET['nl_error'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 ?>
 <footer class="foot">
 	<div class="wrap">
@@ -45,31 +42,6 @@ $lapin_nl_error = isset( $_GET['nl_error'] ); // phpcs:ignore WordPress.Security
 					<li><a href="<?php echo esc_url( home_url( '/mediation/' ) ); ?>">Mediation</a></li>
 				</ul>
 			</nav>
-			<div class="foot__news">
-				<span class="foot__label">Newsletter</span>
-				<?php if ( $lapin_nl_sent ) : ?>
-				<p role="status" id="newsletter">Thank you — you're on the list.</p>
-				<?php else : ?>
-				<p id="newsletter">Occasional insights on negotiation and dispute resolution.</p>
-				<?php if ( $lapin_nl_error ) : ?>
-				<p role="alert" class="foot__news-note">The security check did not complete — please try again.</p>
-				<?php endif; ?>
-				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" data-contact>
-					<input type="hidden" name="action" value="<?php echo esc_attr( Lapin_Contact::NEWSLETTER_ACTION ); ?>">
-					<?php wp_nonce_field( Lapin_Contact::NEWSLETTER_ACTION, 'lapin_newsletter_nonce', false ); ?>
-					<p class="hp-field" aria-hidden="true">
-						<label for="nl-company">Leave this field empty</label>
-						<input type="text" id="nl-company" name="company" tabindex="-1" autocomplete="off">
-					</p>
-					<div class="foot__news-field">
-						<label class="vh" for="nl-email">Email address</label>
-						<input type="email" id="nl-email" name="email" required autocomplete="email" placeholder="Your email address">
-						<button class="btn btn--gold" type="submit">Subscribe</button>
-					</div>
-					<?php echo Lapin_Turnstile::slot( 'dark', 'compact' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				</form>
-				<?php endif; ?>
-			</div>
 		</div>
 		<div class="foot__cols" style="padding-block: 0 var(--space-xl);">
 			<div class="foot__social" aria-label="Social profiles">

@@ -14,47 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class Lapin_Contact {
 
-	const ACTION            = 'lapin_contact';
-	const NEWSLETTER_ACTION = 'lapin_newsletter';
+	const ACTION = 'lapin_contact';
 
 	public function __construct() {
 		add_action( 'admin_post_' . self::ACTION, array( $this, 'handle' ) );
 		add_action( 'admin_post_nopriv_' . self::ACTION, array( $this, 'handle' ) );
-		add_action( 'admin_post_' . self::NEWSLETTER_ACTION, array( $this, 'handle_newsletter' ) );
-		add_action( 'admin_post_nopriv_' . self::NEWSLETTER_ACTION, array( $this, 'handle_newsletter' ) );
-	}
-
-	/**
-	 * Footer newsletter signup — same defence stack as the contact form
-	 * (nonce + honeypot + per-IP rate limit), then an email to the office
-	 * inbox. Redirects back to the submitting page with ?nl=1#newsletter.
-	 */
-	public function handle_newsletter(): void {
-		$back = wp_get_referer() ? remove_query_arg( array( 'nl' ), wp_get_referer() ) : home_url( '/' );
-
-		if ( ! isset( $_POST['lapin_newsletter_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['lapin_newsletter_nonce'] ), self::NEWSLETTER_ACTION ) ) {
-			wp_safe_redirect( $back . '#newsletter' );
-			exit;
-		}
-		if ( '' !== trim( (string) ( $_POST['company'] ?? '' ) ) ) {
-			// Honeypot hit: pretend success; give bots nothing to learn from.
-			wp_safe_redirect( add_query_arg( 'nl', '1', $back ) . '#newsletter' );
-			exit;
-		}
-		if ( ! Lapin_Turnstile::verify() ) {
-			wp_safe_redirect( add_query_arg( 'nl_error', '1', $back ) . '#newsletter' );
-			exit;
-		}
-		$ip  = sanitize_text_field( (string) ( $_SERVER['REMOTE_ADDR'] ?? '' ) );
-		$key = 'lapin_newsletter_' . md5( $ip );
-		$email = sanitize_email( wp_unslash( (string) ( $_POST['email'] ?? '' ) ) );
-		if ( ! get_transient( $key ) && is_email( $email ) ) {
-			// Storage only — newsletter signups never send email.
-			Lapin_Submissions::log_newsletter( $email, $ip );
-			set_transient( $key, 1, MINUTE_IN_SECONDS );
-		}
-		wp_safe_redirect( add_query_arg( 'nl', '1', $back ) . '#newsletter' );
-		exit;
 	}
 
 	public function handle(): void {

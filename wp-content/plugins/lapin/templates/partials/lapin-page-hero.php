@@ -36,7 +36,7 @@ if ( 'home' === ( $lapin_hero_cfg['type'] ?? '' ) ) : ?>
 			<p class="hero__lead reveal" style="--i:1"><?php echo esc_html( Lapin::SUBLINE_LEAD ); ?></p>
 			<p class="hero__sub reveal" style="--i:2"><?php echo esc_html( Lapin::SUBLINE_BODY ); ?></p>
 			<div class="hero__actions reveal" style="--i:3">
-				<a class="btn btn--rose" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Schedule a Consultation</a>
+				<a class="btn btn--rose" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Schedule a Free Consultation</a>
 				<a class="btn btn--light" href="tel:<?php echo esc_attr( Lapin::PHONE_LOCAL_TEL ); ?>">Call Now — <?php echo esc_html( Lapin::PHONE_LOCAL ); ?></a>
 			</div>
 		</div>

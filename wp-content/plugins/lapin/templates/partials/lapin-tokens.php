@@ -363,13 +363,16 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .hero--home .wrap { position: relative; z-index: 2; }
 @media (max-width: 63.9375rem) {
 	.hero--home .hero__copy { max-width: none; }
+	/* Client note 2026-07-21: the bridge should pop on mobile too. The copy
+	   occupies the upper 2/3, so ramp the art in vertically — faint behind
+	   the headline, near-full behind the CTA row — instead of muting it all. */
 	.hero__bridge {
-		width: 100%; opacity: 0.55;
-		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%);
-		mask-image: linear-gradient(to bottom, transparent 0%, #000 20%);
+		width: 100%; opacity: 0.85;
+		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 0.4) 35%, #000 72%);
+		mask-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 0.4) 35%, #000 72%);
 		mask-composite: add;
 	}
-	.hero--home::before { background: linear-gradient(to bottom, rgb(22 20 24 / 0.8), rgb(22 20 24 / 0.35)); }
+	.hero--home::before { background: linear-gradient(to bottom, rgb(22 20 24 / 0.8) 0%, rgb(22 20 24 / 0.5) 45%, rgb(22 20 24 / 0.12) 100%); }
 }
 .hero--page .wrap { padding-block: var(--space-2xl) var(--space-2xl); }
 .hero--page h1 { font-size: var(--text-3xl); max-width: 24ch; }
@@ -578,7 +581,7 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .foot__mast img { width: 240px; height: 85px; object-fit: contain; }
 .foot__tagline { font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); color: var(--color-ink-inverse); margin: 0; }
 .foot__cols {
-	display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+	display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: var(--space-xl) var(--space-2xl); padding-block: var(--space-xl);
 }
 @media (max-width: 63.9375rem) { .foot__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -588,19 +591,6 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .foot a:hover { text-decoration: underline; text-decoration-color: var(--color-accent); text-underline-offset: 3px; }
 .foot__label { display: block; font-size: var(--text-sm); font-weight: 600; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-ink-inverse-2); margin-bottom: var(--space-sm); }
 .foot__contact p { margin-bottom: var(--space-xs); }
-.foot__news p { margin: 0 0 var(--space-sm); }
-.foot__news-field { display: flex; gap: var(--space-xs); flex-wrap: wrap; }
-.foot__news-field input {
-	flex: 1 1 11rem; min-height: 2.75rem; min-width: 0; padding: var(--space-sm) var(--space-md);
-	font: 400 0.9375rem var(--font-body); color: var(--color-ink-inverse);
-	background: var(--color-onyx-2); border: 1px solid var(--color-rule-onyx);
-	border-radius: var(--radius-input);
-	transition: border-color var(--dur-micro) var(--ease-out);
-}
-.foot__news-field input::placeholder { color: var(--color-ink-inverse-2); }
-.foot__news-field input:hover { border-color: var(--color-gold); }
-.foot__news-field input:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 1px; border-color: var(--color-gold); }
-.foot__news-note { font-size: var(--text-sm); color: var(--color-ink-inverse-2); margin-top: var(--space-xs); }
 .foot__social { display: flex; gap: var(--space-md); }
 .foot__social a { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid var(--color-rule-onyx); border-radius: 50%; transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); color: var(--color-ink-inverse); }
 .foot__social a:hover { border-color: var(--color-gold); color: var(--color-gold); text-decoration: none; }
