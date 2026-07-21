@@ -209,7 +209,10 @@ relationships wherever possible." Practice-areas H2 is "Practice Areas"
 listing before launch. Blog removed site-wide (nav, footer, home section,
 routes, templates, seeding, sitemap).
 Client-directed revisions (2026-07-21): hero line "Resolving Differences." is
-gold (`--color-gold`; "Building Bridges." stays light). Creds sub-line reads
+rose gold (`--color-accent` #BD8C7D, matching the hero CTA fill — client
+first asked for gold, then revised to "the same darker gold as the Schedule
+block"; the display-size line is a client-directed exception to the ≤5%
+rose-gold budget). "Building Bridges." stays light. Creds sub-line reads
 "Negotiation, Mediation and Dispute Resolution" (title case). Bio heading is
 "Meet Raphael E. Lapin" (eyebrow "Our Introduction" dropped). The "uniquely
 qualified" cards use thin-stroke rose-gold Lucide icons in the discs
