@@ -308,6 +308,8 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 	letter-spacing: -0.013em; color: var(--color-hero-title);
 }
 .hero__line { display: block; }
+/* Client request 2026-07-21: second tagline line in gold, first stays light. */
+.hero__line--gold { color: var(--color-gold); }
 .hero--home .hero__copy { max-width: 40rem; }
 .hero__divider {
 	display: block; width: 0.875rem; height: 0.875rem;
@@ -603,6 +605,22 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .foot__social a { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid var(--color-rule-onyx); border-radius: 50%; transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); color: var(--color-ink-inverse); }
 .foot__social a:hover { border-color: var(--color-gold); color: var(--color-gold); text-decoration: none; }
 .foot__legal { border-top: 1px solid var(--color-rule-onyx); padding-top: var(--space-md); font-size: var(--text-sm); color: var(--color-ink-inverse-2); display: flex; flex-wrap: wrap; gap: var(--space-md); justify-content: space-between; }
+
+/* ── Floating call button (client request 2026-07-21) ──────────────── */
+/* Gold disc + dark phone glyph, bottom-right, collapsed-nav widths only. */
+.call-fab {
+	display: none; position: fixed;
+	right: var(--space-md); bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
+	width: 3.5rem; height: 3.5rem; border-radius: 50%;
+	background: var(--color-gold); color: var(--color-onyx);
+	box-shadow: 0 4px 14px rgb(0 0 0 / 0.28);
+	z-index: var(--z-sticky);
+	transition: background var(--dur-micro) var(--ease-out);
+}
+.call-fab:hover { background: var(--color-gold-hover); }
+.call-fab svg { width: 1.5rem; height: 1.5rem; }
+@media (max-width: 63.9375rem) { .call-fab { display: grid; place-items: center; } }
+@media print { .call-fab { display: none; } }
 
 /* ── Motion ─────────────────────────────────────────────────────────── */
 /* Load-time hero entrance (masthead lines, staggered). */

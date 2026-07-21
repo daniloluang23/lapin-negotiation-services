@@ -307,3 +307,26 @@ use the homepage background".
 - Screenshots (puppeteer 1600×900 + 390×844): About/Negotiation masthead now
   matches home's artwork; H1/lede contrast fine over the dimmed layer; home
   unchanged.
+
+## Client change batch (2026-07-21)
+Seven client-directed changes, all in the lapin plugin (plan:
+~/.claude/plans/changes-request-from-client-jazzy-globe.md).
+- [x] Video "Difficult People": start=385 removed - host re-edited the video
+      in place (same ID), so it plays from 0:00 including the intro.
+- [x] Creds sub-line title case: "Negotiation, Mediation and Dispute Resolution".
+- [x] Bio: eyebrow "Our Introduction" dropped; H2 now "Meet Raphael E. Lapin".
+- [x] Hero: "Resolving Differences." in gold (hero__line--gold, --color-gold).
+- [x] Quals: 01-04 numerals replaced with thin-stroke (1.5) rose-gold Lucide
+      icons in the discs (award / network[new svg] / lightbulb / book-open);
+      disc 190->160px.
+- [x] Floating tap-to-call FAB (.call-fab in lapin-footer.php + tokens): gold
+      disc, onyx phone glyph (new phone.svg), fixed bottom-right, shown at
+      <=63.9375rem, safe-area aware, all pages.
+- [x] Reviews modal: creds "Top rated" opens a first-party <dialog>
+      (#reviews-modal, home template) mirroring the old Trustindex popup -
+      summary (5.0 stars, See all reviews / Review us on Google via new
+      Lapin::GOOGLE_WRITE_REVIEW) + ALL Lapin_Reviews::get() cards via new
+      shared partial lapin-review-card.php (grid dedup'd to use it too).
+      Generic [data-modal]/[data-modal-close] JS in lapin-footer.php; href
+      kept as no-JS fallback; modal cards un-clamped via CSS.
+- [x] design.md content law updated (2026-07-21 block).

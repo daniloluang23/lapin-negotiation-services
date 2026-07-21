@@ -90,6 +90,10 @@ $lapin_nl_error = isset( $_GET['nl_error'] ); // phpcs:ignore WordPress.Security
 		</div>
 	</div>
 </footer>
+<?php // Floating tap-to-call button, mobile/tablet only (client request 2026-07-21). ?>
+<a class="call-fab" href="tel:<?php echo esc_attr( Lapin::PHONE_LOCAL_TEL ); ?>" aria-label="Call <?php echo esc_attr( Lapin::NAME ); ?> — <?php echo esc_attr( Lapin::PHONE_LOCAL ); ?>">
+	<?php echo Lapin::icon( 'phone' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+</a>
 <script>
 (function () {
 	/* Mobile menu toggle */
@@ -136,6 +140,28 @@ $lapin_nl_error = isset( $_GET['nl_error'] ); // phpcs:ignore WordPress.Security
 		var expanded = !p.classList.toggle('is-clamped');
 		btn.textContent = expanded ? 'Read less' : 'Read more';
 		btn.setAttribute('aria-expanded', String(expanded));
+	});
+
+	/* Native <dialog> modals: [data-modal] openers keep a real href as the
+	   no-JS fallback; close via [data-modal-close] or a backdrop click. */
+	document.addEventListener('click', function (e) {
+		var opener = e.target.closest('[data-modal]');
+		if (opener) {
+			var dlg = document.getElementById(opener.getAttribute('data-modal'));
+			if (dlg && dlg.showModal) {
+				e.preventDefault();
+				dlg.showModal();
+			}
+			return;
+		}
+		var closer = e.target.closest('[data-modal-close]');
+		if (closer) {
+			closer.closest('dialog').close();
+			return;
+		}
+		if (e.target instanceof HTMLDialogElement && e.target.open) {
+			e.target.close();
+		}
 	});
 
 	/* Click-to-load media facades (YouTube + SoundCloud + Apple Podcasts) */

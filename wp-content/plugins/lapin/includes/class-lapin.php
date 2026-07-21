@@ -29,6 +29,7 @@ final class Lapin {
 	const ADDR_ZIP    = '90024';
 	const MAPS_URL    = 'https://www.google.com/maps/search/?api=1&query=10940+Wilshire+Blvd+Suite+1600+Los+Angeles+CA+90024';
 	const GOOGLE_REVIEWS = 'https://search.google.com/local/reviews?placeid=ChIJCcA3BH67woARJ5tpawFYfUI';
+	const GOOGLE_WRITE_REVIEW = 'https://search.google.com/local/writereview?placeid=ChIJCcA3BH67woARJ5tpawFYfUI';
 	const LINKEDIN    = 'https://www.linkedin.com/company/lapin-negotiation-services/';
 	const FACEBOOK    = 'https://www.facebook.com/raphael.lapin';
 	const YOUTUBE     = 'https://www.youtube.com/channel/UCjk2jKQWC2SMIim4eR45wLw';

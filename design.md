@@ -208,6 +208,18 @@ relationships wherever possible." Practice-areas H2 is "Practice Areas"
 "40+ Five-Star Google Reviews" is client-supplied — verify against the
 listing before launch. Blog removed site-wide (nav, footer, home section,
 routes, templates, seeding, sitemap).
+Client-directed revisions (2026-07-21): hero line "Resolving Differences." is
+gold (`--color-gold`; "Building Bridges." stays light). Creds sub-line reads
+"Negotiation, Mediation and Dispute Resolution" (title case). Bio heading is
+"Meet Raphael E. Lapin" (eyebrow "Our Introduction" dropped). The "uniquely
+qualified" cards use thin-stroke rose-gold Lucide icons in the discs
+(award / network / lightbulb / book-open) instead of the 01–04 numerals. The
+creds "Top rated" item opens a first-party Google-reviews `<dialog>` modal
+(replicates the old Trustindex popup; data via Lapin_Reviews, no third-party
+JS; href to Google kept as no-JS fallback). A floating gold tap-to-call
+button (`.call-fab`, black phone glyph) shows bottom-right at collapsed-nav
+widths on every page. The "Difficult People" video plays from 0:00 — the
+host re-edited it in place, retiring the 6:26 skip.
 Phones 310-984-6952 / 888-964-8884, email info@LapinNegotiationServices.com,
 address The Tower, 10940 Wilshire Blvd, Suite 1600, Los Angeles, CA 90024.
 The live footer's injected casino spam is NOT carried over.

@@ -31,7 +31,7 @@ if ( 'home' === ( $lapin_hero_cfg['type'] ?? '' ) ) : ?>
 	<div class="wrap">
 		<div class="hero__copy">
 			<?php // H1 wording mirrors Lapin::TAGLINE — keep them in sync. ?>
-			<h1 class="reveal" style="--i:0"><span class="hero__line">Building Bridges.</span> <span class="hero__line">Resolving Differences.</span></h1>
+			<h1 class="reveal" style="--i:0"><span class="hero__line">Building Bridges.</span> <span class="hero__line hero__line--gold">Resolving Differences.</span></h1>
 			<span class="hero__divider reveal" style="--i:1" aria-hidden="true"></span>
 			<p class="hero__lead reveal" style="--i:1"><?php echo esc_html( Lapin::SUBLINE_LEAD ); ?></p>
 			<p class="hero__sub reveal" style="--i:2"><?php echo esc_html( Lapin::SUBLINE_BODY ); ?></p>

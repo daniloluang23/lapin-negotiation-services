@@ -40,7 +40,7 @@ $lapin_media = array(
 		'slug'  => 'difficult-people',
 		'type'  => 'youtube',
 		'id'    => 'D6VG_odqIoo',
-		'start' => 385, // Client request 2026-07-20: skip the off-topic 1:13–6:25 segment (starting here also drops the 0:00–1:13 show intro).
+		// Plays from 0:00 — the host re-edited the video in place (2026-07-21), so the old 6:26 skip is obsolete.
 		'title' => '“Working With Difficult People” — Interview on The Way to Wow Show',
 		'text'  => 'Watch this great interview with Raphael Lapin on The Way to Wow Show! In the interview hosted by Kevin Bemel, Raphael discusses his book, “Working with Difficult People.”',
 	),
@@ -149,7 +149,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	.pa-item strong { font-size: 0.9375rem; font-weight: 600; line-height: 1.35; color: var(--color-ink); }
 	.pa-item:hover strong { text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 	.pa-all { text-align: center; margin: var(--space-xl) 0 0; }
-	/* Qualified — 2×2 numbered layout; numeral marks replace the photos. */
+	/* Qualified — 2×2 layout; icon marks replace the photos. */
 	.quals__head { text-align: center; }
 	.quals__head::after { margin-inline: auto; }
 	.quals__grid {
@@ -157,23 +157,67 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 		gap: var(--space-2xl) var(--space-3xl); text-align: center;
 	}
 	@media (max-width: 40rem) { .quals__grid { grid-template-columns: minmax(0, 1fr); } }
-	/* Numeral marks (client choice 2026-07-19: no photos) — paper disc,
-	   hairline ring, inner rose-gold ring; the numeral IS the number. */
+	/* Icon marks (client choice 2026-07-21: thin-stroke line icons, not
+	   numerals) — paper disc, hairline ring, inner rose-gold ring. */
 	.qual__mark {
 		position: relative; display: grid; place-items: center;
-		width: 190px; height: 190px; margin: 0 auto var(--space-xl);
+		width: 160px; height: 160px; margin: 0 auto var(--space-xl);
 		background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: 50%;
 	}
 	.qual__mark::after {
 		content: ""; position: absolute; inset: 10px;
 		border: 1px solid var(--color-accent); border-radius: 50%; opacity: 0.55;
 	}
-	.qual__mark span {
-		font-family: var(--font-display); font-weight: 700; font-size: var(--text-3xl);
-		letter-spacing: var(--tracking-display); color: var(--color-accent-strong);
+	.qual__mark svg {
+		width: 3.75rem; height: 3.75rem;
+		color: var(--color-accent); stroke-width: 1.5;
 	}
 	.qual h3 { font-size: var(--text-body); text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.4; margin-bottom: var(--space-sm); }
 	.qual p { color: var(--color-ink-2); font-size: 0.9375rem; max-width: 52ch; margin: 0 auto; }
+	/* Reviews modal — first-party <dialog> stand-in for the old Trustindex popup. */
+	.reviews-modal {
+		width: min(40rem, calc(100vw - 2 * var(--space-md)));
+		max-height: 85dvh; margin: auto; padding: 0; border: 0;
+		border-radius: var(--radius-card); background: var(--color-paper-2);
+		box-shadow: 0 24px 60px rgb(0 0 0 / 0.35); overflow: auto; overscroll-behavior: contain;
+	}
+	.reviews-modal::backdrop { background: rgb(0 0 0 / 0.55); }
+	body:has(.reviews-modal[open]) { overflow: hidden; }
+	.reviews-modal__bar {
+		position: sticky; top: 0; z-index: 1;
+		display: flex; align-items: center; justify-content: space-between;
+		padding: var(--space-sm) var(--space-lg);
+		background: var(--color-paper); border-bottom: 1px solid var(--color-rule);
+	}
+	.reviews-modal__bar h2 { font-size: var(--text-md); margin: 0; }
+	.reviews-modal__close {
+		display: grid; place-items: center; width: 2.25rem; height: 2.25rem;
+		background: none; border: 1px solid var(--color-rule); border-radius: 50%;
+		color: var(--color-ink); cursor: pointer;
+		transition: border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+	}
+	.reviews-modal__close:hover { border-color: var(--color-accent); color: var(--color-accent-strong); }
+	.reviews-modal__body { padding: var(--space-lg); display: grid; gap: var(--space-md); }
+	.reviews-modal__summary {
+		display: grid; justify-items: center; gap: var(--space-2xs); text-align: center;
+		background: var(--color-paper); border: 1px solid var(--color-rule);
+		border-radius: var(--radius-card); padding: var(--space-md) var(--space-lg);
+	}
+	.reviews-modal__summary > strong { font-family: var(--font-display); font-size: var(--text-md); }
+	.reviews-modal__score {
+		display: inline-flex; align-items: center; gap: var(--space-xs);
+		font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); color: var(--color-ink);
+	}
+	.reviews-modal__stars { display: inline-flex; gap: 0.15rem; color: var(--color-star); }
+	.reviews-modal__stars svg { width: 1.1rem; height: 1.1rem; }
+	.reviews-modal__count { font-size: var(--text-sm); color: var(--color-ink-2); }
+	.reviews-modal__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm); margin-top: var(--space-xs); }
+	.reviews-modal__list { display: grid; gap: var(--space-md); }
+	.reviews-modal__foot { display: flex; justify-content: center; padding-bottom: var(--space-xs); }
+	/* Modal cards always show the full review; the grid's clamp JS runs while
+	   the dialog is closed (zero heights), so opt out of it here. */
+	.reviews-modal .review-card p.is-clamped { display: block; overflow: visible; -webkit-line-clamp: unset; }
+	.reviews-modal .review-card__more { display: none; }
 </style>
 
 <main id="main">
@@ -181,9 +225,10 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 		<div class="wrap">
 			<div class="creds__item rv">
 				<?php echo Lapin::icon( 'award' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				<div><strong>Harvard trained</strong><span>Negotiation, mediation and dispute resolution</span></div>
+				<div><strong>Harvard trained</strong><span>Negotiation, Mediation and Dispute Resolution</span></div>
 			</div>
-			<a class="creds__item creds__item--stack rv" style="--i:1" href="<?php echo esc_url( Lapin::GOOGLE_REVIEWS ); ?>" target="_blank" rel="noopener">
+			<?php // href is the no-JS fallback; the footer script intercepts and opens #reviews-modal instead. ?>
+			<a class="creds__item creds__item--stack rv" style="--i:1" href="<?php echo esc_url( Lapin::GOOGLE_REVIEWS ); ?>" target="_blank" rel="noopener" data-modal="reviews-modal">
 				<span class="creds__stars" aria-hidden="true">
 					<?php for ( $lapin_s = 0; $lapin_s < 5; $lapin_s++ ) : ?>
 					<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2l-6.1 3.4 1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
@@ -233,8 +278,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 				</figure>
 				<div>
 					<div class="sec-head rv">
-						<span class="sec-head__eyebrow">Our Introduction</span>
-						<h2>Raphael E. Lapin</h2>
+						<h2>Meet Raphael E. Lapin</h2>
 					</div>
 					<div class="prose rv" style="--i:1">
 						<p class="lead">Whether you’re involved in a business dispute, family conflict, trust litigation or high stakes negotiation, we help parties reach durable agreements while preserving relationships wherever possible.</p>
@@ -259,25 +303,11 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 				<h2 id="testimonials-title">What Clients Are Saying</h2>
 			</div>
 			<div class="reviews-grid rv">
-				<?php foreach ( array_slice( Lapin_Reviews::get(), 0, 6 ) as $lapin_review ) : ?>
-				<article class="review-card">
-					<div class="review-card__head">
-						<span class="review-card__avatar" aria-hidden="true"><?php echo esc_html( mb_substr( $lapin_review['name'], 0, 1 ) ); ?></span>
-						<div>
-							<strong><?php echo esc_html( $lapin_review['name'] ); ?></strong>
-							<span><?php echo esc_html( $lapin_review['date'] ); ?></span>
-						</div>
-					</div>
-					<div class="review-card__stars" role="img" aria-label="Rated <?php echo esc_attr( $lapin_review['stars'] ); ?> out of 5 stars">
-						<?php for ( $lapin_s = 0; $lapin_s < (int) $lapin_review['stars']; $lapin_s++ ) : ?>
-						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2l-6.1 3.4 1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
-						<?php endfor; ?>
-					</div>
-					<p><?php echo esc_html( $lapin_review['text'] ); ?></p>
-					<button class="review-card__more" type="button" aria-expanded="false" hidden>Read more</button>
-					<span class="review-card__via">Google review</span>
-				</article>
-				<?php endforeach; ?>
+				<?php
+				foreach ( array_slice( Lapin_Reviews::get(), 0, 6 ) as $lapin_review ) {
+					require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-review-card.php';
+				}
+				?>
 			</div>
 			<div class="reviews-band rv">
 				<span class="reviews-band__stars" aria-hidden="true">
@@ -402,22 +432,22 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 			</div>
 			<div class="quals__grid">
 				<article class="qual rv">
-					<div class="qual__mark" aria-hidden="true"><span>01</span></div>
+					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'award' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 					<h3>Highly qualified &amp; experienced specialists</h3>
 					<p>Our negotiation and dispute resolution practice is unrivaled in its level of expertise. Our team of seasoned specialists have acquired decades of experience in the field and continue to demonstrate a proven track record of delivering positive outcomes for clients in even the most difficult negotiations. With over 1,000 disputes successfully resolved, we have a proven ability to save clients significant costs and resources by successfully resolving conflicts without the need for ongoing litigation.</p>
 				</article>
 				<article class="qual rv" style="--i:1">
-					<div class="qual__mark" aria-hidden="true"><span>02</span></div>
+					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'network' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 					<h3>Broad range of subject matter expertise</h3>
 					<p>Our negotiation and dispute resolution practice is unmatched in its breadth and depth, as we specialize in a wide range of areas including but not limited to personal, family, small business and partnership matters, intellectual property disputes, construction disputes, business disputes, healthcare disputes, employment and labor disputes, and medical malpractice claims.</p>
 				</article>
 				<article class="qual rv">
-					<div class="qual__mark" aria-hidden="true"><span>03</span></div>
+					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'lightbulb' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 					<h3>Creative, innovative &amp; valuable solutions</h3>
 					<p>At our company, we pride ourselves in our ability to help parties identify creative, innovative and valuable resolutions to reach a mutually agreeable conclusion to negotiations and to put an end to conflicts and disputes. We strive to exceed expectations by uncovering creative options that can minimize risk and maximize returns, all while fostering strong, long-lasting relationships.</p>
 				</article>
 				<article class="qual rv" style="--i:1">
-					<div class="qual__mark" aria-hidden="true"><span>04</span></div>
+					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'book-open' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 					<h3>Continued research, learning &amp; development</h3>
 					<p>Our team is composed of experts in negotiation and dispute resolution who not only practice, but also teach and conduct research at the graduate level. We are committed to ongoing learning and development, which enables us to bring our clients the most current and cutting-edge approaches, fresh insights and innovative thinking to successfully resolve their problems.</p>
 				</article>
@@ -426,6 +456,49 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	</section>
 
 	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-cta-band.php'; ?>
+
+	<?php
+	// First-party Google-reviews modal (client request 2026-07-21): replicates
+	// the old site's Trustindex popup with zero third-party JS — the data
+	// auto-syncs on the live server via Lapin_Reviews. Opened by the creds
+	// "Top rated" item; the footer script drives [data-modal]/[data-modal-close].
+	?>
+	<dialog class="reviews-modal" id="reviews-modal" aria-labelledby="reviews-modal-title">
+		<div class="reviews-modal__bar">
+			<h2 id="reviews-modal-title">Google Reviews</h2>
+			<button class="reviews-modal__close" type="button" data-modal-close aria-label="Close">
+				<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+			</button>
+		</div>
+		<div class="reviews-modal__body">
+			<div class="reviews-modal__summary">
+				<strong><?php echo esc_html( Lapin::NAME ); ?></strong>
+				<span class="reviews-modal__score">
+					5.0
+					<span class="reviews-modal__stars" aria-hidden="true">
+						<?php for ( $lapin_s = 0; $lapin_s < 5; $lapin_s++ ) : ?>
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2l-6.1 3.4 1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+						<?php endfor; ?>
+					</span>
+				</span>
+				<span class="reviews-modal__count">40+ Five-Star Google Reviews</span>
+				<div class="reviews-modal__actions">
+					<a class="btn btn--rose" href="<?php echo esc_url( Lapin::GOOGLE_REVIEWS ); ?>" target="_blank" rel="noopener">See all reviews</a>
+					<a class="btn btn--outline" href="<?php echo esc_url( Lapin::GOOGLE_WRITE_REVIEW ); ?>" target="_blank" rel="noopener">Review us on Google</a>
+				</div>
+			</div>
+			<div class="reviews-modal__list">
+				<?php
+				foreach ( Lapin_Reviews::get() as $lapin_review ) {
+					require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-review-card.php';
+				}
+				?>
+			</div>
+			<div class="reviews-modal__foot">
+				<a class="btn btn--rose" href="<?php echo esc_url( Lapin::GOOGLE_REVIEWS ); ?>" target="_blank" rel="noopener">View all</a>
+			</div>
+		</div>
+	</dialog>
 </main>
 
 <?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-footer.php'; ?>
