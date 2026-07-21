@@ -2,9 +2,10 @@
 /**
  * Regenerate favicons from the recolored brand mark.
  *
- * Crops the mark (x < 680) out of the generated logo-on-light.png (onyx +
- * rose option-1 colorway — reads best on light browser tabs), squares the
- * canvas, and writes the three favicon sizes the head partial references.
+ * Crops the mark (x < 680) out of the generated logo-on-dark.png (russet +
+ * rosewood option-2 colorway, client 2026-07-21 — matches the site logos),
+ * squares the canvas, and writes the three favicon sizes the head partial
+ * references.
  *
  * Run with Local's bundled PHP (GD loaded explicitly):
  *   php.exe -d extension_dir=<php>\ext -d extension=gd favicon-gen.php
@@ -13,7 +14,7 @@
 $images  = 'C:/Users/User/Local Sites/lapin-negotiation-services/app/public/wp-content/plugins/lapin/assets/images';
 $favdir  = 'C:/Users/User/Local Sites/lapin-negotiation-services/app/public/wp-content/plugins/lapin/assets/favicon';
 
-$src = imagecreatefrompng( "$images/logo-on-light.png" );
+$src = imagecreatefrompng( "$images/logo-on-dark.png" );
 imagepalettetotruecolor( $src );
 $w = imagesx( $src ); $h = imagesy( $src );
 

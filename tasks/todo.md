@@ -351,3 +351,17 @@ Client is polishing home for go-live; other pages refined after.
 ### Review
 - Lint clean (footer/tokens/hero/contact class); all 7 pages 200; contact
   Turnstile slot unaffected; desktop footer screenshot: 3 balanced columns.
+
+## Logo option-2 recolor (2026-07-21, later)
+Client picked "option 2" from a colorway mock: soft gold #D1BFA7 replaced by
+rosewood #A97968, deep russet pieces kept.
+- [x] logo-gen.php: new $rosewood; logo-on-dark + logo-footer both set to the
+      option-2 map (white group -> rosewood, slate mark -> russet, rule ->
+      rosewood); logo-on-light (OG/schema) untouched. Regenerated png+webp.
+- [x] favicon-gen.php: source switched logo-on-light.png -> logo-on-dark.png
+      so browser icons match; regenerated favicon-{32,192,270}.png.
+- [x] Hero "Resolving Differences." switched --color-gold -> --color-accent
+      #BD8C7D to match the hero CTA (client: "same darker gold as the
+      Schedule block"); class renamed hero__line--accent.
+- [x] Verified: header/footer screenshots + favicon render; both hero line and
+      CTA compute rgb(189,140,125); design.md updated.

@@ -11,9 +11,10 @@
  * sub-lettering; slate #6699AA-ish = light mark pieces + rule. Zones split
  * the groups: mark (x<680) / wordmark (y<500) / subtext (y>=500).
  *
- * Current client-approved colorways (2026-07-14, final):
- *   logo-on-dark (header) — soft gold pieces + LAPIN + subtext, deep russet pieces
- *   logo-footer (footer) — soft gold pieces + LAPIN + subtext, rose gold pieces
+ * Current client-approved colorways (2026-07-21 revision):
+ *   logo-on-dark (header) — "option 2": rosewood #A97968 pieces + LAPIN +
+ *     subtext (replaces soft gold), deep russet pieces
+ *   logo-footer (footer) — same option-2 colorway per client (2026-07-21)
  *   logo-on-light (OG/schema/light surfaces only) — approved option-1:
  *     onyx pieces + LAPIN, rose gold pieces, silver rule + subtext
  */
@@ -30,6 +31,7 @@ $soft      = array( 0xD1, 0xBF, 0xA7 );
 $silver    = array( 0x8E, 0x8E, 0x90 );
 $cream     = array( 0xF3, 0xEC, 0xE1 );
 $russet    = array( 0x76, 0x42, 0x36 ); // client-picked deep russet (replaces the grey)
+$rosewood  = array( 0xA9, 0x79, 0x68 ); // client-picked 2026-07-21 (option 2 — replaces soft gold on dark)
 
 $variants = array(
 	'logo-on-light' => array(
@@ -39,14 +41,14 @@ $variants = array(
 		'slate' => array( $rose, $silver, $silver ), // light pieces; rule silver
 	),
 	'logo-on-dark' => array(
-		// Header — soft gold + deep russet per client.
-		'white' => array( $soft, $soft, $soft ),   // dark pieces + LAPIN + subtext → soft gold
-		'slate' => array( $russet, $soft, $soft ), // light pieces → deep russet; rule → soft gold
+		// Header — option 2 (2026-07-21): rosewood + deep russet per client.
+		'white' => array( $rosewood, $rosewood, $rosewood ), // dark pieces + LAPIN + subtext → rosewood
+		'slate' => array( $russet, $rosewood, $rosewood ),   // light pieces → deep russet; rule → rosewood
 	),
 	'logo-footer' => array(
-		// Footer — soft gold + rose gold per client.
-		'white' => array( $soft, $soft, $soft ), // dark pieces + LAPIN + subtext → soft gold
-		'slate' => array( $rose, $soft, $soft ), // light pieces → rose gold; rule → soft gold
+		// Footer — same option-2 colorway per client (2026-07-21).
+		'white' => array( $rosewood, $rosewood, $rosewood ),
+		'slate' => array( $russet, $rosewood, $rosewood ),
 	),
 );
 

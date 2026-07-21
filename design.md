@@ -133,6 +133,11 @@ accent masthead border. The `lapin-bridge-mini` facade symbol keeps the drawn
 tied-arch motif (arch + hangers + deck + V piers).
 Logo `logo-on-dark.webp` at 260×92 desktop (header must feature the logo
 prominently — client direction), `logo-on-light.*` for schema/OG use.
+Logo colorway (client "option 2", 2026-07-21): header, footer and favicons
+all use rosewood #A97968 (pieces + LAPIN + subtext + rule) with deep russet
+#764236 pieces — replaces the soft-gold/rose-gold mixes. `logo-on-light`
+(option-1 onyx/rose) is unchanged for OG/schema. Favicons regenerate from
+`logo-on-dark.png` via tasks/tools/favicon-gen.php.
 
 ## Motion (staging DNA, hand-rolled — no AOS/animate.css)
 
