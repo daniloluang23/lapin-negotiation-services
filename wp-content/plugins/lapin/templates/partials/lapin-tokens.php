@@ -603,6 +603,7 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .foot__social a { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid var(--color-rule-onyx); border-radius: 50%; transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); color: var(--color-ink-inverse); }
 .foot__social a:hover { border-color: var(--color-gold); color: var(--color-gold); text-decoration: none; }
 .foot__legal { border-top: 1px solid var(--color-rule-onyx); padding-top: var(--space-md); font-size: var(--text-sm); color: var(--color-ink-inverse-2); display: flex; flex-wrap: wrap; gap: var(--space-md); justify-content: space-between; }
+@media (max-width: 40rem) { .foot__legal { justify-content: center; text-align: center; } }
 
 /* ── Floating call button (client request 2026-07-21) ──────────────── */
 /* Gold disc + dark phone glyph, bottom-right, collapsed-nav widths only. */
