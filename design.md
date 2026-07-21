@@ -41,13 +41,14 @@ Quiet motion, generous negative space, warm metallic accents on deep onyx.
                                dimmed). Home gets the full tagline hero +
                                CTAs; subpages a compact title hero.
 - Home (marketing):            **Marquee Hero, split** — tagline H1 + diamond
-                               divider + service lead in a left ~60% column,
-                               bridge art right at raised presence; then creds
-                               strip (five-star Google item), practice areas,
-                               founder diptych, reviews grid + 40+ band,
-                               client-logo marquee, media wall (bridge-motif
-                               audio facades), numeral qualification cards,
-                               CTA band.
+                               divider + single service lead in a left ~60%
+                               column, bridge art right at raised presence;
+                               then creds strip (five-star Google item),
+                               practice areas, founder diptych, reviews grid +
+                               40+ band, client-logo marquee, icon
+                               qualification cards (paper), media wall (cream,
+                               bridge-motif audio facades), CTA band.
+                               (Quals before media per client, 2026-07-22.)
 - Service pages:               **Split Studio** — 65/35 text/icon diptychs.
 - Content pages:               **Long Document** — editorial prose, inline heads.
 - Contact:                     split utility — form left, contact facts right.
@@ -237,6 +238,16 @@ Makes Us Uniquely Qualified", and all four card titles + bodies are the
 client's new shortened versions. Client typo fix: "Insights on Dispute
 Resolution" blurb reads "A lot of us forget about the cost of conflict"
 (stray "is" deleted).
+Client final pre-launch revisions (2026-07-22): the hero sub is a single
+lead line "Trusted Mediation and Negotiation Services for Individuals,
+Businesses, Families, and Organizations" (the old lead + "Delivering
+practical…" body pair is retired). Reviews H2 is "Client Experiences"
+(eyebrow "Our Testimonials" dropped). Home section order: qualification
+cards (paper band, paper-2 discs) before Media Appearances (cream band).
+Call FAB is rosewood `--color-rosewood` #A97968 (logo gold) with a solid
+`--color-hero-onyx` phone glyph. Contact page: old-site handshake photo
+removed; the masthead bridge renders as a fixed whole-page watermark at
+0.07 opacity (`.contact-watermark`, reuses the preloaded asset).
 Client-directed revisions (2026-07-21, later): home hero CTA reads "Schedule
 a Free Consultation". Footer newsletter column removed entirely (UI + the
 Lapin_Contact newsletter handler; foot__cols is 3 columns now — client: "we

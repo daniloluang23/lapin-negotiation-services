@@ -69,6 +69,7 @@ define( 'LAPIN_TOKENS_EMITTED', true );
 	--color-hero-muted:    #A9A49B;
 	--color-hero-onyx:     #17171A;
 	--color-accent-hover:  #A97968;
+	--color-rosewood:      #A97968; /* logo option-2 rosewood (client 2026-07-21) */
 	--color-strip:         #141416;
 	--shadow-whisper:      0 1px 2px oklch(20% 0.01 300 / 0.06);
 	--shadow-card:         0 10px 28px -14px oklch(20% 0.02 300 / 0.35);
@@ -606,18 +607,19 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 @media (max-width: 40rem) { .foot__legal { justify-content: center; text-align: center; } }
 
 /* ── Floating call button (client request 2026-07-21) ──────────────── */
-/* Gold disc + dark phone glyph, bottom-right, collapsed-nav widths only. */
+/* Rosewood disc (logo gold, client 2026-07-22) + solid black phone glyph,
+   bottom-right, collapsed-nav widths only. */
 .call-fab {
 	display: none; position: fixed;
 	right: var(--space-md); bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
 	width: 3.5rem; height: 3.5rem; border-radius: 50%;
-	background: var(--color-gold); color: var(--color-onyx);
+	background: var(--color-rosewood); color: var(--color-hero-onyx);
 	box-shadow: 0 4px 14px rgb(0 0 0 / 0.28);
 	z-index: var(--z-sticky);
 	transition: background var(--dur-micro) var(--ease-out);
 }
-.call-fab:hover { background: var(--color-gold-hover); }
-.call-fab svg { width: 1.5rem; height: 1.5rem; }
+.call-fab:hover { background: var(--color-accent); }
+.call-fab svg { width: 1.5rem; height: 1.5rem; fill: currentColor; }
 @media (max-width: 63.9375rem) { .call-fab { display: grid; place-items: center; } }
 @media print { .call-fab { display: none; } }
 

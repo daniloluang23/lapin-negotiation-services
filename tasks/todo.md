@@ -373,3 +373,22 @@ marquee uses a 64px column gap, so a phone column fits one 150px logo per
 row. Fix: reduced-motion + <=40rem override - gap --space-lg, img width
 calc(50% - gap/2) capped at 150px -> always >=2 per row. Verified 390px with
 reduced-motion emulation (8 logos = 4 rows x 2); animated marquee unchanged.
+
+## Final pre-launch batch (2026-07-22)
+Client: "final edits before going live" + SEO checklist sent.
+- [x] Hero sub: single lead "Trusted Mediation and Negotiation Services for
+      Individuals, Businesses, Families, and Organizations" (SUBLINE_LEAD);
+      SUBLINE_BODY const + hero__sub line removed; reveal indices reflowed.
+- [x] Home order: #qualified moved above #media; bands flipped to keep rhythm
+      (qualified -> paper + discs paper-2; media -> band--cream).
+- [x] Reviews H2 "Client Experiences"; eyebrow "Our Testimonials" removed.
+- [x] FAB: bg --color-rosewood #A97968 (new token, logo gold), solid black
+      glyph (svg fill:currentColor, color --color-hero-onyx), hover accent.
+- [x] Contact: contact-us.webp figure removed; fixed whole-page bridge
+      watermark (.contact-watermark, bridge-theme-1600.webp @ 0.07, z -1 -
+      zero extra bytes, asset already preloaded).
+- [x] Verified: lint clean; 7x200; 1920x907 fold holds (creds bottom 833);
+      FAB rgb(169,121,104)/rgb(23,23,26); watermark + section flow shots.
+- NOTE: Local GUI was closed mid-verify - services started headless per
+      memory (mysqld/php-cgi/nginx) + temp node proxy on :80 (kill before
+      starting Local GUI). SEO checklist audit = next task.

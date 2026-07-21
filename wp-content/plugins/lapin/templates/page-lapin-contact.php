@@ -56,10 +56,19 @@ $lapin_error_text = array(
 	}
 	.contact-facts dd { margin: 0 0 var(--space-lg); color: var(--color-ink-2); }
 	.contact-facts a { color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 3px; }
-	.contact-figure img { border-radius: var(--radius-card); margin-top: var(--space-lg); }
+	/* Whole-page bridge watermark (client 2026-07-22, replaces the old-site
+	   handshake photo): the already-preloaded masthead artwork, fixed behind
+	   the page at whisper opacity. z-index -1 paints it above the body paper
+	   but under all content; the onyx CTA band and footer cover it. */
+	.contact-watermark {
+		position: fixed; inset: 0; z-index: -1;
+		width: 100%; height: 100%; object-fit: cover; object-position: 60% 45%;
+		opacity: 0.07; pointer-events: none;
+	}
 </style>
 
 <main id="main">
+	<img class="contact-watermark" src="<?php echo esc_url( Lapin::asset( 'images/bridge-theme-1600.webp' ) ); ?>" alt="" aria-hidden="true" width="2560" height="1707" decoding="async">
 	<section class="sec" id="contact-form">
 		<div class="wrap">
 			<div class="contact-grid">
@@ -117,9 +126,6 @@ $lapin_error_text = array(
 						<dt>Office</dt>
 						<dd><a href="<?php echo esc_url( Lapin::MAPS_URL ); ?>" rel="noopener" target="_blank"><?php echo esc_html( Lapin::address_line() ); ?></a></dd>
 					</dl>
-					<figure class="contact-figure">
-						<img src="<?php echo esc_url( Lapin::asset( 'images/contact-us.webp' ) ); ?>" alt="Handshake across a desk after a successful resolution" width="1200" height="451" loading="lazy">
-					</figure>
 				</aside>
 			</div>
 		</div>

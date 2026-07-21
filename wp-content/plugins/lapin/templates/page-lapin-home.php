@@ -168,7 +168,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	.qual__mark {
 		position: relative; display: grid; place-items: center;
 		width: 160px; height: 160px; margin: 0 auto var(--space-xl);
-		background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: 50%;
+		background: var(--color-paper-2); border: 1px solid var(--color-rule); border-radius: 50%;
 	}
 	.qual__mark::after {
 		content: ""; position: absolute; inset: 10px;
@@ -306,8 +306,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	<section class="sec band--cream" id="testimonials" aria-labelledby="testimonials-title">
 		<div class="wrap">
 			<div class="sec-head reviews-head rv">
-				<span class="sec-head__eyebrow">Our Testimonials</span>
-				<h2 id="testimonials-title">What Clients Are Saying</h2>
+				<h2 id="testimonials-title">Client Experiences</h2>
 			</div>
 			<div class="reviews-grid rv">
 				<?php
@@ -351,7 +350,37 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 		</div>
 	</section>
 
-	<section class="sec sec--tight" id="media">
+	<section class="sec" id="qualified">
+		<div class="wrap">
+			<div class="sec-head quals__head rv">
+				<h2>What Makes Us Uniquely Qualified</h2>
+			</div>
+			<div class="quals__grid">
+				<article class="qual rv">
+					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'award' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+					<h3>Expertise You Can Trust in High Stakes Negotiation</h3>
+					<p>With decades of specialist experience and more than 1,000 disputes resolved, we deliver consistently exceptional outcomes. Clients rely on us to navigate their most complex matters and to secure durable resolutions that avoid the cost and disruption of litigation.</p>
+				</article>
+				<article class="qual rv" style="--i:1">
+					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'network' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+					<h3>Breadth of Expertise Across Complex Matters</h3>
+					<p>Our practice brings deep, cross disciplinary experience to a wide range of disputes&mdash;from personal, family, and small business matters to partnership, intellectual property, construction, healthcare, employment, and malpractice claims. This breadth allows us to navigate diverse challenges with clarity, precision, and sound judgment.</p>
+				</article>
+				<article class="qual rv">
+					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'lightbulb' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+					<h3>Creative Solutions That Move Negotiations Forward</h3>
+					<p>We help parties uncover thoughtful, innovative options that lead to mutually beneficial resolutions. Our approach emphasizes clarity, creativity, and long term value&mdash;minimizing risk, strengthening relationships, and guiding clients toward outcomes that stand the test of time.</p>
+				</article>
+				<article class="qual rv" style="--i:1">
+					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'book-open' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+					<h3>Continual Advancement in Negotiation and Dispute Resolution Excellence</h3>
+					<p>We blend active practice with ongoing learning, development and research, ensuring our methods remain at the forefront of the field. This continual investment in learning allows us to offer clients sharper analysis, more advanced strategies, and fresh, well grounded insights that meaningfully strengthen their position in any negotiation.</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<section class="sec sec--tight band--cream" id="media">
 		<div class="wrap">
 			<div class="sec-head rv">
 				<span class="sec-head__eyebrow">In the Media</span>
@@ -427,36 +456,6 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 					</div>
 				</article>
 				<?php endforeach; ?>
-			</div>
-		</div>
-	</section>
-
-	<section class="sec band--cream" id="qualified">
-		<div class="wrap">
-			<div class="sec-head quals__head rv">
-				<h2>What Makes Us Uniquely Qualified</h2>
-			</div>
-			<div class="quals__grid">
-				<article class="qual rv">
-					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'award' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-					<h3>Expertise You Can Trust in High Stakes Negotiation</h3>
-					<p>With decades of specialist experience and more than 1,000 disputes resolved, we deliver consistently exceptional outcomes. Clients rely on us to navigate their most complex matters and to secure durable resolutions that avoid the cost and disruption of litigation.</p>
-				</article>
-				<article class="qual rv" style="--i:1">
-					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'network' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-					<h3>Breadth of Expertise Across Complex Matters</h3>
-					<p>Our practice brings deep, cross disciplinary experience to a wide range of disputes&mdash;from personal, family, and small business matters to partnership, intellectual property, construction, healthcare, employment, and malpractice claims. This breadth allows us to navigate diverse challenges with clarity, precision, and sound judgment.</p>
-				</article>
-				<article class="qual rv">
-					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'lightbulb' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-					<h3>Creative Solutions That Move Negotiations Forward</h3>
-					<p>We help parties uncover thoughtful, innovative options that lead to mutually beneficial resolutions. Our approach emphasizes clarity, creativity, and long term value&mdash;minimizing risk, strengthening relationships, and guiding clients toward outcomes that stand the test of time.</p>
-				</article>
-				<article class="qual rv" style="--i:1">
-					<div class="qual__mark" aria-hidden="true"><?php echo Lapin::icon( 'book-open' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-					<h3>Continual Advancement in Negotiation and Dispute Resolution Excellence</h3>
-					<p>We blend active practice with ongoing learning, development and research, ensuring our methods remain at the forefront of the field. This continual investment in learning allows us to offer clients sharper analysis, more advanced strategies, and fresh, well grounded insights that meaningfully strengthen their position in any negotiation.</p>
-				</article>
 			</div>
 		</div>
 	</section>

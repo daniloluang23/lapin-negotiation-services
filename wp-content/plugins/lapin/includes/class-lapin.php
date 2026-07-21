@@ -14,8 +14,8 @@ final class Lapin {
 
 	const NAME        = 'Lapin Negotiation Services';
 	const TAGLINE     = 'Building Bridges. Resolving Differences.';
-	const SUBLINE_LEAD = 'Professional Mediation and Negotiation Services';
-	const SUBLINE_BODY = 'Delivering practical, durable solutions for businesses, families, and organizations.';
+	// Client final revision 2026-07-22: single hero subline, body line retired.
+	const SUBLINE_LEAD = 'Trusted Mediation and Negotiation Services for Individuals, Businesses, Families, and Organizations';
 	const PHONE_LOCAL = '310-984-6952';
 	const PHONE_FREE  = '888-964-8884';
 	const PHONE_LOCAL_TEL = '+13109846952';
