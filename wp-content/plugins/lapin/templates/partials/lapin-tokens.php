@@ -545,6 +545,13 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 	.marquee__track { animation: none; width: auto; flex-wrap: wrap; gap: var(--space-xl) var(--space-2xl); justify-content: center; }
 	.marquee__track > [aria-hidden="true"] { display: none; }
 }
+/* Static-wrap fallback on phones: the 64px column gap fits only one 150px
+   logo per row (client report: "stacked on top of each other") — tighten
+   the gap and half-width the logos so at least two share each row. */
+@media (prefers-reduced-motion: reduce) and (max-width: 40rem) {
+	.marquee__track { gap: var(--space-lg); }
+	.marquee__track img { width: calc(50% - (var(--space-lg) / 2)); max-width: 150px; height: auto; }
+}
 
 /* ── CTA band ───────────────────────────────────────────────────────── */
 .cta-band { background: var(--color-onyx); }

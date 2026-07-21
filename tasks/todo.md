@@ -365,3 +365,11 @@ rosewood #A97968, deep russet pieces kept.
       Schedule block"); class renamed hero__line--accent.
 - [x] Verified: header/footer screenshots + favicon render; both hero line and
       CTA compute rgb(189,140,125); design.md updated.
+
+## Client-logo stacking fix (2026-07-21, later)
+Client report: "mobile view for some of our clients are stacked on top of
+each other." Cause: the prefers-reduced-motion static-wrap fallback for the
+marquee uses a 64px column gap, so a phone column fits one 150px logo per
+row. Fix: reduced-motion + <=40rem override - gap --space-lg, img width
+calc(50% - gap/2) capped at 150px -> always >=2 per row. Verified 390px with
+reduced-motion emulation (8 logos = 4 rows x 2); animated marquee unchanged.
