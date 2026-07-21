@@ -308,8 +308,9 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 	letter-spacing: -0.013em; color: var(--color-hero-title);
 }
 .hero__line { display: block; }
-/* Client request 2026-07-21: second tagline line in gold, first stays light. */
-.hero__line--gold { color: var(--color-gold); }
+/* Client request 2026-07-21: second tagline line in the hero CTA's rose gold
+   (client: "the same darker gold as the Schedule block"), first stays light. */
+.hero__line--accent { color: var(--color-accent); }
 .hero--home .hero__copy { max-width: 40rem; }
 .hero__divider {
 	display: block; width: 0.875rem; height: 0.875rem;
