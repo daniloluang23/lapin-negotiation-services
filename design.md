@@ -52,7 +52,9 @@ Quiet motion, generous negative space, warm metallic accents on deep onyx.
 - Service pages:               **Split Studio** — 65/35 text/icon diptychs.
 - Content pages:               **Long Document** — editorial prose, inline heads.
 - Contact:                     split utility — form left, contact facts right.
-- No blog anywhere (client direction 2026-07-19).
+- Blog:                        index = card grid; posts = Long Document.
+                               (Revived 2026-07-22; see content-law v2.5.)
+- SEO landing pages:           Split Studio + FAQ (service/location).
 
 ## Theme
 
@@ -258,6 +260,27 @@ Phones 310-984-6952 / 888-964-8884, email info@LapinNegotiationServices.com,
 address The Tower, 10940 Wilshire Blvd, Suite 1600, Los Angeles, CA 90024.
 The live footer's injected casino spam is NOT carried over.
 
+**v2.5 — Blog revived + SEO landing pages (2026-07-22, client-directed).**
+Reverses the 2026-07-19 "blog removed site-wide" direction: the blog is back
+(index card grid at /blog/ = Long Document macrostructure; posts at root-level
+slugs; Article + BreadcrumbList JSON-LD on posts, Blog on the index). Nav gains
+a "Blog" item; footer Explore gains Blog; the home page gets a "From the Blog"
+teaser (3 latest posts) between the qualification/media bands and the CTA band.
+Three SEO service/location landing pages added (Split Studio + FAQ): Negotiation
+Services in Los Angeles, ADR & Dispute Resolution in Santa Monica, Divorce
+Mediation in Los Angeles — targeting the site's highest-impression Search Console
+queries; each carries Service + FAQPage JSON-LD and links from the footer Services
+column (not the top nav). Blog posts are **original editorial authored from
+Raphael Lapin's own recorded interviews** (public/tasks/data-source/), not live-site
+copy — the verbatim rule does not apply, but the invented-metrics/testimonials rule
+does: facts are drawn only from what Raphael states on the transcripts (Harvard-
+trained under Roger Fisher; author of *Working with Difficult People*; 1,000+
+mediated cases; Los Angeles based). Landing-page copy is adapted from the verbatim
+service pages + transcripts. Santa Monica page states "West LA office serving Santa
+Monica and the Westside" — never a Santa Monica address. All new copy is DRAFT
+pending client audit. CTAs (Schedule a Free Consultation / Call Now) are woven
+through every post and landing page via the `.post-cta` callout.
+
 ## Performance law (95+ mobile/desktop, 100 SEO)
 
 - Zero builder CSS/JS; theme styles dequeued; WP head cruft stripped.
@@ -267,8 +290,16 @@ The live footer's injected casino spam is NOT carried over.
   below fold.
 - Third-party embeds behind click-to-load facades.
 - JSON-LD: ProfessionalService + WebPage per page; Article + BreadcrumbList on
-  posts; Blog on the index. Unique title/description/canonical per URL.
-- /sitemap.xml lists home and the routed pages (no blog, no posts).
+  posts; Blog on the index; Service + FAQPage on the SEO landing pages. Unique
+  title/description/canonical per URL.
+- /sitemap.xml lists home, the routed pages (incl. blog index + landing pages),
+  and every published blog post. One sitemap only — core /wp-sitemap.xml is
+  disabled. It is generated dynamically (no static file), so it never goes stale
+  and ships with the plugin.
+- robots.txt (virtual, via Lapin_Sitemap): default rules + explicit Allow blocks
+  welcoming the major search + AI crawlers (Googlebot/Bingbot/Applebot,
+  Google-Extended, GPTBot, ClaudeBot, PerplexityBot, Amazonbot, CCBot, …), plus
+  the Sitemap line. Honors the "discourage search engines" setting (blog_public).
 
 ## Exports
 

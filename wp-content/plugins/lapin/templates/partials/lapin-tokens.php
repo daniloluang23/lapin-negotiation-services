@@ -23,7 +23,7 @@ define( 'LAPIN_TOKENS_EMITTED', true );
  * theme: studied-DNA (source: url https://stg-lapinnegotiationservices-staging.kinsta.cloud/ — client's own staging site + client mockups 2026-07-19)
  * paper oklch(98.2% 0.005 80) · onyx #49494B · accent rose-gold #BD8C7D ≤5% · soft-gold #D1BFA7 · silver #8E8E90
  * display: DM Sans 700 (roman) · body: Poppins 400/600 · axes: light / geometric-sans / warm-rose (~35°)
- * nav: N1b three-section on onyx masthead (staging DNA; rotation suspended; no blog) · footer: Ft3-index 4-col + newsletter (staging DNA)
+ * nav: N1b three-section on onyx masthead (staging DNA; rotation suspended; Blog re-added 2026-07-22) · footer: Ft3-index 3-col + services (staging DNA)
  * signature: recolored bridge raster on every masthead (home: claude-design handoff hero — masked right 66%; subpages: full-bleed, dimmed 0.55, top-fade) · design-system: design.md v2.3 · studied: yes
  * contrast: pass (40-41) · slop: pass (42-45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48)
  * responsive: pass (34, 49-57) · icons: pass (30)
@@ -411,6 +411,44 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .prose { max-width: none; }
 .prose p { color: var(--color-ink-2); }
 .hairline { border: 0; border-top: 1px solid var(--color-rule); margin: 0; }
+
+/* ── Cards + blog (index grid, post teasers) ────────────────────────── */
+.card {
+	background: var(--color-paper); border: 1px solid var(--color-rule);
+	border-radius: var(--radius-card); overflow: hidden;
+	transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+@media (prefers-reduced-motion: reduce) { .card:hover { transform: none; } }
+
+.post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl); }
+@media (max-width: 63.9375rem) { .post-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 40rem) { .post-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.post-card { position: relative; display: flex; flex-direction: column; }
+.post-card__img { aspect-ratio: 16 / 9; overflow: hidden; background: var(--color-paper-2); }
+.post-card__img img { width: 100%; height: 100%; object-fit: cover; }
+.post-card__body { padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-xs); flex: 1; }
+.post-card--text .post-card__body { padding-block: var(--space-xl); }
+.post-card__date { font-size: var(--text-sm); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-ink-2); }
+.post-card__body h3 { font-size: var(--text-md); line-height: 1.3; margin: 0; }
+.post-card__body h3 a { text-decoration: none; }
+.post-card__body h3 a:hover { text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.post-card__body h3 a::after { content: ""; position: absolute; inset: 0; }
+.post-card p { color: var(--color-ink-2); font-size: 0.9375rem; margin: 0; }
+.post-card__more { margin-top: auto; padding-top: var(--space-sm); font-weight: 600; font-size: 0.9375rem; color: var(--color-accent-strong); }
+
+/* Inline conversion callout woven through article bodies + landing pages.
+   Buttons reuse .btn; reset the prose underline so they read as buttons. */
+.post-cta {
+	margin: var(--space-xl) 0; padding: var(--space-lg) var(--space-xl);
+	background: var(--color-paper-2); border: 1px solid var(--color-rule);
+	border-left: 3px solid var(--color-accent); border-radius: var(--radius-card);
+}
+.post-cta p { margin: 0 0 var(--space-md); color: var(--color-ink); font-weight: 500; }
+.post-cta__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.post-cta .btn { text-decoration: none; }
+.post-cta .btn:hover { text-decoration: none; }
 
 /* ── Split rows (service pages) ─────────────────────────────────────── */
 .split, .split--flip { display: grid; grid-template-columns: minmax(0, 65fr) minmax(0, 35fr); gap: var(--space-2xl); align-items: center; }

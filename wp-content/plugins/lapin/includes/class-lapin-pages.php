@@ -34,9 +34,19 @@ final class Lapin_Pages {
 		'dispute-resolution' => array( 'page-lapin-dispute-resolution.php', 'Dispute Resolution' ),
 		'mediation'          => array( 'page-lapin-mediation.php', 'Mediation' ),
 		'contact'            => array( 'page-lapin-contact.php', 'Contact' ),
+		'blog'               => array( 'page-lapin-blog.php', 'Blog' ),
+		// Service/location landing pages (SEO — target the site's highest-impression
+		// commercial queries; see tasks/todo.md 2026-07-22 SEO batch).
+		'negotiation-services-los-angeles' => array( 'page-lapin-negotiation-services-los-angeles.php', 'Negotiation Services in Los Angeles' ),
+		'adr-services-santa-monica'        => array( 'page-lapin-adr-services-santa-monica.php', 'ADR & Dispute Resolution in Santa Monica' ),
+		'divorce-mediation-los-angeles'    => array( 'page-lapin-divorce-mediation-los-angeles.php', 'Divorce Mediation in Los Angeles' ),
 		'privacy-policy'     => array( 'page-lapin-privacy-policy.php', 'Privacy Policy' ),
 		'disclaimer'         => array( 'page-lapin-disclaimer.php', 'Disclaimer' ),
 	);
+
+	// Blog posts live at root-level slugs (URLs mirror the old staging site) and
+	// route through a single article template.
+	const POST_TEMPLATE = 'single-lapin-post.php';
 
 	const HOME_TEMPLATE = 'page-lapin-home.php';
 	const HOME_TITLE    = 'Home';
@@ -115,6 +125,9 @@ final class Lapin_Pages {
 	private function current_template(): ?string {
 		if ( is_front_page() && ! is_home() ) {
 			return self::HOME_TEMPLATE;
+		}
+		if ( is_singular( 'post' ) ) {
+			return self::POST_TEMPLATE;
 		}
 		if ( is_page() ) {
 			$slug = get_post_field( 'post_name', get_queried_object_id() );

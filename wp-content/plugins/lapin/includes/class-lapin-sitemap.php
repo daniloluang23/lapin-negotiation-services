@@ -19,7 +19,7 @@ final class Lapin_Sitemap {
 	public function __construct() {
 		add_filter( 'wp_sitemaps_enabled', '__return_false' );
 		add_action( 'parse_request', array( $this, 'maybe_render' ) );
-		add_filter( 'robots_txt', array( $this, 'add_to_robots' ) );
+		add_filter( 'robots_txt', array( $this, 'add_to_robots' ), 10, 2 );
 	}
 
 	/** Serve the sitemap and stop WordPress when /sitemap.xml is requested. */
@@ -52,7 +52,8 @@ final class Lapin_Sitemap {
 	}
 
 	/**
-	 * loc/lastmod pairs for the home page and every routed slug.
+	 * loc/lastmod pairs for the home page, every routed slug, and every
+	 * published blog post (root-level slugs, same URL style as the pages).
 	 * Pages missing from the database would 404, so they are skipped.
 	 */
 	private function entries(): array {
@@ -69,6 +70,14 @@ final class Lapin_Sitemap {
 				'lastmod' => $this->lastmod( $slug ),
 			);
 		}
+		foreach ( get_posts( array( 'post_type' => 'post', 'post_status' => 'publish', 'numberposts' => -1 ) ) as $post ) {
+			$entries[] = array(
+				'loc'     => $home . $post->post_name . '/',
+				'lastmod' => '0000-00-00 00:00:00' === $post->post_modified_gmt
+					? ''
+					: gmdate( 'Y-m-d\TH:i:sP', strtotime( $post->post_modified_gmt . ' +0000' ) ),
+			);
+		}
 		return $entries;
 	}
 
@@ -81,8 +90,38 @@ final class Lapin_Sitemap {
 		return gmdate( 'Y-m-d\TH:i:sP', strtotime( $page->post_modified_gmt . ' +0000' ) );
 	}
 
-	/** Advertise the sitemap in the virtual robots.txt. */
-	public function add_to_robots( string $output ): string {
-		return $output . "\nSitemap: " . home_url( '/sitemap.xml' ) . "\n";
+	/**
+	 * Build the virtual robots.txt: keep WordPress's default rules, explicitly
+	 * welcome the major search engines and AI assistants, and advertise the
+	 * sitemap. Honors the "Discourage search engines" setting — when the site
+	 * is marked non-public, WordPress's blocking default is left untouched.
+	 *
+	 * @param string $output WordPress's default robots.txt body.
+	 * @param mixed  $public The blog_public option ('1' when indexable).
+	 */
+	public function add_to_robots( string $output, $public = '1' ): string {
+		if ( ! $public ) {
+			return $output;
+		}
+
+		// Named crawlers each get the whole site except wp-admin — identical to
+		// the default `*` rules, so there is no ambiguity that search engines
+		// and AI assistants are welcome to crawl, index, and cite this site.
+		$agents = array(
+			// Search engines.
+			'Googlebot', 'Googlebot-Image', 'Bingbot', 'Applebot', 'DuckDuckBot',
+			// AI assistants / AI search.
+			'Google-Extended', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User',
+			'ClaudeBot', 'Claude-Web', 'Claude-User', 'anthropic-ai',
+			'PerplexityBot', 'Perplexity-User', 'Amazonbot', 'Applebot-Extended',
+			'Meta-ExternalAgent', 'cohere-ai', 'CCBot',
+		);
+
+		$welcome = "\n# Search engines and AI assistants are welcome to crawl, index, and cite this site.\n";
+		foreach ( $agents as $agent ) {
+			$welcome .= "\nUser-agent: {$agent}\nAllow: /\nDisallow: /wp-admin/\n";
+		}
+
+		return $output . $welcome . "\nSitemap: " . home_url( '/sitemap.xml' ) . "\n";
 	}
 }

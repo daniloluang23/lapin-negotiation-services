@@ -31,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
 					<li><a href="<?php echo esc_url( home_url( '/overview/' ) ); ?>">About Us</a></li>
 					<li><a href="<?php echo esc_url( home_url( '/practice-areas/' ) ); ?>">Practice Areas</a></li>
+					<li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>">Blog</a></li>
 					<li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Contact</a></li>
 				</ul>
 			</nav>
@@ -40,6 +41,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li><a href="<?php echo esc_url( home_url( '/negotiation/' ) ); ?>">Negotiation</a></li>
 					<li><a href="<?php echo esc_url( home_url( '/dispute-resolution/' ) ); ?>">Dispute Resolution</a></li>
 					<li><a href="<?php echo esc_url( home_url( '/mediation/' ) ); ?>">Mediation</a></li>
+					<li><a href="<?php echo esc_url( home_url( '/negotiation-services-los-angeles/' ) ); ?>">Negotiation Services · Los Angeles</a></li>
+					<li><a href="<?php echo esc_url( home_url( '/divorce-mediation-los-angeles/' ) ); ?>">Divorce Mediation · Los Angeles</a></li>
+					<li><a href="<?php echo esc_url( home_url( '/adr-services-santa-monica/' ) ); ?>">ADR · Santa Monica</a></li>
 				</ul>
 			</nav>
 		</div>

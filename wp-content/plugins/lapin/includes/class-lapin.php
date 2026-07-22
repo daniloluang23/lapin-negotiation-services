@@ -140,6 +140,7 @@ final class Lapin {
 
 	public static function activate(): void {
 		Lapin_Pages::activate();
+		Lapin_Posts::seed();
 		Lapin_Submissions::activate();
 		flush_rewrite_rules();
 	}

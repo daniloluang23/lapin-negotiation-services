@@ -460,6 +460,46 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 		</div>
 	</section>
 
+	<?php
+	// Latest blog posts (SEO/engagement — client direction 2026-07-22, blog revived).
+	$lapin_latest = get_posts( array(
+		'post_type'   => 'post',
+		'post_status' => 'publish',
+		'numberposts' => 3,
+		'orderby'     => 'date',
+		'order'       => 'DESC',
+	) );
+	if ( $lapin_latest ) :
+	?>
+	<section class="sec" id="blog">
+		<div class="wrap">
+			<div class="sec-head">
+				<span class="sec-head__eyebrow">From the Blog</span>
+				<h2>Insights on Dispute Resolution</h2>
+			</div>
+			<div class="post-grid">
+				<?php foreach ( $lapin_latest as $lapin_i => $lapin_post ) : ?>
+				<?php $lapin_img = Lapin_Posts::image( $lapin_post->post_name, true ); ?>
+				<article class="card post-card<?php echo $lapin_img ? '' : ' post-card--text'; ?> rv" style="--i:<?php echo esc_attr( $lapin_i ); ?>">
+					<?php if ( $lapin_img ) : ?>
+					<div class="post-card__img">
+						<img src="<?php echo esc_url( $lapin_img[0] ); ?>" alt="" width="<?php echo esc_attr( $lapin_img[1] ); ?>" height="<?php echo esc_attr( $lapin_img[2] ); ?>" loading="lazy">
+					</div>
+					<?php endif; ?>
+					<div class="post-card__body">
+						<span class="post-card__date"><?php echo esc_html( get_the_date( 'F j, Y', $lapin_post ) ); ?></span>
+						<h3><a href="<?php echo esc_url( get_permalink( $lapin_post ) ); ?>"><?php echo esc_html( $lapin_post->post_title ); ?></a></h3>
+						<p><?php echo esc_html( wp_trim_words( wp_strip_all_tags( $lapin_post->post_content ), 20, '…' ) ); ?></p>
+						<span class="post-card__more" aria-hidden="true">Read the article →</span>
+					</div>
+				</article>
+				<?php endforeach; ?>
+			</div>
+			<p class="rv" style="margin-top: var(--space-xl);"><a class="btn btn--outline" href="<?php echo esc_url( home_url( '/blog/' ) ); ?>">View all articles</a></p>
+		</div>
+	</section>
+	<?php endif; ?>
+
 	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-cta-band.php'; ?>
 
 	<?php

@@ -6,7 +6,7 @@
  *   title       string  — <title> + og:title
  *   desc        string  — meta description + og:description
  *   path        string  — canonical path relative to home ('' | 'overview/' …)
- *   nav         string  — key of the current nav item (home|overview|practice-areas|negotiation|dispute-resolution|mediation|contact)
+ *   nav         string  — key of the current nav item (home|overview|practice-areas|blog|negotiation|dispute-resolution|mediation|contact)
  *   body_class  string
  *   og_image    string  — absolute URL (defaults to the hero painting JPEG)
  *   preload     array   — extra <link rel=preload> attr maps

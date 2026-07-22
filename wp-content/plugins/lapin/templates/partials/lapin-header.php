@@ -20,6 +20,7 @@ $lapin_nav_items   = array(
 	'home'           => array( home_url( '/' ), 'Home' ),
 	'overview'       => array( home_url( '/overview/' ), 'About Us' ),
 	'practice-areas' => array( home_url( '/practice-areas/' ), 'Practice Areas' ),
+	'blog'           => array( home_url( '/blog/' ), 'Blog' ),
 );
 $lapin_nav_services = array(
 	'negotiation'        => array( home_url( '/negotiation/' ), 'Negotiation' ),
