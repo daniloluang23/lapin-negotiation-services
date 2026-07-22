@@ -58,7 +58,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div class="foot__legal">
 			<span>© <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php echo esc_html( Lapin::NAME ); ?>. All rights reserved.</span>
-			<span><?php echo esc_html( Lapin::TAGLINE ); ?></span>
+			<nav class="foot__legal-links" aria-label="Legal">
+				<a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy Policy</a>
+				<a href="<?php echo esc_url( home_url( '/disclaimer/' ) ); ?>">Disclaimer</a>
+				<?php if ( Lapin::consent_ui_enabled() ) : ?>
+				<a href="<?php echo esc_url( home_url( '/privacy-policy/#your-privacy-choices' ) ); ?>" data-lapin-privacy-choices>Your Privacy Choices</a>
+				<?php endif; ?>
+			</nav>
 		</div>
 	</div>
 </footer>

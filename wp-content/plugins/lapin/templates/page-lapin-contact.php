@@ -63,7 +63,8 @@ $lapin_error_text = array(
 	.contact-watermark {
 		position: fixed; inset: 0; z-index: -1;
 		width: 100%; height: 100%; object-fit: cover; object-position: 60% 45%;
-		opacity: 0.07; pointer-events: none;
+		opacity: 0.14; /* client 2026-07-22: 0.07 read as nearly invisible */
+		pointer-events: none;
 	}
 </style>
 

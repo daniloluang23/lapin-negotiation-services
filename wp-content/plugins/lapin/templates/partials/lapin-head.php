@@ -51,6 +51,38 @@ $lapin_graph = array(
 			'description' => 'Harvard-trained expert in negotiation, dispute resolution and mediation.',
 		),
 		'sameAs'     => array( Lapin::LINKEDIN, Lapin::FACEBOOK, Lapin::YOUTUBE ),
+		'geo'        => array(
+			'@type'     => 'GeoCoordinates',
+			'latitude'  => 34.058053,
+			'longitude' => -118.445066,
+		),
+		'hasMap'     => Lapin::MAPS_URL,
+		// No strict published hours (client operates during regular Pacific
+		// business hours). Encoded Mon–Fri 09:00–17:00 PT; adjust or drop if the
+		// practice is strictly by-appointment.
+		'openingHoursSpecification' => array(
+			array(
+				'@type'     => 'OpeningHoursSpecification',
+				'dayOfWeek' => array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ),
+				'opens'     => '09:00',
+				'closes'    => '17:00',
+			),
+		),
+		// Mirrors the on-page reviews band ("40+ Five-Star Google Reviews").
+		// Keep ratingValue/reviewCount in sync with what the page displays.
+		'aggregateRating' => array(
+			'@type'       => 'AggregateRating',
+			'ratingValue' => '5',
+			'bestRating'  => '5',
+			'reviewCount' => '40',
+		),
+	),
+	array(
+		'@type'       => 'WebSite',
+		'@id'         => $lapin_home . '#website',
+		'url'         => $lapin_home,
+		'name'        => Lapin::NAME,
+		'publisher'   => array( '@id' => $lapin_home . '#organization' ),
 	),
 	array(
 		'@type'       => 'WebPage',
@@ -58,7 +90,7 @@ $lapin_graph = array(
 		'url'         => $lapin_url,
 		'name'        => $lapin['title'],
 		'description' => $lapin['desc'],
-		'isPartOf'    => array( '@id' => $lapin_home . '#organization' ),
+		'isPartOf'    => array( '@id' => $lapin_home . '#website' ),
 	),
 );
 if ( ! empty( $lapin['breadcrumb'] ) ) {
@@ -127,6 +159,7 @@ foreach ( ( $lapin['schema'] ?? array() ) as $lapin_node ) {
 	<?php foreach ( ( $lapin['preload'] ?? array() ) as $lapin_preload ) : ?>
 	<link rel="preload"<?php foreach ( $lapin_preload as $lapin_attr => $lapin_val ) { printf( ' %s="%s"', esc_attr( $lapin_attr ), esc_attr( $lapin_val ) ); } ?>>
 	<?php endforeach; ?>
+	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-analytics.php'; ?>
 	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-font.php'; ?>
 	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-tokens.php'; ?>
 	<?php wp_head(); ?>

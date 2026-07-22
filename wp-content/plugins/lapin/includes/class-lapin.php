@@ -15,7 +15,7 @@ final class Lapin {
 	const NAME        = 'Lapin Negotiation Services';
 	const TAGLINE     = 'Building Bridges. Resolving Differences.';
 	// Client final revision 2026-07-22: single hero subline, body line retired.
-	const SUBLINE_LEAD = 'Trusted Mediation and Negotiation Services for Individuals, Businesses, Families, and Organizations';
+	const SUBLINE_LEAD = 'Trusted Mediation & Negotiation Services for Individuals, Families, Businesses and Organizations.';
 	const PHONE_LOCAL = '310-984-6952';
 	const PHONE_FREE  = '888-964-8884';
 	const PHONE_LOCAL_TEL = '+13109846952';
@@ -33,6 +33,12 @@ final class Lapin {
 	const LINKEDIN    = 'https://www.linkedin.com/company/lapin-negotiation-services/';
 	const FACEBOOK    = 'https://www.facebook.com/raphael.lapin';
 	const YOUTUBE     = 'https://www.youtube.com/channel/UCjk2jKQWC2SMIim4eR45wLw';
+
+	// Analytics / Search Console.
+	const GA4_ID           = 'G-YDVFENWDSD';           // GA4 Measurement ID (same property as the pre-redesign site).
+	const GSC_VERIFICATION = '';                        // Optional google-site-verification token; the meta tag is only emitted when non-empty. The live domain is already verified in Search Console, so this normally stays blank.
+	const PROD_HOSTS       = array( 'lapinnegotiationservices.com', 'www.lapinnegotiationservices.com' );
+	const CONSENT_COOKIE   = 'lapin_cookie_consent';    // First-party opt-out cookie: '' (unset) | 'accepted' | 'rejected'.
 
 	private static ?Lapin $instance = null;
 
@@ -84,6 +90,52 @@ final class Lapin {
 	/** One-line street address for display. */
 	public static function address_line(): string {
 		return self::ADDR_NAME . ', ' . self::ADDR_STREET . ', ' . self::ADDR_CITY . ', ' . self::ADDR_STATE . ' ' . self::ADDR_ZIP;
+	}
+
+	/**
+	 * Central gate for front-end analytics (GA4). Opt-out model, tuned for
+	 * California CCPA/CPRA. Returns false — GA4 is NOT emitted — when any of:
+	 *
+	 *  - Non-production host (the Local .local dev site, staging, previews). GA
+	 *    must only fire on the live domain so dev traffic never pollutes the data.
+	 *  - The visitor is logged in (client request: never track signed-in users).
+	 *  - The visitor clicked "Reject" in the cookie banner (opt-out cookie).
+	 *  - A Global Privacy Control signal is present (Sec-GPC: 1) and the visitor
+	 *    has not explicitly accepted on this site. CA law requires GPC to be
+	 *    honored as a valid opt-out of sale/sharing.
+	 *
+	 * Unset or "accepted" consent both allow tracking (opt-out model — GA loads
+	 * by default until rejected). Read by lapin-analytics.php and mirrored client
+	 * side by the cookie banner.
+	 */
+	public static function tracking_allowed(): bool {
+		$host = wp_parse_url( home_url(), PHP_URL_HOST );
+		if ( ! in_array( $host, self::PROD_HOSTS, true ) ) {
+			return false;
+		}
+		if ( is_user_logged_in() ) {
+			return false;
+		}
+		$consent = $_COOKIE[ self::CONSENT_COOKIE ] ?? '';
+		if ( 'rejected' === $consent ) {
+			return false;
+		}
+		// Global Privacy Control: honored unless the visitor explicitly accepted.
+		$gpc = '1' === ( $_SERVER['HTTP_SEC_GPC'] ?? '' );
+		if ( $gpc && 'accepted' !== $consent ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * True when the cookie banner / privacy-choices control should render.
+	 * Front-end, non-logged-in visitors only (signed-in users are never tracked,
+	 * so they are never prompted). Host-agnostic so the banner is testable on the
+	 * .local dev site — the prod-only rule lives in tracking_allowed() instead.
+	 */
+	public static function consent_ui_enabled(): bool {
+		return ! is_admin() && ! is_user_logged_in();
 	}
 
 	public static function activate(): void {

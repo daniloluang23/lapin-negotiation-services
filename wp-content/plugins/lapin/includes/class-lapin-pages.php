@@ -34,6 +34,8 @@ final class Lapin_Pages {
 		'dispute-resolution' => array( 'page-lapin-dispute-resolution.php', 'Dispute Resolution' ),
 		'mediation'          => array( 'page-lapin-mediation.php', 'Mediation' ),
 		'contact'            => array( 'page-lapin-contact.php', 'Contact' ),
+		'privacy-policy'     => array( 'page-lapin-privacy-policy.php', 'Privacy Policy' ),
+		'disclaimer'         => array( 'page-lapin-disclaimer.php', 'Disclaimer' ),
 	);
 
 	const HOME_TEMPLATE = 'page-lapin-home.php';

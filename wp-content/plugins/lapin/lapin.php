@@ -29,3 +29,17 @@ register_activation_hook( __FILE__, array( 'Lapin', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Lapin', 'deactivate' ) );
 
 add_action( 'plugins_loaded', array( 'Lapin', 'instance' ) );
+
+// Single injection point for the cookie consent banner. Every Lapin template
+// calls wp_footer(), so hooking here renders the banner site-wide without
+// per-template edits — front-end, non-logged-in visitors on Lapin pages only
+// (signed-in users are never tracked, so never prompted).
+add_action( 'wp_footer', static function () {
+	if ( ! Lapin::consent_ui_enabled() ) {
+		return;
+	}
+	if ( ! Lapin::instance()->pages->is_lapin_page() ) {
+		return;
+	}
+	require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-cookie-banner.php';
+} );
