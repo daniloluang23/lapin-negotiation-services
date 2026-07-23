@@ -12,6 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <footer class="foot">
+	<?php // Corner-sweep watermark: rises into the content just above the footer, on every page except home. ?>
+	<?php if ( 'home' !== ( $lapin['nav'] ?? '' ) ) : ?>
+	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-watermark.php'; ?>
+	<?php endif; ?>
 	<div class="wrap">
 		<div class="foot__mast">
 			<img src="<?php echo esc_url( Lapin::asset( 'images/logo-footer.webp' ) ); ?>" alt="<?php echo esc_attr( Lapin::NAME ); ?>" width="240" height="85" loading="lazy">

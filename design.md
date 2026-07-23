@@ -295,9 +295,13 @@ through every post and landing page via the `.post-cta` callout.
   removed (Founder duplicates the home page). The now text-only page is warmed to
   pale gold (`--color-paper-2`) with the cable-line **watermark** behind it for visual
   interest.
+- **Call FAB glyph** is now white (`#fff`) on the rosewood disc (client 2026-07-23).
 - **Watermark generalised + redrawn (client 2026-07-23):** `.contact-watermark` → a
-  shared `.watermark` utility (tokens) + a `lapin-watermark` partial, reused on Contact,
-  About and Practice Areas. The photo bridge watermark is **replaced by the corner-sweep
+  shared `.watermark` utility (tokens) + a `lapin-watermark` partial, emitted once from
+  the footer partial on **every page except the home page**, absolutely anchored to the
+  footer's top edge (`bottom:100%`) so it rises into the content just above the footer
+  and scrolls with the page (top of page stays clean; the dark CTA band caps the densest
+  lower portion). The photo bridge watermark is **replaced by the corner-sweep
   linework from the design handoff** (`claude-design/design_handoff_watermark/`): two fans
   of nested quadratic curves sweeping up from the bottom-left and bottom-right corners,
   fading toward the outer lines, centre left clear. Ported verbatim from the handoff's

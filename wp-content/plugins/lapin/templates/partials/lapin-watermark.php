@@ -40,9 +40,10 @@ $lapin_wm_fan = static function ( string $corner, int $count, float $spread, flo
 	return $out;
 };
 
-// Handoff parameters (final): left fan 26 lines; right fan 1.15× denser + wider.
-$lapin_wm_left  = $lapin_wm_fan( 'left', 26, 560.0, 620.0, 0.5 );
-$lapin_wm_right = $lapin_wm_fan( 'right', (int) round( 26 * 1.15 ), 660.0, 900.0, 0.5 );
+// Handoff geometry, scaled up for presence (a tall band clears the dark CTA band):
+// left fan 26 lines; right fan 1.15× denser + wider.
+$lapin_wm_left  = $lapin_wm_fan( 'left', 28, 610.0, 720.0, 0.5 );
+$lapin_wm_right = $lapin_wm_fan( 'right', (int) round( 28 * 1.15 ), 700.0, 1040.0, 0.5 );
 ?>
 <div class="watermark" aria-hidden="true">
 	<svg viewBox="0 0 1900 630" preserveAspectRatio="none" focusable="false" aria-hidden="true"><?php echo $lapin_wm_left . $lapin_wm_right; // phpcs:ignore WordPress.Security.EscapeOutput ?></svg>

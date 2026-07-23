@@ -434,7 +434,11 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
    and footer cover it. Reused on Contact, About and Practice Areas. Per-line
    opacity is baked in; --watermark-opacity dims the whole fan per page. */
 .watermark {
-	position: fixed; inset: 0; z-index: -1; pointer-events: none;
+	/* Anchored to the footer's top edge (bottom:100%), so the fan rises into the
+	   content directly above the footer; scrolls with the page, top stays clean.
+	   The dark CTA band, where present, caps off the densest lower portion. */
+	position: absolute; left: 0; right: 0; bottom: 100%; top: auto;
+	height: min(150vh, 1300px); z-index: -1; pointer-events: none;
 	color: #c9a188; /* handoff stroke (final) */
 	opacity: var(--watermark-opacity, 1);
 }
@@ -630,7 +634,7 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .hp-field { position: absolute; left: -999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* ── Footer (Ft-index: mast + 4 columns + newsletter) ───────────────── */
-.foot { background: var(--color-onyx); color: var(--color-ink-inverse-2); font-size: 0.9375rem; }
+.foot { position: relative; background: var(--color-onyx); color: var(--color-ink-inverse-2); font-size: 0.9375rem; }
 .foot .wrap { padding-block: var(--space-2xl) var(--space-xl); }
 .foot__mast { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--color-rule-onyx); }
 .foot__mast img { width: 240px; height: 85px; object-fit: contain; }

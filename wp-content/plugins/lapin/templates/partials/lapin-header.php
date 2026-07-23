@@ -37,10 +37,6 @@ $lapin_aria = static function ( string $key ) use ( $lapin_nav_current ): string
 };
 ?>
 <a class="skip-link" href="#main">Skip to content</a>
-<?php // Corner-sweep watermark on every page except the home page (fixed, behind all content). ?>
-<?php if ( 'home' !== $lapin_nav_current ) : ?>
-<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-watermark.php'; ?>
-<?php endif; ?>
 <div class="masthead">
 	<?php if ( 'home' !== $lapin_nav_current ) : ?>
 	<?php // Subpage masthead art = the home hero's recolored bridge layer, full-bleed and dimmed in CSS. Likely LCP image — preloaded in lapin-head.php, never lazy. ?>
