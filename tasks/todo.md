@@ -392,3 +392,131 @@ Client: "final edits before going live" + SEO checklist sent.
 - NOTE: Local GUI was closed mid-verify - services started headless per
       memory (mysqld/php-cgi/nginx) + temp node proxy on :80 (kill before
       starting Local GUI). SEO checklist audit = next task.
+
+---
+
+# Client punch list #7 (2026-07-23)
+
+## Context
+Client (Raphael) went through the site page-by-page after the pre-launch build and
+sent punch list #7 (mobile + general) plus a practice-areas mockup image and a
+follow-up email. Goal: apply his corrections, add one new local landing page
+(Orange County / Newport Beach), and introduce a subtle bronze "cable-line"
+watermark motif (from his mockup) to replace the photographic bridge watermark.
+Client decisions captured 2026-07-23: blog Ukraine/UAW posts already gone (no
+action); service CTA treatment to be designed via the hallmark skill; practice
+graphic = cable-line watermark; OC page = both services, /mediation-negotiation-orange-county/.
+
+## Plan
+
+### E. Cable-line watermark (shared, do FIRST — dependency for C/D/contact)
+- [ ] Recreate the cable-stayed "fanning cables" motif as a lightweight INLINE SVG
+      (brand bronze/rose-gold, very low opacity, no new image file / network request)
+- [ ] Promote to a shared class (generalize `.contact-watermark` → reusable `.watermark`
+      in lapin-tokens.php) + a small partial or helper so About / Practice / Contact reuse it
+- [ ] Subtlety: tasteful default opacity, easily tunable; verify it never hurts text contrast
+
+### A. Home page (page-lapin-home.php, lapin-page-hero.php, lapin-tokens.php)
+- [ ] A1 Remove hero diamond: delete `<span class="hero__divider">` (lapin-page-hero.php:35)
+      + `.hero__divider` CSS (lapin-tokens.php:316-321)
+- [ ] A2 Remove "Some of our clients" marquee (home:334-351), `.clients-band` rule (home:143),
+      `$lapin_clients` (home:88-98); remove shared `.marquee` CSS (tokens:569-593) AFTER
+      grep-confirming no other template uses `class="marquee"`
+- [ ] A3 "Whether you're facing…" landscape size: REPRODUCE in landscape emulation first
+      (no orientation query exists; `.lead` is fixed 1.25rem — cause is `.founder` grid
+      column width, tokens:128 + breakpoint 139-142). Fix so it reads like portrait.
+
+### B. Nav / Insights (lapin-header.php, lapin-footer.php, page-lapin-blog.php, class-lapin-pages.php)
+- [ ] B1 Rename label "Blog" → "Insights": header:23, footer:34, blog hero title
+      page-lapin-blog.php:37 + <title>:31, ROUTES title class-lapin-pages.php:37.
+      KEEP the `'blog'` array key + `/blog/` URL (drives aria-current + breadcrumbs/schema).
+- [ ] B2 Move Insights after Services, before Contact — desktop nav (after Services <li> ~:72)
+      AND mobile panel (~:97); pull from `$lapin_nav_items`, place before `contact`
+- [ ] B3 Fix stale blog-index meta desc (page-lapin-blog.php:32) "labor strikes to
+      international peace processes" → accurate to the 6 real articles
+
+### C. About Us (page-lapin-overview.php)
+- [ ] C1 Remove "The Founder" section (:101-114) + `.founder-figure` CSS (:62-65)
+- [ ] C2 Remove clients section (:160-171) + `$lapin_clients` (:41-50) + `.clients` CSS (:78)
+- [ ] C3 Remove Headquarters section (:173-187) + `.hq` CSS (:79-80)
+- [ ] C4 Add visual interest: cable-line watermark (E) + pale-gold `band--cream` treatment
+      on a section (reuse existing utility, tokens:392-394)
+
+### D. Practice Areas (page-lapin-practice-areas.php)
+- [ ] D1 Rename "Targeted Practice Areas"→"Practice Areas" + lede "targeted practice
+      areas"→"practice areas" (:18-19). (Nav/route/meta already correct.)
+- [ ] D2 Per-item icons: map 15 areas → Lucide icons; add NEW SVGs to assets/icons/
+      (building, house, scales, hard-hat, heart, file-text, feather, gavel, home-user…);
+      extend `$lapin_areas` to [label, icon]; render `Lapin::icon()` per <li> (icon left,
+      per mockup); reconcile with the `.areas h2::before` diamond marker (:54)
+- [ ] D3 Replace professions.webp figure (:71-73) + `.areas-figure` CSS (:56-60) with
+      cable-line watermark background (E)
+
+### F. Services pages (negotiation / dispute-resolution / mediation + lapin-page-hero.php, tokens)
+- [ ] F1 CTA: drop "with a specialist" (each template :20) → highlight as CTA.
+      USE hallmark skill to design the treatment (button vs gold box). Render in hero partial.
+- [ ] F2 Icons smaller & more subtle (all 3): `.split__media svg` width + opacity/mute
+      (tokens:457 desktop, :462 mobile)
+- [ ] F3 Mobile icon consistency: force icon to a uniform position (top/beginning) at
+      ≤1023px via order rule in the mobile media query (fixes flip/normal alternation)
+- [ ] F4 Negotiation reorder: move "Negotiation training" section (page-lapin-negotiation.php:66-90)
+      to LAST (after "Negotiation representation" ~:132, before CTA band :134).
+      Order: Why specialist → Advice & support → Representation → Training.
+      (Reordering preserves desktop split/flip zig-zag automatically.)
+
+### H. Orange County landing page (NEW)
+- [ ] H1 Route: add to class-lapin-pages.php ROUTES →
+      'mediation-negotiation-orange-county' => ['page-lapin-mediation-negotiation-orange-county.php',
+      'Mediation & Negotiation in Orange County']
+- [ ] H2 Template mirroring an existing city page (negotiation-services-los-angeles.php):
+      title/desc/path/body_class/breadcrumb/hero.eyebrow 'Orange County'/schema
+      (Service areaServed City "Orange County"; FAQPage) + `$lapin_faqs` + body.
+      Honesty: client DOES conduct mediations out of Newport Beach (factual — can state it).
+- [ ] H3 Footer Services-column link (matches other landing pages; not top nav)
+- [ ] H4 Reactivate plugin (or create page w/ matching slug) to render; sitemap auto-includes
+
+### I. Docs
+- [ ] Amend design.md: cable-line watermark replaces photo watermark (contact/about/practice);
+      Insights rename; practice-area icons; service CTA; About removals; OC landing page;
+      + content-law amendments
+
+## Verification
+- [ ] PHP lint every changed/new .php (Local bundled php.exe -l)
+- [ ] Smoke test: all pages + new OC page return 200
+- [ ] Mobile/puppeteer: A3 landscape reproduction+fix; F3 icon placement; F1 CTA; watermark subtlety
+- [ ] Reactivate plugin → OC page routes; verify nav order + Insights rename in both menus
+- [ ] Visual pass: About page (watermark + cream), Practice Areas icons + watermark, services icons
+
+## Pending client input (not blocking the above)
+- About Us: client said "a couple more ideas" coming — proceeding with watermark+cream now
+- Practice Areas: client's own graphics may replace the cable-line watermark later (easy swap)
+
+## Review (implemented 2026-07-23)
+All punch-list items above are implemented and PHP-lint clean (15 files). Notes:
+- **Watermark (E):** chose the client-approved *image* watermark (already on Contact)
+  over a new inline-SVG cable motif — reuses the preloaded bridge asset (zero extra
+  request), matches Contact exactly. Generalised `.contact-watermark` → shared
+  `.watermark` (tokens) + `lapin-watermark.php` partial; opacity via `--watermark-opacity`.
+  Contact migrated to the partial; About uses 0.20; Practice Areas uses the 0.14 default.
+- **A3 (landscape lead):** root cause was WebKit text auto-inflation on rotation, not a
+  font-size rule — fixed with `-webkit-text-size-adjust: 100%` on `html`. Also added
+  top margin to `.hero__lead` to replace the spacing the removed diamond provided
+  (client asked mid-task for "a bit of margin below Differences").
+- **F4 (Negotiation order):** moving the Training block to last also restored a clean
+  split→flip→split→flip zig-zag automatically (no class changes needed).
+- **D2 (icons):** 12 new Lucide SVGs downloaded to assets/icons/ (ISC). Structure is
+  `$lapin_areas => [label, icon]`; easy to swap for the client's own set later.
+- **Blog→Insights:** labels only; `/blog/` URL + `'blog'` route key kept (drive
+  aria-current + schema). ROUTES title also updated to "Insights" (affects new-page
+  creation only; the existing DB page title is cosmetic/admin-only).
+
+### Manual steps still required (site was stopped — could not run over HTTP)
+1. **Start the Local site**, then smoke-test: `for p in "" overview/ practice-areas/
+   negotiation/ dispute-resolution/ mediation/ contact/ blog/
+   mediation-negotiation-orange-county/; do curl -s -o /dev/null -w "$p %{http_code}\n"
+   "http://lapin-negotiation-services.local/$p"; done`
+2. **Reactivate the lapin plugin** (Plugins → deactivate/reactivate, non-destructive) so
+   the Orange County page row is created by `Lapin_Pages::activate()`. Until then
+   `/mediation-negotiation-orange-county/` 404s even though the route + template exist.
+3. Visual/mobile pass (puppeteer emulation): About cream+watermark, Practice Areas icons,
+   service-icon size + landscape lead + mobile icon-at-top, hero spacing after diamond removal.

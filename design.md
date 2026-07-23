@@ -281,6 +281,47 @@ Monica and the Westside" — never a Santa Monica address. All new copy is DRAFT
 pending client audit. CTAs (Schedule a Free Consultation / Call Now) are woven
 through every post and landing page via the `.post-cta` callout.
 
+**v2.6 — Punch-list revisions (2026-07-22, client-directed).**
+- **Insights rename:** the "Blog" label is now **"Insights"** everywhere user-facing
+  (nav, footer, page H1, `<title>`, Blog schema name). The `/blog/` URL + `'blog'`
+  route key are kept. Nav order changed: Insights now sits **after Services, before
+  Contact** (moved into `$lapin_nav_after`).
+- **Home hero:** the decorative diamond divider (`.hero__divider`) is removed; the
+  hero lead gains top margin to keep the H1↔subheading spacing. The "Some of our
+  clients" logo marquee section is removed from the home page (client: reads as
+  "corporate-only"; Client Experiences carries credibility). The shared `.marquee`
+  CSS is retired if unused.
+- **About Us:** the Founder, "Some of our clients", and Headquarters sections are
+  removed (Founder duplicates the home page). The now text-only page is warmed to
+  pale gold (`--color-paper-2`) with the cable-line **watermark** behind it for visual
+  interest.
+- **Watermark generalised + redrawn (client 2026-07-23):** `.contact-watermark` → a
+  shared `.watermark` utility (tokens) + a `lapin-watermark` partial, reused on Contact,
+  About and Practice Areas. The photo bridge watermark is **replaced by the corner-sweep
+  linework from the design handoff** (`claude-design/design_handoff_watermark/`): two fans
+  of nested quadratic curves sweeping up from the bottom-left and bottom-right corners,
+  fading toward the outer lines, centre left clear. Ported verbatim from the handoff's
+  `buildFan()` (viewBox 1900×630, `preserveAspectRatio="none"`; left fan 26 lines
+  spread 560 / reach 620, right fan 30 lines spread 660 / reach 900; per-line opacity
+  `0.5·(1−0.55t)`; stroke `#c9a188`). Zero image request; whole-fan strength tunable per
+  page via `--watermark-opacity`.
+- **Practice Areas:** "Targeted Practice Areas" → **"Practice Areas"** (H1 + lede).
+  Each of the 15 areas now shows a small, subtle Lucide icon (per the client's mockup);
+  the `professions.webp` figure is replaced by the shared watermark. New icons added to
+  `assets/icons/` (building-2, scale, hard-hat, heart-crack, hand-heart, house, building,
+  briefcase-medical, scroll-text, key-round, users-round, feather).
+- **Services pages:** the hero CTA drops "with a specialist" → **"Free Consultation"**,
+  rendered as a highlighted gold-outlined box (`.hero__cta`, hero partial `cta` config)
+  with the phone numbers as `tel:` links. Split-row icons are **smaller and more subtle**
+  (reduced width, 0.6 opacity, thinner stroke) and forced to the **start of every
+  section on mobile** (`.split__media { order: -1 }`). Negotiation page section order
+  is now Why → Advice & Support → Representation → **Training (last)**.
+- **Orange County landing page:** new `mediation-negotiation-orange-county` route +
+  template (Split Studio + FAQ, Service City=Orange County + FAQPage JSON-LD), linked
+  from the footer Services column. Honest framing: Raphael conducts mediations and
+  negotiations out of Newport Beach and throughout Orange County (client-stated fact);
+  no OC street address is claimed. Requires plugin reactivation to create the page.
+
 ## Performance law (95+ mobile/desktop, 100 SEO)
 
 - Zero builder CSS/JS; theme styles dequeued; WP head cruft stripped.

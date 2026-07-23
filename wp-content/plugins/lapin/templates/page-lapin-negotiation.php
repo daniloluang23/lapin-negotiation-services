@@ -17,7 +17,7 @@ $lapin = array(
 	'hero'       => array(
 		'eyebrow' => 'Services',
 		'title'   => 'Negotiation Services',
-		'lede'    => 'Free consultation with a specialist — call ' . Lapin::PHONE_LOCAL . ' or toll-free ' . Lapin::PHONE_FREE . '.',
+		'cta'     => 'Free Consultation',
 	),
 	'schema'     => array(
 		array(
@@ -63,32 +63,6 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 		</div>
 	</section>
 
-	<section class="sec" id="negotiation-training">
-		<div class="wrap">
-			<div class="split split--flip">
-				<figure class="split__media" aria-hidden="true">
-					<?php echo Lapin::icon( 'briefcase-business' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				</figure>
-				<div>
-					<div class="sec-head">
-						<h2>Negotiation training</h2>
-					</div>
-					<div class="prose">
-						<p class="lead">Are you looking to improve your negotiation and communication skills, achieve better outcomes, project confidence, and build stronger relationships?</p>
-						<p>Our negotiation training services can help you do all that and more. Our specialists have a proven track record of delivering highly effective, transformative programs to Fortune 100 companies, resulting in measurable and considerable results that further our clients’ business objectives and generate swift returns on training investment.</p>
-						<p>Our training programs are tailored to meet your specific goals and needs, and can be delivered one-on-one, in teams, or to larger groups. They are designed to be practical and hands-on, and will provide you with the opportunity to practice and hone your skills through role-playing and other interactive exercises. Some of the benefits of our negotiation training services include:</p>
-						<ul class="svc-list">
-							<li><strong>Customized training:</strong> We’ll work with you to understand your specific needs and design a program that meets those needs. This may include in-person training sessions, online coursework, or a combination of both.</li>
-							<li><strong>Practical experience:</strong> Our training programs are designed to be practical and hands-on, giving you the opportunity to apply your new skills in realistic scenarios.</li>
-							<li><strong>Measurable results:</strong> Our programs have a proven track record of delivering measurable and considerable results that further our clients’ business objectives and generate swift returns on training investment.</li>
-						</ul>
-						<p>Don’t let your negotiation and communication skills hold you back — let us help you take your career to the next level. Contact us today to schedule a free consultation and learn more about how we can help you.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
 	<section class="sec" id="negotiation-advice">
 		<div class="wrap">
 			<div class="split split--flip">
@@ -127,6 +101,32 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 				<figure class="split__media" aria-hidden="true">
 					<?php echo Lapin::icon( 'user-round-check' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				</figure>
+			</div>
+		</div>
+	</section>
+
+	<section class="sec" id="negotiation-training">
+		<div class="wrap">
+			<div class="split split--flip">
+				<figure class="split__media" aria-hidden="true">
+					<?php echo Lapin::icon( 'briefcase-business' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				</figure>
+				<div>
+					<div class="sec-head">
+						<h2>Negotiation training</h2>
+					</div>
+					<div class="prose">
+						<p class="lead">Are you looking to improve your negotiation and communication skills, achieve better outcomes, project confidence, and build stronger relationships?</p>
+						<p>Our negotiation training services can help you do all that and more. Our specialists have a proven track record of delivering highly effective, transformative programs to Fortune 100 companies, resulting in measurable and considerable results that further our clients’ business objectives and generate swift returns on training investment.</p>
+						<p>Our training programs are tailored to meet your specific goals and needs, and can be delivered one-on-one, in teams, or to larger groups. They are designed to be practical and hands-on, and will provide you with the opportunity to practice and hone your skills through role-playing and other interactive exercises. Some of the benefits of our negotiation training services include:</p>
+						<ul class="svc-list">
+							<li><strong>Customized training:</strong> We’ll work with you to understand your specific needs and design a program that meets those needs. This may include in-person training sessions, online coursework, or a combination of both.</li>
+							<li><strong>Practical experience:</strong> Our training programs are designed to be practical and hands-on, giving you the opportunity to apply your new skills in realistic scenarios.</li>
+							<li><strong>Measurable results:</strong> Our programs have a proven track record of delivering measurable and considerable results that further our clients’ business objectives and generate swift returns on training investment.</li>
+						</ul>
+						<p>Don’t let your negotiation and communication skills hold you back — let us help you take your career to the next level. Contact us today to schedule a free consultation and learn more about how we can help you.</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>

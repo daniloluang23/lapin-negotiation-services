@@ -1,9 +1,11 @@
 <?php
 /**
  * About Us (/overview/) — Long Document: continuous editorial prose with
- * inline section heads. All live-site anchors preserved (#the-firm,
- * #the-founder, #unlitigation, #media-appearances, #why-us,
- * #mission-vision, #clients). Copy retained verbatim.
+ * inline section heads (#the-firm, #media-appearances, #why-us,
+ * #mission-vision). Copy retained verbatim. Client 2026-07-22: the Founder,
+ * clients and Headquarters sections were removed (Founder duplicates the home
+ * page) and the page warmed to pale gold + a bridge watermark for visual
+ * interest.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -37,18 +39,6 @@ $lapin_media_list = array(
 	array( 'Mediation: Raphael Lapin’s Recipe for Success', home_url( '/#media-recipe-success' ) ),
 );
 
-// The staging site's own rose-tint monochrome logo art, uniform 150x70.
-$lapin_clients = array(
-	array( 'client-microsoft-tint.webp', 'Microsoft' ),
-	array( 'client-att-tint.webp', 'AT&T' ),
-	array( 'client-yahoo-tint.webp', 'Yahoo' ),
-	array( 'client-bt-tint.webp', 'BT' ),
-	array( 'client-booz-tint.webp', 'Booz Allen Hamilton' ),
-	array( 'client-air_force-tint.webp', 'United States Air Force' ),
-	array( 'client-qatar-tint.webp', 'State of Qatar' ),
-	array( 'client-uae-tint.webp', 'United Arab Emirates' ),
-);
-
 ?>
 <style>
 	.doc { max-width: none; }
@@ -59,10 +49,10 @@ $lapin_clients = array(
 	.doc-list { list-style: none; margin: 0 0 var(--space-md); padding: 0; }
 	.doc-list li { position: relative; padding-left: 1.5rem; margin-bottom: var(--space-sm); color: var(--color-ink-2); }
 	.doc-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.5rem; height: 0.5rem; background: var(--color-accent); }
-	.founder-figure { float: right; width: min(45%, 23rem); margin: 0 0 var(--space-md) var(--space-xl); }
-	.founder-figure img { width: 100%; height: auto; border-radius: var(--radius-card); }
-	.founder-figure figcaption { font-size: var(--text-sm); color: var(--color-muted); margin-top: var(--space-xs); }
-	@media (max-width: 40rem) { .founder-figure { float: none; width: min(70%, 18rem); margin: 0 0 var(--space-md); } }
+	/* Client 2026-07-22: the page is now text-only (Founder/clients/HQ removed),
+	   so warm the whole canvas to the brand's pale gold and float the cable-line
+	   watermark behind it (shared default opacity) for visual interest. */
+	.page-overview { background: var(--color-paper-2); }
 	.media-list { list-style: none; margin: 0; padding: 0; max-width: none; }
 	.media-list li { border-top: 1px solid var(--color-rule); }
 	.media-list li:last-child { border-bottom: 1px solid var(--color-rule); }
@@ -75,12 +65,10 @@ $lapin_clients = array(
 	.mission { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2xl); }
 	.mission > div { border-top: 2px solid var(--color-accent); padding-top: var(--space-md); }
 	@media (max-width: 40rem) { .mission { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); } }
-	.clients { display: flex; flex-wrap: wrap; gap: var(--space-xl) var(--space-2xl); align-items: center; }
-	.hq { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-2xl); align-items: center; }
-	@media (max-width: 59.9375rem) { .hq { grid-template-columns: minmax(0, 1fr); } }
 </style>
 
 <main id="main">
+	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-watermark.php'; ?>
 	<div class="wrap">
 		<div class="doc">
 			<section id="the-firm">
@@ -95,21 +83,6 @@ $lapin_clients = array(
 						<li><strong>Mediation and dispute resolution services:</strong> We offer a range of services to help resolve conflicts and disputes, including mediation and other forms of alternative dispute resolution.</li>
 					</ul>
 					<p>At Lapin Negotiation Services, we work with a wide range of clients, including individuals, families, businesses, professional groups, corporations, and government entities. Whether you are facing a challenging negotiation or a difficult dispute, we have the skills and experience to help you find a resolution. Contact us today to learn more about how we can help you.</p>
-				</div>
-			</section>
-
-			<section id="the-founder">
-				<div class="sec-head">
-					<h2>The founder</h2>
-				</div>
-				<figure class="founder-figure">
-					<img src="<?php echo esc_url( Lapin::asset( 'images/raphael-lapin.webp' ) ); ?>" alt="Raphael E. Lapin" width="399" height="559" loading="lazy">
-					<figcaption>Raphael E. Lapin, Principal</figcaption>
-				</figure>
-				<div class="prose">
-					<p>Raphael Lapin is a renowned Harvard-trained expert in the fields of negotiation, mediation, and dispute resolution. With over 25 years of experience, he has made significant contributions to the field by shifting away from traditional adversarial approaches and promoting a more authentic process of dialogue, understanding, and collaborative problem-solving. His approach has resulted in optimal agreements, strong working relationships, and mutually satisfying resolutions.</p>
-					<p>In addition to his practice, Raphael has also made significant contributions to the education of future leaders in the field. He has served as an adjunct professor of law at Whittier School of Law, teaching negotiation and mediation to third-year law students, as well as a visiting professor of law at Southwestern School of Law, where he taught international conflict resolution.</p>
-					<p>His expertise and knowledge have also been shared with the wider public through his published articles in several notable publications such as USA Today, Jerusalem Post, Ahram, Foreign Policy News, The International Crisis Group’s Ethiopia Insights and The Diplomatist. Raphael Lapin is a true leader and a valuable asset to the negotiation and dispute resolution community.</p>
 				</div>
 			</section>
 
@@ -153,35 +126,6 @@ $lapin_clients = array(
 					<h2>Our vision</h2>
 					<p>To influence the negotiation and dispute resolution landscape and transform it from adversarial posturing and positioning to an authentic and collaborative process of seeking joint solutions to conflicting needs.</p>
 				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="sec" id="clients">
-		<div class="wrap">
-			<div class="sec-head">
-				<h2>Some of our clients</h2>
-			</div>
-			<div class="clients">
-				<?php foreach ( $lapin_clients as $lapin_client ) : ?>
-				<img src="<?php echo esc_url( Lapin::asset( 'images/' . $lapin_client[0] ) ); ?>" alt="<?php echo esc_attr( $lapin_client[1] ); ?>" width="150" height="70" loading="lazy">
-				<?php endforeach; ?>
-			</div>
-		</div>
-	</section>
-
-	<section class="sec sec--tight">
-		<div class="wrap">
-			<div class="hq">
-				<div>
-					<div class="sec-head">
-						<h2>Our headquarters</h2>
-					</div>
-					<p class="prose"><?php echo esc_html( Lapin::address_line() ); ?> — <a href="<?php echo esc_url( Lapin::MAPS_URL ); ?>" rel="noopener" target="_blank">view on Google Maps</a>.</p>
-				</div>
-				<figure>
-					<img src="<?php echo esc_url( Lapin::asset( 'images/headquarters.webp' ) ); ?>" alt="The Tower building at 10940 Wilshire Blvd, Los Angeles — Lapin Negotiation Services headquarters" width="518" height="642" loading="lazy" style="width: min(100%, 20rem); border-radius: var(--radius-card);">
-				</figure>
 			</div>
 		</div>
 	</section>

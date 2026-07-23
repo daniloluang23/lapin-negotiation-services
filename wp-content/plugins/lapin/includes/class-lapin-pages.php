@@ -34,12 +34,13 @@ final class Lapin_Pages {
 		'dispute-resolution' => array( 'page-lapin-dispute-resolution.php', 'Dispute Resolution' ),
 		'mediation'          => array( 'page-lapin-mediation.php', 'Mediation' ),
 		'contact'            => array( 'page-lapin-contact.php', 'Contact' ),
-		'blog'               => array( 'page-lapin-blog.php', 'Blog' ),
+		'blog'               => array( 'page-lapin-blog.php', 'Insights' ),
 		// Service/location landing pages (SEO — target the site's highest-impression
 		// commercial queries; see tasks/todo.md 2026-07-22 SEO batch).
 		'negotiation-services-los-angeles' => array( 'page-lapin-negotiation-services-los-angeles.php', 'Negotiation Services in Los Angeles' ),
 		'adr-services-santa-monica'        => array( 'page-lapin-adr-services-santa-monica.php', 'ADR & Dispute Resolution in Santa Monica' ),
 		'divorce-mediation-los-angeles'    => array( 'page-lapin-divorce-mediation-los-angeles.php', 'Divorce Mediation in Los Angeles' ),
+		'mediation-negotiation-orange-county' => array( 'page-lapin-mediation-negotiation-orange-county.php', 'Mediation & Negotiation in Orange County' ),
 		'privacy-policy'     => array( 'page-lapin-privacy-policy.php', 'Privacy Policy' ),
 		'disclaimer'         => array( 'page-lapin-disclaimer.php', 'Disclaimer' ),
 	);

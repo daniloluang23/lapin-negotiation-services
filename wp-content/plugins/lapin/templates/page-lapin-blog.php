@@ -28,13 +28,13 @@ foreach ( $lapin_posts as $lapin_post ) {
 }
 
 $lapin = array(
-	'title'      => 'Blog | Negotiation & Dispute Resolution Insights | Lapin Negotiation Services',
-	'desc'       => 'Articles and commentary on negotiation, mediation and dispute resolution by Harvard-trained negotiator Raphael Lapin — from labor strikes to international peace processes.',
+	'title'      => 'Insights | Negotiation, Mediation & Dispute Resolution | Lapin Negotiation Services',
+	'desc'       => 'Insights and commentary on negotiation, mediation and dispute resolution by Harvard-trained negotiator Raphael Lapin — practical guidance for businesses, families and organizations.',
 	'path'       => 'blog/',
 	'nav'        => 'blog',
 	'body_class' => 'page-blog',
 	'hero'       => array(
-		'title' => 'Blog',
+		'title' => 'Insights',
 		'lede'  => 'Commentary on negotiation, mediation and dispute resolution by Raphael Lapin.',
 	),
 	'schema'     => array(
@@ -42,7 +42,7 @@ $lapin = array(
 			'@type'    => 'Blog',
 			'@id'      => home_url( '/blog/' ) . '#blog',
 			'url'      => home_url( '/blog/' ),
-			'name'     => Lapin::NAME . ' Blog',
+			'name'     => Lapin::NAME . ' Insights',
 			'blogPost' => $lapin_blog_nodes,
 		),
 	),

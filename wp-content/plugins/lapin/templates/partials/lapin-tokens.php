@@ -105,7 +105,7 @@ define( 'LAPIN_TOKENS_EMITTED', true );
 /* ── Base ───────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { overflow-x: clip; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
 	margin: 0;
@@ -313,15 +313,9 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
    (client: "the same darker gold as the Schedule block"), first stays light. */
 .hero__line--accent { color: var(--color-accent); }
 .hero--home .hero__copy { max-width: 40rem; }
-.hero__divider {
-	display: block; width: 0.875rem; height: 0.875rem;
-	margin: var(--space-lg) 0 var(--space-lg) var(--space-2xs); background: var(--color-accent);
-	/* clip-path, not transform: the .reveal keyframe ends at transform:none. */
-	clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-}
 .hero__lead {
 	font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg);
-	line-height: 1.3; color: var(--color-hero-text); margin: 0 0 var(--space-sm);
+	line-height: 1.3; color: var(--color-hero-text); margin: var(--space-lg) 0 var(--space-sm);
 }
 .hero__sub {
 	font-size: var(--text-md); line-height: 1.6; color: var(--color-ink-inverse-2);
@@ -379,6 +373,26 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .hero--page .wrap { padding-block: var(--space-2xl) var(--space-2xl); }
 .hero--page h1 { font-size: var(--text-3xl); max-width: 24ch; }
 .hero--page .hero__sub { font-size: var(--text-base); margin-top: var(--space-sm); }
+/* Highlighted free-consultation CTA in the service-page hero (client 2026-07-22:
+   "highlight that call to action … minimally a gold box"). Gold-outlined chip
+   over the onyx masthead, phone numbers as tel: links. */
+.hero__cta {
+	display: inline-flex; flex-wrap: wrap; align-items: baseline;
+	gap: var(--space-2xs) var(--space-md); margin-top: var(--space-lg);
+	padding: var(--space-sm) var(--space-lg);
+	border: 1.5px solid var(--color-gold); border-radius: var(--radius-card);
+	background: rgb(209 191 167 / 0.08);
+}
+.hero__cta-label {
+	font-family: var(--font-display); font-weight: 700; font-size: var(--text-md);
+	letter-spacing: var(--tracking-display); color: var(--color-gold);
+}
+.hero__cta-lines { font-size: var(--text-base); color: var(--color-ink-inverse-2); }
+.hero__cta-lines a {
+	color: var(--color-ink-inverse); text-decoration: underline;
+	text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 3px;
+}
+.hero__cta-lines a:hover { color: var(--color-gold); }
 @media (max-width: 63.9375rem) {
 	.hero .wrap { padding-block: var(--space-xl) var(--space-2xl); }
 }
@@ -411,6 +425,21 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .prose { max-width: none; }
 .prose p { color: var(--color-ink-2); }
 .hairline { border: 0; border-top: 1px solid var(--color-rule); margin: 0; }
+
+/* ── Whole-page corner-sweep watermark (shared) ─────────────────────────
+   Fans of thin quadratic curves sweeping up from the bottom corners, fading
+   outward (inline SVG, no image request — see lapin-watermark.php; ported from
+   claude-design/design_handoff_watermark). Fixed behind the page: z-index -1
+   paints it above the body paper but under all content; onyx bands, CTA band
+   and footer cover it. Reused on Contact, About and Practice Areas. Per-line
+   opacity is baked in; --watermark-opacity dims the whole fan per page. */
+.watermark {
+	position: fixed; inset: 0; z-index: -1; pointer-events: none;
+	color: #c9a188; /* handoff stroke (final) */
+	opacity: var(--watermark-opacity, 1);
+}
+.watermark svg { width: 100%; height: 100%; display: block; }
+.watermark path { fill: none; stroke: currentColor; stroke-width: 1; }
 
 /* ── Cards + blog (index grid, post teasers) ────────────────────────── */
 .card {
@@ -454,12 +483,17 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .split, .split--flip { display: grid; grid-template-columns: minmax(0, 65fr) minmax(0, 35fr); gap: var(--space-2xl); align-items: center; }
 .split--flip > :first-child { order: 2; }
 .split__media img { width: min(100%, 22rem); margin-inline: auto; }
-.split__media svg { width: min(70%, 13rem); height: auto; aspect-ratio: 1; display: block; margin-inline: auto; color: var(--color-accent); }
+/* Client 2026-07-22: smaller + more subtle — reduced footprint, muted opacity,
+   thinner stroke so the icons read as quiet accents, not focal art. */
+.split__media svg { width: min(48%, 8.5rem); height: auto; aspect-ratio: 1; display: block; margin-inline: auto; color: var(--color-accent); opacity: 0.6; stroke-width: 1.5; }
 @media (max-width: 63.9375rem) {
 	.split, .split--flip { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
 	.split--flip > :first-child { order: 0; }
-	.split__media img { width: min(60%, 16rem); margin-inline: 0; }
-	.split__media svg { width: min(40%, 10rem); margin-inline: 0; }
+	/* Client 2026-07-22: icons consistently at the START of every section on
+	   mobile — force the media figure first regardless of the desktop flip. */
+	.split__media { order: -1; }
+	.split__media img { width: min(45%, 12rem); margin-inline: 0; }
+	.split__media svg { width: 3.5rem; margin-inline: 0; }
 }
 
 /* ── Media wall (facades — no carousel) ─────────────────────────────── */
@@ -566,32 +600,6 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 }
 .ti-badge:hover { text-decoration: underline; text-underline-offset: 3px; }
 
-/* ── Client logo marquee — contained in the content column, soft edge
-      fade (client direction: never full-bleed) ──────────────────────── */
-.marquee {
-	overflow: hidden; position: relative;
-	-webkit-mask-image: linear-gradient(90deg, transparent, black 7%, black 93%, transparent);
-	mask-image: linear-gradient(90deg, transparent, black 7%, black 93%, transparent);
-}
-.marquee__track {
-	display: flex; align-items: center; gap: var(--space-2xl);
-	width: max-content;
-	animation: lapin-marquee 36s linear infinite;
-}
-.marquee:hover .marquee__track, .marquee:focus-within .marquee__track { animation-play-state: paused; }
-@keyframes lapin-marquee { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) {
-	.marquee__track { animation: none; width: auto; flex-wrap: wrap; gap: var(--space-xl) var(--space-2xl); justify-content: center; }
-	.marquee__track > [aria-hidden="true"] { display: none; }
-}
-/* Static-wrap fallback on phones: the 64px column gap fits only one 150px
-   logo per row (client report: "stacked on top of each other") — tighten
-   the gap and half-width the logos so at least two share each row. */
-@media (prefers-reduced-motion: reduce) and (max-width: 40rem) {
-	.marquee__track { gap: var(--space-lg); }
-	.marquee__track img { width: calc(50% - (var(--space-lg) / 2)); max-width: 150px; height: auto; }
-}
-
 /* ── CTA band ───────────────────────────────────────────────────────── */
 .cta-band { background: var(--color-onyx); }
 .cta-band .wrap { padding-block: var(--space-2xl); }
@@ -682,6 +690,5 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 	.reveal { animation: lapin-reveal 150ms linear forwards; transform: none; }
 	.rv--set { transform: none; transition-delay: 0s; }
 	.btn:hover, .btn:active { transform: none; }
-	.marquee__track { animation: none !important; }
 }
 </style>

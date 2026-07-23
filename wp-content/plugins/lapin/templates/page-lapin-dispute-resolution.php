@@ -17,7 +17,7 @@ $lapin = array(
 	'hero'       => array(
 		'eyebrow' => 'Services',
 		'title'   => 'Dispute Resolution Services',
-		'lede'    => 'Free consultation with a specialist — call ' . Lapin::PHONE_LOCAL . ' or toll-free ' . Lapin::PHONE_FREE . '.',
+		'cta'     => 'Free Consultation',
 	),
 	'schema'     => array(
 		array(

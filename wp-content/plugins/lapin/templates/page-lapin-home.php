@@ -2,7 +2,7 @@
 /**
  * Home — split tagline hero on the shared bridge masthead (copy left, art
  * right), credentials band, practice areas, founder diptych, reviews grid,
- * client-logo marquee, media wall (static grid), four qualification cards,
+ * media wall (static grid), four qualification cards,
  * CTA band. Section order mirrors the approved staging design; body copy
  * verbatim except client-directed changes (see design.md content law).
  */
@@ -85,18 +85,6 @@ $lapin_media = array(
 	),
 );
 
-// The staging site's own rose-tint monochrome logo art, uniform 150x70.
-$lapin_clients = array(
-	array( 'client-microsoft-tint.webp', 'Microsoft' ),
-	array( 'client-att-tint.webp', 'AT&T' ),
-	array( 'client-yahoo-tint.webp', 'Yahoo' ),
-	array( 'client-bt-tint.webp', 'BT' ),
-	array( 'client-booz-tint.webp', 'Booz Allen Hamilton' ),
-	array( 'client-air_force-tint.webp', 'United States Air Force' ),
-	array( 'client-qatar-tint.webp', 'State of Qatar' ),
-	array( 'client-uae-tint.webp', 'United Arab Emirates' ),
-);
-
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-head.php';
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 ?>
@@ -140,7 +128,6 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 		.founder { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
 		.founder__portrait img { width: min(60%, 18rem); }
 	}
-	.clients-band .sec-head { margin-bottom: var(--space-lg); }
 	.pa-head { text-align: center; }
 	.pa-head::after { margin-inline: auto; }
 	.pa-grid {
@@ -327,25 +314,6 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 					Verified by Trustindex
 					<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.4"/><path d="M8 7v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="4.6" r="0.9" fill="currentColor"/></svg>
 				</a>
-			</div>
-		</div>
-	</section>
-
-	<section class="sec sec--tight band--cream clients-band" aria-label="Clients">
-		<div class="wrap">
-			<div class="sec-head rv">
-				<span class="sec-head__eyebrow">Our Clients</span>
-				<h2>Some of our clients</h2>
-			</div>
-			<div class="marquee" aria-label="Client logos">
-				<div class="marquee__track">
-					<?php foreach ( $lapin_clients as $lapin_client ) : ?>
-					<img src="<?php echo esc_url( Lapin::asset( 'images/' . $lapin_client[0] ) ); ?>" alt="<?php echo esc_attr( $lapin_client[1] ); ?>" width="150" height="70" loading="lazy">
-					<?php endforeach; ?>
-					<?php foreach ( $lapin_clients as $lapin_client ) : // duplicate track for the seamless loop ?>
-					<img src="<?php echo esc_url( Lapin::asset( 'images/' . $lapin_client[0] ) ); ?>" alt="" aria-hidden="true" width="150" height="70" loading="lazy">
-					<?php endforeach; ?>
-				</div>
 			</div>
 		</div>
 	</section>

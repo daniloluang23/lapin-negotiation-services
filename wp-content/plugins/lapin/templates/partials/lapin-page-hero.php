@@ -32,7 +32,6 @@ if ( 'home' === ( $lapin_hero_cfg['type'] ?? '' ) ) : ?>
 		<div class="hero__copy">
 			<?php // H1 wording mirrors Lapin::TAGLINE — keep them in sync. ?>
 			<h1 class="reveal" style="--i:0"><span class="hero__line">Building Bridges.</span> <span class="hero__line hero__line--accent">Resolving Differences.</span></h1>
-			<span class="hero__divider reveal" style="--i:1" aria-hidden="true"></span>
 			<p class="hero__lead reveal" style="--i:1"><?php echo esc_html( Lapin::SUBLINE_LEAD ); ?></p>
 			<div class="hero__actions reveal" style="--i:2">
 				<a class="btn btn--rose" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Schedule a Free Consultation</a>
@@ -50,6 +49,13 @@ if ( 'home' === ( $lapin_hero_cfg['type'] ?? '' ) ) : ?>
 		<h1 class="reveal" style="--i:1"><?php echo esc_html( $lapin_hero_cfg['title'] ); ?></h1>
 		<?php if ( ! empty( $lapin_hero_cfg['lede'] ) ) : ?>
 		<p class="hero__sub reveal" style="--i:2"><?php echo esc_html( $lapin_hero_cfg['lede'] ); ?></p>
+		<?php endif; ?>
+		<?php // Highlighted free-consultation CTA (service pages). Label is configurable; phone numbers come from the Lapin constants. ?>
+		<?php if ( ! empty( $lapin_hero_cfg['cta'] ) ) : ?>
+		<div class="hero__cta reveal" style="--i:2">
+			<span class="hero__cta-label"><?php echo esc_html( is_string( $lapin_hero_cfg['cta'] ) ? $lapin_hero_cfg['cta'] : 'Free Consultation' ); ?></span>
+			<span class="hero__cta-lines">Call <a href="tel:<?php echo esc_attr( Lapin::PHONE_LOCAL_TEL ); ?>"><?php echo esc_html( Lapin::PHONE_LOCAL ); ?></a> · toll-free <a href="tel:<?php echo esc_attr( Lapin::PHONE_FREE_TEL ); ?>"><?php echo esc_html( Lapin::PHONE_FREE ); ?></a></span>
+		</div>
 		<?php endif; ?>
 	</div>
 </div>

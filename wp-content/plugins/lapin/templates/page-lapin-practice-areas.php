@@ -15,30 +15,32 @@ $lapin = array(
 	'nav'        => 'practice-areas',
 	'body_class' => 'page-practice-areas',
 	'hero'       => array(
-		'title' => 'Targeted Practice Areas',
-		'lede'  => 'We provide both online and in-person negotiation and mediation services in these targeted practice areas.',
+		'title' => 'Practice Areas',
+		'lede'  => 'We provide both online and in-person negotiation and mediation services in these practice areas.',
 	),
 );
 
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-head.php';
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 
+// [ label, Lucide icon ] — client 2026-07-22: a small icon beside each area
+// (matches the client's supplied mockup). Icons live in assets/icons/.
 $lapin_areas = array(
-	'Commercial Disputes',
-	'Contract Negotiations and Disputes',
-	'Civil Disputes',
-	'Contractor and Construction',
-	'Divorce',
-	'Elder Care',
-	'Family & Family Business Disputes',
-	'Homeowner Association Issues',
-	'Landlord/Tenant Disputes',
-	'Malpractice',
-	'Contested Probate Disputes',
-	'Real Estate',
-	'Union Negotiations',
-	'Wills and Trusts',
-	'Workplace Issues',
+	array( 'Commercial Disputes', 'building-2' ),
+	array( 'Contract Negotiations and Disputes', 'handshake' ),
+	array( 'Civil Disputes', 'scale' ),
+	array( 'Contractor and Construction', 'hard-hat' ),
+	array( 'Divorce', 'heart-crack' ),
+	array( 'Elder Care', 'hand-heart' ),
+	array( 'Family & Family Business Disputes', 'users' ),
+	array( 'Homeowner Association Issues', 'house' ),
+	array( 'Landlord/Tenant Disputes', 'building' ),
+	array( 'Malpractice', 'briefcase-medical' ),
+	array( 'Contested Probate Disputes', 'scroll-text' ),
+	array( 'Real Estate', 'key-round' ),
+	array( 'Union Negotiations', 'users-round' ),
+	array( 'Wills and Trusts', 'feather' ),
+	array( 'Workplace Issues', 'briefcase-business' ),
 );
 ?>
 <style>
@@ -49,28 +51,22 @@ $lapin_areas = array(
 	.areas li { break-inside: avoid; border-bottom: 1px solid var(--color-rule); }
 	.areas h2 {
 		font-size: var(--text-md); font-weight: 650; margin: 0;
-		padding: var(--space-md) 0; display: flex; gap: var(--space-sm); align-items: baseline;
+		padding: var(--space-md) 0; display: flex; gap: var(--space-md); align-items: center;
 	}
-	.areas h2::before { content: ""; width: 0.5rem; height: 0.5rem; background: var(--color-accent); flex-shrink: 0; transform: translateY(-2px); }
+	/* Small, subtle per-area icon (client mockup 2026-07-22). */
+	.areas h2 svg { width: 1.35rem; height: 1.35rem; flex-shrink: 0; color: var(--color-accent); stroke-width: 1.75; opacity: 0.85; }
 	@media (max-width: 40rem) { .areas { columns: 1; } }
-	.areas-figure {
-		margin: var(--space-2xl) 0 0;
-		background: var(--color-onyx); border-radius: var(--radius-card);
-		padding: var(--space-xl) var(--space-lg);
-	}
 </style>
 
 <main id="main">
+	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-watermark.php'; ?>
 	<section class="sec">
 		<div class="wrap">
 			<ul class="areas">
 				<?php foreach ( $lapin_areas as $lapin_area ) : ?>
-				<li><h2><?php echo esc_html( $lapin_area ); ?></h2></li>
+				<li><h2><?php echo Lapin::icon( $lapin_area[1] ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( $lapin_area[0] ); ?></h2></li>
 				<?php endforeach; ?>
 			</ul>
-			<figure class="areas-figure">
-				<img src="<?php echo esc_url( Lapin::asset( 'images/professions.webp' ) ); ?>" alt="Illustration of the professions and industries Lapin Negotiation Services works with" width="1600" height="501" loading="lazy">
-			</figure>
 		</div>
 	</section>
 

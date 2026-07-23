@@ -20,14 +20,16 @@ $lapin_nav_items   = array(
 	'home'           => array( home_url( '/' ), 'Home' ),
 	'overview'       => array( home_url( '/overview/' ), 'About Us' ),
 	'practice-areas' => array( home_url( '/practice-areas/' ), 'Practice Areas' ),
-	'blog'           => array( home_url( '/blog/' ), 'Blog' ),
 );
 $lapin_nav_services = array(
 	'negotiation'        => array( home_url( '/negotiation/' ), 'Negotiation' ),
 	'dispute-resolution' => array( home_url( '/dispute-resolution/' ), 'Dispute Resolution' ),
 	'mediation'          => array( home_url( '/mediation/' ), 'Mediation' ),
 );
+// Client 2026-07-22: "Blog" → "Insights", placed after Services, before Contact.
+// The 'blog' key + /blog/ URL are kept (drive aria-current + breadcrumbs/schema).
 $lapin_nav_after = array(
+	'blog'    => array( home_url( '/blog/' ), 'Insights' ),
 	'contact' => array( home_url( '/contact/' ), 'Contact' ),
 );
 $lapin_aria = static function ( string $key ) use ( $lapin_nav_current ): string {
