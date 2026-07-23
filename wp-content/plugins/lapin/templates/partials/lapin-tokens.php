@@ -436,14 +436,40 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .watermark {
 	/* Anchored to the footer's top edge (bottom:100%), so the fan rises into the
 	   content directly above the footer; scrolls with the page, top stays clean.
-	   The dark CTA band, where present, caps off the densest lower portion. */
+	   The dark CTA band, where present, caps off the densest lower portion.
+	   Fixed-height band (not viewport-relative): keeps the fan the same size on
+	   every page regardless of page/viewport height — the old min(150vh,…) let it
+	   stretch and distort with the window (client 2026-07-23). */
 	position: absolute; left: 0; right: 0; bottom: 100%; top: auto;
-	height: min(150vh, 1300px); z-index: -1; pointer-events: none;
+	height: 1600px; z-index: -1; pointer-events: none;
 	color: #c9a188; /* handoff stroke (final) */
 	opacity: var(--watermark-opacity, 1);
 }
-.watermark svg { width: 100%; height: 100%; display: block; }
+/* Two renderings share the box: desktop uses the wide two-fan sweep; mobile a
+   single bottom-right fan drawn on its own tall 390×840 canvas (design handoff),
+   so the sweep stays clean on a narrow screen instead of stretching into
+   vertical slivers (client 2026-07-23, hallmark pass). */
+.watermark__art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.watermark__art--mobile { display: none; }
+/* Plain scaling stroke at the handoff's 1px: on the stretched desktop fan the
+   line gains organic weight variation (thicker where vertical) exactly like the
+   handoff, rather than a flat uniform width. */
 .watermark path { fill: none; stroke: currentColor; stroke-width: 1; }
+/* The mobile fan renders ~1:1 (390 canvas ≈ phone width), so a slightly heavier
+   line keeps it clearly visible on a phone. */
+.watermark__art--mobile path { stroke-width: 1.5; }
+@media (max-width: 63.9375rem) {
+	/* Swap to the portrait fan and lift it so the fan's bottom-right convergence
+	   lands at the top of the onyx CTA band — the bottom of the light content —
+	   touching the dark band with no gap. ~24rem ≈ the CTA band's mobile height;
+	   the 390×840 fan renders ~1:1 on a phone. */
+	.watermark { bottom: calc(100% + 24rem); height: min(215vw, 900px); }
+	.watermark__art--wide { display: none; }
+	.watermark__art--mobile { display: block; }
+	/* The contact page hides its second CTA button, so its CTA band is one row
+	   shorter — drop the lift to match, or the fan floats above the band. */
+	.page-contact .watermark { bottom: calc(100% + 20rem); }
+}
 
 /* ── Cards + blog (index grid, post teasers) ────────────────────────── */
 .card {
@@ -660,13 +686,13 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 @media (max-width: 40rem) { .foot__legal { justify-content: center; text-align: center; } .foot__legal-links { justify-content: center; } }
 
 /* ── Floating call button (client request 2026-07-21) ──────────────── */
-/* Rosewood disc (logo gold, client 2026-07-22) + solid black phone glyph,
-   bottom-right, collapsed-nav widths only. */
+/* Rosewood disc (logo gold) + solid black phone glyph (client settled on black
+   2026-07-23), bottom-right, collapsed-nav widths only. */
 .call-fab {
 	display: none; position: fixed;
 	right: var(--space-md); bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
 	width: 3.5rem; height: 3.5rem; border-radius: 50%;
-	background: var(--color-rosewood); color: #fff;
+	background: var(--color-rosewood); color: #000;
 	box-shadow: 0 4px 14px rgb(0 0 0 / 0.28);
 	z-index: var(--z-sticky);
 	transition: background var(--dur-micro) var(--ease-out);

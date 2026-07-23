@@ -295,7 +295,8 @@ through every post and landing page via the `.post-cta` callout.
   removed (Founder duplicates the home page). The now text-only page is warmed to
   pale gold (`--color-paper-2`) with the cable-line **watermark** behind it for visual
   interest.
-- **Call FAB glyph** is now white (`#fff`) on the rosewood disc (client 2026-07-23).
+- **Call FAB glyph** is onyx (`--color-onyx` #49494B) on the rosewood disc
+  (client settled on onyx 2026-07-23, after brief white then black spells).
 - **Watermark generalised + redrawn (client 2026-07-23):** `.contact-watermark` → a
   shared `.watermark` utility (tokens) + a `lapin-watermark` partial, emitted once from
   the footer partial on **every page except the home page**, absolutely anchored to the
@@ -309,6 +310,18 @@ through every post and landing page via the `.post-cta` callout.
   spread 560 / reach 620, right fan 30 lines spread 660 / reach 900; per-line opacity
   `0.5·(1−0.55t)`; stroke `#c9a188`). Zero image request; whole-fan strength tunable per
   page via `--watermark-opacity`.
+  Client tuning (2026-07-23, later): desktop band height is a **fixed `1600px`**; the fan
+  keeps the handoff `buildFan` geometry verbatim (left 26/560/620, right 30/660/900) with a
+  plain scaling `stroke-width: 1` so it gains organic weight variation like the handoff.
+  Per-line base opacity is kept at **1.0** (handoff is 0.5; raised for the client's repeated
+  "more visible" request). Mobile/tablet (`max-width: 63.9375rem`) swaps to a **separate
+  portrait fan** (`.watermark__art--mobile`, viewBox 390×840, `buildMobileFan`, count 0.7×
+  desktop) — a single **bottom-right** sweep per the handoff, rendering ~1:1 so it stays clean
+  instead of stretching into slivers (its stroke is nudged to 1.5px for on-phone visibility).
+  Each rendering is a separate SVG (`.watermark__art--wide` / `--mobile`) toggled at the
+  breakpoint. The mobile band is lifted above the onyx CTA band (`bottom: calc(100% + 24rem)`;
+  `20rem` on the contact page, whose CTA band is one button-row shorter) so the fan's
+  convergence lands at the bottom of the light content, touching the dark band's top edge.
 - **Practice Areas:** "Targeted Practice Areas" → **"Practice Areas"** (H1 + lede).
   Each of the 15 areas now shows a small, subtle Lucide icon (per the client's mockup);
   the `professions.webp` figure is replaced by the shared watermark. New icons added to

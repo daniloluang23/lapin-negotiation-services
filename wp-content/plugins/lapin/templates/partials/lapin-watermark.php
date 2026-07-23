@@ -40,11 +40,36 @@ $lapin_wm_fan = static function ( string $corner, int $count, float $spread, flo
 	return $out;
 };
 
-// Handoff geometry, scaled up for presence (a tall band clears the dark CTA band):
-// left fan 26 lines; right fan 1.15× denser + wider.
-$lapin_wm_left  = $lapin_wm_fan( 'left', 28, 610.0, 720.0, 0.5 );
-$lapin_wm_right = $lapin_wm_fan( 'right', (int) round( 28 * 1.15 ), 700.0, 1040.0, 0.5 );
+// Desktop fans — handoff buildFan geometry verbatim: left 26 / spread 560 / reach
+// 620; right 1.15× count / spread 660 / reach 900. Per-line base opacity kept at
+// 1.0 (handoff is 0.5; raised for the client's "more visible" request 2026-07-23).
+$lapin_wm_left  = $lapin_wm_fan( 'left', 26, 560.0, 620.0, 1.0 );
+$lapin_wm_right = $lapin_wm_fan( 'right', (int) round( 26 * 1.15 ), 660.0, 900.0, 1.0 );
+
+/**
+ * Mobile fan — a single bottom-right sweep on its own tall 390×840 canvas
+ * (design handoff `buildMobileFan`). Drawn for a narrow, tall viewport so the
+ * curves stay a shallow corner sweep instead of the wide desktop fan stretching
+ * into vertical slivers. Count is 0.7× the desktop count, per the handoff.
+ */
+$lapin_wm_mobile_fan = static function ( int $count, float $opacity ): string {
+	$den = max( $count - 1, 1 );
+	$out = '';
+	for ( $i = 0; $i < $count; $i++ ) {
+		$t = $i / $den;
+		$k = 0.06 + 0.94 * pow( $t, 1.15 );
+		$s = 300.0 * $k; // height up the right edge (canvas H = 840)
+		$x = 360.0 * $k; // reach along the bottom edge (canvas W = 390)
+		$d = sprintf( 'M 390 %.1f Q %.1f %.1f %.1f 840', 840 - $s, 390 - $x * 0.18, 840 - $s * 0.16, 390 - $x );
+		$out .= sprintf( '<path d="%s" opacity="%.3f"/>', $d, $opacity * ( 1 - 0.55 * $t ) );
+	}
+	return $out;
+};
+$lapin_wm_mobile = $lapin_wm_mobile_fan( (int) round( 26 * 0.7 ), 1.0 );
 ?>
 <div class="watermark" aria-hidden="true">
-	<svg viewBox="0 0 1900 630" preserveAspectRatio="none" focusable="false" aria-hidden="true"><?php echo $lapin_wm_left . $lapin_wm_right; // phpcs:ignore WordPress.Security.EscapeOutput ?></svg>
+	<?php // Desktop: the full two-fan sweep, stretched across the wide band. ?>
+	<svg class="watermark__art watermark__art--wide" viewBox="0 0 1900 630" preserveAspectRatio="none" focusable="false" aria-hidden="true"><?php echo $lapin_wm_left . $lapin_wm_right; // phpcs:ignore WordPress.Security.EscapeOutput ?></svg>
+	<?php // Mobile: a single bottom-right fan on its own tall 390×840 canvas (design handoff), so the sweep stays clean on a narrow screen. ?>
+	<svg class="watermark__art watermark__art--mobile" viewBox="0 0 390 840" preserveAspectRatio="none" focusable="false" aria-hidden="true"><?php echo $lapin_wm_mobile; // phpcs:ignore WordPress.Security.EscapeOutput ?></svg>
 </div>
