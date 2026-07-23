@@ -442,7 +442,6 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	<section class="sec" id="blog">
 		<div class="wrap">
 			<div class="sec-head">
-				<span class="sec-head__eyebrow">From the Blog</span>
 				<h2>Insights on Dispute Resolution</h2>
 			</div>
 			<div class="post-grid">

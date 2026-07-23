@@ -28,7 +28,7 @@ $lapin = array(
 	'og_type'    => 'article',
 	'article'    => array( 'published' => $lapin_published, 'modified' => $lapin_modified ),
 	'breadcrumb' => array(
-		array( 'Blog', home_url( '/blog/' ) ),
+		array( 'Insights', home_url( '/blog/' ) ),
 		array( $lapin_post->post_title, home_url( '/' . $lapin_slug . '/' ) ),
 	),
 	'hero'       => array(
