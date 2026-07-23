@@ -68,7 +68,6 @@ $lapin_media_list = array(
 </style>
 
 <main id="main">
-	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-watermark.php'; ?>
 	<div class="wrap">
 		<div class="doc">
 			<section id="the-firm">

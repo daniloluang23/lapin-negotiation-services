@@ -662,7 +662,7 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 	display: none; position: fixed;
 	right: var(--space-md); bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
 	width: 3.5rem; height: 3.5rem; border-radius: 50%;
-	background: var(--color-rosewood); color: var(--color-hero-onyx);
+	background: var(--color-rosewood); color: #fff;
 	box-shadow: 0 4px 14px rgb(0 0 0 / 0.28);
 	z-index: var(--z-sticky);
 	transition: background var(--dur-micro) var(--ease-out);

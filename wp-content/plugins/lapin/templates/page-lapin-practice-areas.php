@@ -59,7 +59,6 @@ $lapin_areas = array(
 </style>
 
 <main id="main">
-	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-watermark.php'; ?>
 	<section class="sec">
 		<div class="wrap">
 			<ul class="areas">
