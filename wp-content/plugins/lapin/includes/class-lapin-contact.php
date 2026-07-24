@@ -62,7 +62,16 @@ final class Lapin_Contact {
 		$to      = apply_filters( 'lapin_contact_recipient', Lapin_Submissions::contact_recipients() );
 		$subject = sprintf( 'Website inquiry from %s', $name );
 		$body    = "A submission was submitted on the contact us form.\n\nName: {$name}\nEmail: {$email}\nPhone: {$phone}\n\n{$message}\n\n—\nSent from the contact form on " . home_url( '/' );
-		$headers = array( 'Reply-To: ' . $name . ' <' . $email . '>' );
+
+		// From: keep the address on the sending domain (Kinsta mail service
+		// authenticates it via SPF/DKIM — changing the domain hurts delivery),
+		// but show the client's name instead of the default "WordPress".
+		$from_host  = preg_replace( '/^www\./i', '', wp_parse_url( home_url(), PHP_URL_HOST ) );
+		$from_email = 'wordpress@' . $from_host;
+		$headers    = array(
+			'From: ' . Lapin::NAME . ' <' . $from_email . '>',
+			'Reply-To: ' . $name . ' <' . $email . '>',
+		);
 
 		$sent = wp_mail( $to, $subject, $body, $headers );
 		set_transient( $key, 1, MINUTE_IN_SECONDS );
