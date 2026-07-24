@@ -63,43 +63,12 @@ final class Lapin_Contact {
 		$subject = sprintf( 'Website inquiry from %s', $name );
 		$body    = "A submission was submitted on the contact us form.\n\nName: {$name}\nEmail: {$email}\nPhone: {$phone}\n\n{$message}\n\n—\nSent from the contact form on " . home_url( '/' );
 
+		// Reply hits the person who submitted the form. The sender NAME shown
+		// to the recipient ("Lapin Negotiation Services") is set once, site-wide,
+		// by the wp_mail_from_name filter registered in lapin.php.
 		$headers = array( 'Reply-To: ' . $name . ' <' . $email . '>' );
 
-		// Show the client's name as the sender instead of the default
-		// "WordPress", keeping the from-address on the sending domain (Kinsta's
-		// mail service authenticates it via SPF/DKIM — changing the domain hurts
-		// deliverability).
-		//
-		// We set this in TWO places, both at max priority, and remove them right
-		// after the send:
-		//   1. wp_mail_from(_name) filters — the standard path.
-		//   2. phpmailer_init — the last hook before the message is handed to the
-		//      mailer. An SMTP plugin (this site relays via Kinsta's SMTP) sets
-		//      FromName directly on the PHPMailer object here, overwriting the
-		//      filters no matter their priority; running last on this hook is the
-		//      only way to win against it.
-		$from_host  = preg_replace( '/^www\./i', '', (string) wp_parse_url( home_url(), PHP_URL_HOST ) );
-		$from_email = 'wordpress@' . $from_host;
-		$name_cb    = static function () {
-			return Lapin::NAME;
-		};
-		$email_cb   = static function () use ( $from_email ) {
-			return $from_email;
-		};
-		$mailer_cb  = static function ( $phpmailer ) use ( $from_email ) {
-			$phpmailer->FromName = Lapin::NAME;
-			$phpmailer->From     = $from_email;
-		};
-		add_filter( 'wp_mail_from_name', $name_cb, PHP_INT_MAX );
-		add_filter( 'wp_mail_from', $email_cb, PHP_INT_MAX );
-		add_action( 'phpmailer_init', $mailer_cb, PHP_INT_MAX );
-
 		$sent = wp_mail( $to, $subject, $body, $headers );
-
-		remove_filter( 'wp_mail_from_name', $name_cb, PHP_INT_MAX );
-		remove_filter( 'wp_mail_from', $email_cb, PHP_INT_MAX );
-		remove_action( 'phpmailer_init', $mailer_cb, PHP_INT_MAX );
-
 		set_transient( $key, 1, MINUTE_IN_SECONDS );
 
 		// Success when the message reached the database or the inbox;

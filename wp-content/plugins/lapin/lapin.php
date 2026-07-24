@@ -31,6 +31,15 @@ register_deactivation_hook( __FILE__, array( 'Lapin', 'deactivate' ) );
 
 add_action( 'plugins_loaded', array( 'Lapin', 'instance' ) );
 
+// Brand every outgoing email with the company name instead of the WordPress
+// core default ("WordPress"). The from-ADDRESS is intentionally left as core's
+// on-domain default (wordpress@<site-host>) so Kinsta's SPF/DKIM alignment
+// holds — only the display name changes. Applies site-wide: contact form,
+// password resets, admin notices, everything.
+add_filter( 'wp_mail_from_name', static function () {
+	return Lapin::NAME;
+} );
+
 // Single injection point for the cookie consent banner. Every Lapin template
 // calls wp_footer(), so hooking here renders the banner site-wide without
 // per-template edits — front-end, non-logged-in visitors on Lapin pages only
