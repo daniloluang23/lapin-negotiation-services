@@ -520,3 +520,40 @@ All punch-list items above are implemented and PHP-lint clean (15 files). Notes:
    `/mediation-negotiation-orange-county/` 404s even though the route + template exist.
 3. Visual/mobile pass (puppeteer emulation): About cream+watermark, Practice Areas icons,
    service-icon size + landscape lead + mobile icon-at-top, hero spacing after diamond removal.
+
+---
+
+## About Us headshot redesign (2026-07-24, client-directed, pre-launch)
+
+Client supplied a Raphael Lapin headshot + desktop/mobile mockup
+(`claude-design/design_handoff_about_us/`) to make the text-heavy About page visually
+engaging. Scope confirmed with the client mid-task: keep header + footer, remove the
+page-title hero, "Meet Raphael" → home, ship mockup copy + quote as-is, keep
+mission/vision + media below (drop the redundant intro/why-us).
+
+### Done
+- **Headshot asset:** client JPG is landscape 4368×2912 with **EXIF orientation 6**
+  (rotate 90° CW to stand upright). Baked upright via GD (imagerotate −90) into
+  `assets/images/about-headshot-{800,1200}.webp` (portrait 2:3, 48/80 KB).
+  Note: the mockup's bespectacled man was an AI placeholder — the real photo is the
+  seated bald gentleman (matches the old `raphael-lapin.webp`).
+- **Template rewrite** (`page-lapin-overview.php`): headshot hero (copy L / photo R,
+  flex-wrap, name-plate), 4-pillar floating card (−`--about-card-lift` overlap; plate
+  lifted to clear it), Our Practice + quote card, then retained Media appearances +
+  Mission/Vision, shared CTA band + footer. `$lapin['hero']` unset → nav-only masthead.
+  Headshot preloaded as LCP (`fetchpriority=high`, imagesrcset); `og_image` = headshot.
+- **Icons:** added `target.svg` + `shield.svg` (Lucide, ISC) — were missing.
+- **Design system:** rebuilt the mockup in DM Sans + Poppins + brand tokens (not the
+  mockup's Playfair/Montserrat/Sacramento) → honors the two-font perf budget + "no third
+  family" and keeps About cohesive with the rest of the site. Recorded in design.md v2.7.
+- **Verified:** PHP lint clean; faithful standalone preview screenshotted at 1280 + 500px
+  (Chrome headless). Layout, crop, name-plate clearance, pillar reflow, no overflow — all
+  good. (True-phone <460px → 1-col pillars by the `minmax(220px,1fr)` rule, same as mockup.)
+
+### Manual steps still required (site returned 502 — PHP service was stopped)
+1. **Start the Local site** (host is `lapin.local`, not `lapin-negotiation-services.local`),
+   then smoke-test `/overview/` returns 200 and eyeball the live masthead→hero transition.
+2. **Mobile pass** on a real ≤414px viewport (puppeteer emulation — headless CLI clamps
+   window width to ~500px, so `--window-size` can't show true-phone 1-col pillars).
+3. Confirm the headshot crop (`object-position: 50% 28%`) frames Raphael's face to taste;
+   Y is tunable in the `.about-hero__media img` rule.

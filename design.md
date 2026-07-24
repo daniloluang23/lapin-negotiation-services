@@ -339,6 +339,38 @@ through every post and landing page via the `.post-cta` callout.
   negotiations out of Newport Beach and throughout Orange County (client-stated fact);
   no OC street address is claimed. Requires plugin reactivation to create the page.
 
+**v2.7 — About Us headshot redesign (2026-07-24, client-directed).**
+Reverses the v2.6 "text-only About" direction. The client supplied a professional
+headshot of Raphael Lapin + a desktop/mobile mockup (`app/public/claude-design/
+design_handoff_about_us/`) to make the text-heavy page visually engaging. The
+`/overview/` template is re-fronted with a **headshot-led hero** (copy left, full-bleed
+photo right, flex-wrap; eyebrow + two-line H1 "Building Bridges." / rose "Resolving
+Differences." + two-paragraph lede + "Schedule a Consultation" button + "Meet Raphael
+Lapin" text link), a **four-pillar floating card** (users/handshake/target/shield;
+Our Approach · Commitment · Focus · Promise), and an **"Our Practice" narrative +
+pull-quote card**. The retained verbatim **Media appearances** and **Our mission /
+Our vision** sections stay below; the now-redundant "Introducing our firm" and "Why us?"
+sections are dropped (the hero/pillars/Our Practice cover them). The shared masthead +
+footer are retained; the page-title hero block is removed (`$lapin['hero']` unset →
+nav-only masthead).
+- **New copy is client-approved as-is** (2026-07-24): the hero lede, the four pillar
+  blurbs, and the pull-quote **"The art of negotiation is not about winning or losing—it's
+  about finding common ground and building a better path forward." — Raphael Lapin** are
+  from the mockup and confirmed by the client as real/approved (a client-directed exception
+  to the verbatim + no-invented-testimonials rules).
+- **"Meet Raphael Lapin"** links to the **`#raphael` founder section on the home page**
+  (client direction — the founder bio lives there); the mockup's unwired link is thus resolved.
+- **Design-system adaptation:** the mockup's Playfair/Montserrat/Sacramento + warm-brown
+  palette is rebuilt in the locked system — **DM Sans + Poppins, brand tokens** (paper-2,
+  onyx, accent, gold) — so About reads as the same site, honoring the two-font perf budget
+  and "no third family." The Sacramento cursive signature is rendered as a display-font name
+  in `--color-accent-strong` (no fourth font). The shared `lapin-cta-band.php` is reused
+  (its client-approved "Already in negotiation?" copy) instead of the mockup's own CTA band.
+- **Headshot asset:** client JPG (landscape 4368×2912, EXIF orientation 6) baked upright into
+  `assets/images/about-headshot-{800,1200}.webp` (portrait 2:3); it is the page LCP —
+  preloaded with imagesrcset + `fetchpriority="high"`, `object-position: 50% 28%` (Y tunable
+  via the crop comment). New Lucide icons added: `target.svg`, `shield.svg`.
+
 ## Performance law (95+ mobile/desktop, 100 SEO)
 
 - Zero builder CSS/JS; theme styles dequeued; WP head cruft stripped.

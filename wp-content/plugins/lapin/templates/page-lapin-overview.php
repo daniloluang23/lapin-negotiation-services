@@ -1,11 +1,16 @@
 <?php
 /**
- * About Us (/overview/) — Long Document: continuous editorial prose with
- * inline section heads (#the-firm, #media-appearances, #why-us,
- * #mission-vision). Copy retained verbatim. Client 2026-07-22: the Founder,
- * clients and Headquarters sections were removed (Founder duplicates the home
- * page) and the page warmed to pale gold + a bridge watermark for visual
- * interest.
+ * About Us (/overview/) — client redesign 2026-07-24 (claude-design handoff
+ * `design_handoff_about_us`). The text-heavy page is re-fronted with a
+ * headshot-led hero + value pillars + an "Our Practice" pull-quote (mockup copy,
+ * client-approved as-is), then the retained verbatim "Media appearances" and
+ * "Our mission / Our vision" sections below. Page-title hero removed per client;
+ * shared masthead + footer retained.
+ *
+ * The mockup's Playfair/Montserrat/Sacramento + warm-brown palette is rebuilt in
+ * the site's locked design system (DM Sans + Poppins, brand tokens) so About
+ * reads as the same site, not a bolt-on. Headshot is the client-supplied photo,
+ * EXIF-rotated upright into assets/images/about-headshot-*.webp (LCP; preloaded).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,16 +23,27 @@ $lapin = array(
 	'path'       => 'overview/',
 	'nav'        => 'overview',
 	'body_class' => 'page-overview',
-	'hero'       => array(
-		'title' => 'About Us',
-		'lede'  => 'A leader in the field of negotiation and dispute resolution — building bridges, resolving differences.',
+	// Headshot is the LCP image on this page (masthead is nav-only). Preload it.
+	'og_image'   => Lapin::asset( 'images/about-headshot-1200.webp' ),
+	'preload'    => array(
+		array(
+			'as'            => 'image',
+			'href'          => Lapin::asset( 'images/about-headshot-1200.webp' ),
+			'type'          => 'image/webp',
+			'imagesrcset'   => Lapin::asset( 'images/about-headshot-800.webp' ) . ' 800w, ' . Lapin::asset( 'images/about-headshot-1200.webp' ) . ' 1200w',
+			'imagesizes'    => '(max-width: 57.5rem) 100vw, 50vw',
+			'fetchpriority' => 'high',
+		),
 	),
+	// No $lapin['hero'] — the masthead renders nav-only (page-title block removed
+	// per client 2026-07-24); the headshot hero below replaces it.
 );
 
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-head.php';
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 
-// Each entry anchors to its own card in the home media wall (id="media-<slug>").
+// Retained verbatim media list — each entry anchors to its card in the home
+// media wall (id="media-<slug>").
 $lapin_media_list = array(
 	array( 'Raphael Lapin with Aljazeera advising on a complex international dispute', home_url( '/#media-aljazeera' ) ),
 	array( 'Raphael Lapin with The WAY to WOW Show on Mediation in Probate & Trust Disputes', home_url( '/#media-probate-trust' ) ),
@@ -39,21 +55,125 @@ $lapin_media_list = array(
 	array( 'Mediation: Raphael Lapin’s Recipe for Success', home_url( '/#media-recipe-success' ) ),
 );
 
+// Value pillars (mockup copy, client-approved 2026-07-24). Icon = Lucide slug.
+$lapin_pillars = array(
+	array( 'users', 'Our Approach', 'We believe every dispute has a solution. Our role is to facilitate productive conversations and guide parties toward practical, lasting outcomes.' ),
+	array( 'handshake', 'Our Commitment', 'We are committed to integrity, confidentiality, and impartiality in every matter we handle.' ),
+	array( 'target', 'Our Focus', 'We focus on outcomes that matter—helping clients achieve resolution while maintaining control over the process.' ),
+	array( 'shield', 'Our Promise', 'We bring experience, creativity, and dedication to every case, always working in your best interests.' ),
+);
+
+// Reused inline arrow (Lucide arrow-right) for text/button links.
+$lapin_arrow = '<svg class="about-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
 ?>
 <style>
-	.doc { max-width: none; }
-	.doc .prose { max-width: none; }
-	.doc .sec-head { margin-bottom: var(--space-lg); }
-	.doc section { padding-block: var(--space-2xl) 0; }
-	.doc section:first-child { padding-top: var(--space-3xl); }
-	.doc-list { list-style: none; margin: 0 0 var(--space-md); padding: 0; }
-	.doc-list li { position: relative; padding-left: 1.5rem; margin-bottom: var(--space-sm); color: var(--color-ink-2); }
-	.doc-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.5rem; height: 0.5rem; background: var(--color-accent); }
-	/* Client 2026-07-22: the page is now text-only (Founder/clients/HQ removed),
-	   so warm the whole canvas to the brand's pale gold and float the cable-line
-	   watermark behind it (shared default opacity) for visual interest. */
-	.page-overview { background: var(--color-paper-2); }
-	.media-list { list-style: none; margin: 0; padding: 0; max-width: none; }
+	/* ── About redesign (claude-design handoff, rebuilt in the design system) ── */
+	/* --about-card-lift keeps the pillar card's upward overlap and the hero
+	   name-plate's clearance in sync (plate sits just above the card). */
+	.page-overview { background: var(--color-paper-2); --about-card-lift: 70px; }
+
+	.about-eyebrow { display: flex; align-items: center; gap: 0.875rem; margin-bottom: var(--space-lg); }
+	.about-eyebrow__rule { width: 38px; height: 1.5px; background: var(--color-accent); flex-shrink: 0; }
+	.about-eyebrow__label {
+		font-size: var(--text-sm); font-weight: 600; letter-spacing: 0.3em;
+		text-transform: uppercase; color: var(--color-accent);
+	}
+	.about-arrow { flex-shrink: 0; }
+
+	/* Hero: copy left, full-bleed headshot right (flex-wrap, no hard breakpoint). */
+	.about-hero { position: relative; overflow: hidden; }
+	.about-hero__inner { display: flex; flex-wrap: wrap; align-items: stretch; }
+	.about-hero__text {
+		flex: 1 1 480px; min-width: 320px;
+		display: flex; flex-direction: column; justify-content: center;
+		padding: clamp(3rem, 6vw, 5.75rem) clamp(1.5rem, 4vw, 3.5rem)
+		         clamp(3rem, 6vw, 5.75rem) clamp(1.5rem, 7vw, 7.5rem);
+	}
+	.about-hero h1 {
+		font-size: clamp(2.375rem, 4.6vw, 3.875rem); line-height: 1.06;
+		letter-spacing: -0.01em; margin: 0 0 var(--space-lg);
+	}
+	.about-hero__line { display: block; }
+	.about-hero__line--accent { color: var(--color-accent); }
+	.about-hero__lede { max-width: 29rem; color: var(--color-ink-2); margin: 0 0 var(--space-md); line-height: 1.8; }
+	.about-hero__lede:last-of-type { margin-bottom: var(--space-xl); }
+	.about-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md); }
+	.about-meet {
+		display: inline-flex; align-items: center; gap: 0.5rem;
+		font-weight: 600; font-size: 0.9375rem; letter-spacing: 0.02em;
+		color: var(--color-ink); text-decoration: none;
+		transition: color var(--dur-micro) var(--ease-out);
+	}
+	.about-meet:hover { color: var(--color-accent-strong); }
+	.about-meet:hover .about-arrow { transform: translateX(3px); }
+	.about-meet .about-arrow { transition: transform var(--dur-short) var(--ease-out); }
+
+	.about-hero__media {
+		flex: 1 1 440px; min-width: 300px; position: relative;
+		min-height: clamp(380px, 52vw, 640px); background: var(--color-onyx);
+	}
+	.about-hero__media img {
+		position: absolute; inset: 0; width: 100%; height: 100%;
+		object-fit: cover; object-position: 50% 28%; /* Y tunable: keeps the seated subject's face framed */
+	}
+	/* Left-edge cream wash blends the photo into the page (handoff). */
+	.about-hero__media::before {
+		content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+		background: linear-gradient(90deg, color-mix(in srgb, var(--color-paper-2) 55%, transparent) 0%, transparent 22%);
+	}
+	.about-hero__plate {
+		/* Lifted to clear the pillar card that overlaps the hero's lower edge. */
+		position: absolute; left: 0; bottom: calc(var(--about-card-lift) + 0.25rem); z-index: 2;
+		background: color-mix(in srgb, var(--color-onyx) 88%, transparent);
+		color: var(--color-ink-inverse); padding: 1.125rem 1.625rem;
+	}
+	.about-hero__plate strong { display: block; font-family: var(--font-display); font-weight: 700; font-size: 1.1875rem; letter-spacing: 0.01em; }
+	.about-hero__plate span { display: block; font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-gold); margin-top: 0.3rem; }
+
+	/* Pillars: floating card pulled up over the hero's lower edge. */
+	.about-pillars { padding: 0 clamp(1.25rem, 4vw, 2.75rem) clamp(3.5rem, 6vw, 5.5rem); }
+	.about-pillars__card {
+		max-width: 1180px; margin: calc(-1 * var(--about-card-lift)) auto 0; position: relative; z-index: 5;
+		background: var(--color-paper); box-shadow: 0 24px 60px -34px rgba(48, 32, 16, 0.4);
+		display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	}
+	.about-pillar {
+		display: flex; flex-direction: column; align-items: center; text-align: center;
+		padding: clamp(1.875rem, 3vw, 2.875rem) clamp(1.375rem, 2.4vw, 2.125rem);
+		border-right: 1px solid var(--color-rule); border-bottom: 1px solid var(--color-rule);
+	}
+	.about-pillar__icon { width: 38px; height: 38px; color: var(--color-accent); stroke-width: 1.4; margin-bottom: var(--space-md); }
+	.about-pillar h3 { font-size: 1.375rem; margin: 0 0 var(--space-sm); }
+	.about-pillar p { font-size: 0.85rem; line-height: 1.75; color: var(--color-ink-2); margin: 0; max-width: 230px; }
+
+	/* Our Practice: narrative + quote card. */
+	.about-practice { padding: clamp(1.25rem, 2vw, 2.5rem) clamp(1.5rem, 4vw, 2.75rem) clamp(4.375rem, 7vw, 6.875rem); }
+	.about-practice__inner {
+		max-width: 1180px; margin: 0 auto; display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		gap: clamp(2.5rem, 5vw, 5rem); align-items: center;
+	}
+	.about-practice h2 { font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.1; margin: 0 0 var(--space-lg); }
+	.about-practice__body { color: var(--color-ink-2); line-height: 1.8; margin: 0 0 var(--space-md); max-width: 33rem; }
+	.about-practice__body:last-of-type { margin-bottom: var(--space-xl); }
+
+	.about-quote {
+		background: var(--color-paper);
+		border: 1px solid color-mix(in srgb, var(--color-gold) 55%, transparent);
+		padding: clamp(2.25rem, 3.5vw, 3.375rem);
+	}
+	.about-quote__mark { font-family: var(--font-display); font-weight: 700; font-size: 5rem; line-height: 0.6; color: var(--color-accent); height: 2.5rem; }
+	.about-quote__text {
+		font-family: var(--font-display); font-weight: 500;
+		font-size: clamp(1.25rem, 2vw, 1.625rem); line-height: 1.5;
+		color: var(--color-ink); margin: 0 0 var(--space-xl);
+	}
+	.about-quote__sig-name { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--color-accent-strong); line-height: 1; }
+	.about-quote__rule { width: 44px; height: 1.5px; background: var(--color-accent); margin: var(--space-sm) 0; }
+	.about-quote__sig-role { font-size: 0.8rem; letter-spacing: 0.04em; color: var(--color-ink-2); }
+
+	/* Retained content — media appearances + mission/vision (verbatim). */
+	.media-list { list-style: none; margin: 0; padding: 0; }
 	.media-list li { border-top: 1px solid var(--color-rule); }
 	.media-list li:last-child { border-bottom: 1px solid var(--color-rule); }
 	.media-list a {
@@ -68,53 +188,90 @@ $lapin_media_list = array(
 </style>
 
 <main id="main">
-	<div class="wrap">
-		<div class="doc">
-			<section id="the-firm">
-				<div class="sec-head">
-					<h2>Introducing our firm</h2>
-				</div>
-				<div class="prose">
-					<p>At Lapin Negotiation Services, we pride ourselves on being recognized as a leader in the field of negotiation and dispute resolution. We offer a variety of specialized services to help our clients including:</p>
-					<ul class="doc-list">
-						<li><strong>Negotiation consulting and support:</strong> We provide expert guidance and support to help you navigate complex negotiations and achieve the best possible outcome.</li>
-						<li><strong>Negotiation training, facilitation, and coaching:</strong> Our experienced trainers and coaches can help you develop the skills and confidence you need to succeed in any negotiation situation.</li>
-						<li><strong>Mediation and dispute resolution services:</strong> We offer a range of services to help resolve conflicts and disputes, including mediation and other forms of alternative dispute resolution.</li>
-					</ul>
-					<p>At Lapin Negotiation Services, we work with a wide range of clients, including individuals, families, businesses, professional groups, corporations, and government entities. Whether you are facing a challenging negotiation or a difficult dispute, we have the skills and experience to help you find a resolution. Contact us today to learn more about how we can help you.</p>
-				</div>
-			</section>
 
-			<section id="media-appearances">
-				<div class="sec-head">
-					<h2>Media appearances</h2>
+	<section class="about-hero" aria-labelledby="about-hero-title">
+		<div class="about-hero__inner">
+			<div class="about-hero__text">
+				<span class="about-eyebrow reveal" style="--i:0">
+					<span class="about-eyebrow__rule" aria-hidden="true"></span>
+					<span class="about-eyebrow__label">About Our Practice</span>
+				</span>
+				<h1 id="about-hero-title" class="reveal" style="--i:1">
+					<span class="about-hero__line">Building Bridges.</span>
+					<span class="about-hero__line about-hero__line--accent">Resolving Differences.</span>
+				</h1>
+				<p class="about-hero__lede reveal" style="--i:2">At Lapin Negotiation Services, our mission is simple: to help people and organizations move from conflict to resolution—efficiently, respectfully, and effectively.</p>
+				<p class="about-hero__lede reveal" style="--i:2">We provide skilled mediation and negotiation services that save time, reduce costs, and protect relationships.</p>
+				<div class="about-hero__actions reveal" style="--i:3">
+					<a class="btn btn--rose" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Schedule a Consultation</a>
+					<a class="about-meet" href="<?php echo esc_url( home_url( '/#raphael' ) ); ?>">Meet Raphael Lapin <?php echo $lapin_arrow; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static inline SVG ?></a>
 				</div>
-				<ul class="media-list">
-					<?php foreach ( $lapin_media_list as $lapin_item ) : ?>
-					<li><a href="<?php echo esc_url( $lapin_item[1] ); ?>"><?php echo esc_html( $lapin_item[0] ); ?></a></li>
-					<?php endforeach; ?>
-				</ul>
-			</section>
-
-			<section id="why-us">
-				<div class="sec-head">
-					<h2>Why us?</h2>
+			</div>
+			<div class="about-hero__media">
+				<img src="<?php echo esc_url( Lapin::asset( 'images/about-headshot-1200.webp' ) ); ?>"
+				     srcset="<?php echo esc_attr( Lapin::asset( 'images/about-headshot-800.webp' ) . ' 800w, ' . Lapin::asset( 'images/about-headshot-1200.webp' ) . ' 1200w' ); ?>"
+				     sizes="(max-width: 57.5rem) 100vw, 50vw"
+				     alt="Raphael Lapin, Mediator &amp; Negotiation Consultant"
+				     width="1200" height="1800" fetchpriority="high" decoding="async">
+				<div class="about-hero__plate">
+					<strong>Raphael Lapin</strong>
+					<span>Mediator &amp; Negotiation Consultant</span>
 				</div>
-				<div class="prose">
-					<h3>Negotiation</h3>
-					<p>At Lapin Negotiation Services, we understand that negotiations can often be mistaken for a confrontational process of haggling and compromise. However, this approach can lead to suboptimal results and strained relationships. That’s why our team of negotiation process specialists is dedicated to helping you navigate a more authentic and collaborative approach to finding mutually beneficial solutions to conflicting needs.</p>
-					<p>Our method is based on a deeper understanding of the true underlying interests, priorities, and values of all parties involved. By utilizing our services, you can expect to achieve efficient and profitable outcomes, solid agreements, and better deals overall.</p>
-					<p>In addition to achieving successful outcomes, our negotiation process also helps to build strong, trusting relationships. Let us help you take your negotiations to the next level and achieve mutually beneficial results.</p>
-					<h3>Dispute resolution</h3>
-					<p>Disputes often involve more than just legal issues. They can also have emotional, psychological, historical, and cultural components that can’t be ignored.</p>
-					<p>Our dispute resolution specialists are experts in addressing these underlying issues to achieve true resolution. They are skilled at facilitating productive dialogue, understanding different perspectives, and finding mutually acceptable solutions. By working with our team, you can be confident that all aspects of the dispute will be resolved, resulting in durable, compliant, and satisfying agreements and potentially restored relationships.</p>
-					<p>We don’t just settle cases — we resolve disputes.</p>
-				</div>
-			</section>
+			</div>
 		</div>
-	</div>
+	</section>
 
-	<section class="sec band" id="mission-vision">
+	<section class="about-pillars" aria-label="What we bring to every matter">
+		<div class="about-pillars__card">
+			<?php foreach ( $lapin_pillars as $lapin_p ) : ?>
+			<div class="about-pillar">
+				<?php echo Lapin::icon( $lapin_p[0], 'about-pillar__icon' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted inline SVG ?>
+				<h3><?php echo esc_html( $lapin_p[1] ); ?></h3>
+				<p><?php echo esc_html( $lapin_p[2] ); ?></p>
+			</div>
+			<?php endforeach; ?>
+		</div>
+	</section>
+
+	<section class="about-practice" aria-labelledby="about-practice-title">
+		<div class="about-practice__inner">
+			<div>
+				<span class="about-eyebrow">
+					<span class="about-eyebrow__rule" aria-hidden="true"></span>
+					<span class="about-eyebrow__label">Our Practice</span>
+				</span>
+				<h2 id="about-practice-title">Experienced. Focused.<br>Results-Oriented.</h2>
+				<p class="about-practice__body">With decades of experience in law and dispute resolution, we understand the complexities of conflict and the importance of finding solutions that are fair, efficient, and enduring.</p>
+				<p class="about-practice__body">Our practice is built on skillful negotiation, strategic thinking, and a deep commitment to helping clients move forward with confidence.</p>
+				<a class="btn btn--rose" href="<?php echo esc_url( home_url( '/practice-areas/' ) ); ?>">View Our Practice Areas <?php echo $lapin_arrow; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static inline SVG ?></a>
+			</div>
+			<figure class="about-quote">
+				<div class="about-quote__mark" aria-hidden="true">&ldquo;</div>
+				<blockquote class="about-quote__text">The art of negotiation is not about winning or losing—it&rsquo;s about finding common ground and building a better path forward.</blockquote>
+				<figcaption>
+					<div class="about-quote__sig-name">Raphael Lapin</div>
+					<div class="about-quote__rule" aria-hidden="true"></div>
+					<div class="about-quote__sig-role">Mediator &amp; Negotiation Consultant</div>
+				</figcaption>
+			</figure>
+		</div>
+	</section>
+
+	<section class="sec" id="media-appearances" aria-labelledby="media-title">
+		<div class="wrap">
+			<div class="sec-head">
+				<span class="sec-head__eyebrow">In the Media</span>
+				<h2 id="media-title">Media appearances</h2>
+			</div>
+			<ul class="media-list">
+				<?php foreach ( $lapin_media_list as $lapin_item ) : ?>
+				<li><a href="<?php echo esc_url( $lapin_item[1] ); ?>"><?php echo esc_html( $lapin_item[0] ); ?></a></li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	</section>
+
+	<section class="sec band" id="mission-vision" aria-label="Our mission and vision">
 		<div class="wrap">
 			<div class="mission">
 				<div>
