@@ -247,7 +247,7 @@ $lapin_arrow = '<svg class="about-arrow" width="16" height="16" viewBox="0 0 24 
 			</div>
 			<figure class="about-quote">
 				<div class="about-quote__mark" aria-hidden="true">&ldquo;</div>
-				<blockquote class="about-quote__text">The art of negotiation is not about winning or losing—it&rsquo;s about finding common ground and building a better path forward.</blockquote>
+				<blockquote class="about-quote__text">The Art of Negotiation is Finding Joint Solutions to Conflicting Needs</blockquote>
 				<figcaption>
 					<div class="about-quote__sig-name">Raphael Lapin</div>
 					<div class="about-quote__rule" aria-hidden="true"></div>
