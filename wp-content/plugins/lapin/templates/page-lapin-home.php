@@ -321,7 +321,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	<section class="sec" id="qualified">
 		<div class="wrap">
 			<div class="sec-head quals__head rv">
-				<h2>What Makes Us Uniquely Qualified</h2>
+				<h2>Why Clients Choose Lapin Over Litigation</h2>
 			</div>
 			<div class="quals__grid">
 				<article class="qual rv">
