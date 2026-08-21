@@ -163,10 +163,11 @@ $lapin_arrow = '<svg class="about-arrow" width="16" height="16" viewBox="0 0 24 
 		padding: clamp(2.25rem, 3.5vw, 3.375rem);
 	}
 	.about-quote__mark { font-family: var(--font-display); font-weight: 700; font-size: 5rem; line-height: 0.6; color: var(--color-accent); height: 2.5rem; }
+	.about-quote__mark--close { text-align: right; margin-bottom: var(--space-lg); }
 	.about-quote__text {
-		font-family: var(--font-display); font-weight: 500;
+		font-family: var(--font-display); font-weight: 500; font-style: italic;
 		font-size: clamp(1.25rem, 2vw, 1.625rem); line-height: 1.5;
-		color: var(--color-ink); margin: 0 0 var(--space-xl);
+		color: var(--color-ink); margin: 0 0 var(--space-sm);
 	}
 	.about-quote__sig-name { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--color-accent-strong); line-height: 1; }
 	.about-quote__rule { width: 44px; height: 1.5px; background: var(--color-accent); margin: var(--space-sm) 0; }
@@ -248,6 +249,7 @@ $lapin_arrow = '<svg class="about-arrow" width="16" height="16" viewBox="0 0 24 
 			<figure class="about-quote">
 				<div class="about-quote__mark" aria-hidden="true">&ldquo;</div>
 				<blockquote class="about-quote__text">The Art of Negotiation is Finding Joint Solutions to Conflicting Needs</blockquote>
+				<div class="about-quote__mark about-quote__mark--close" aria-hidden="true">&rdquo;</div>
 				<figcaption>
 					<div class="about-quote__sig-name">Raphael Lapin</div>
 					<div class="about-quote__rule" aria-hidden="true"></div>
