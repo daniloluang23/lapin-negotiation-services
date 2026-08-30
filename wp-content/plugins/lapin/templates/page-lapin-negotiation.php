@@ -1,7 +1,13 @@
 <?php
 /**
- * Negotiation — Split Studio: alternating text/image diptychs, one per
- * existing content section. Copy retained verbatim from the live site.
+ * Negotiation (/negotiation/) — client copy replacement 2026-08-30 (Raphael's
+ * "NEGOTIATION SERVICES PAGE" revision doc, used verbatim per the content law).
+ *
+ * The service family's Split Studio opens the page (Why work with a specialist),
+ * then the rhythm breaks: a cream band of four ordinal step cards for "How We
+ * Help", a two-column rule-topped pair for "Types of Negotiations We Handle",
+ * and the client's own CTA copy in the shared onyx band voice. Segmentation and
+ * scanning are the brief; the locked system (design.md) supplies every token.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -9,22 +15,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $lapin = array(
-	'title'      => 'Negotiation Services | Training, Advice & Representation | Lapin Negotiation Services',
-	'desc'       => 'Negotiation training, advice, support and representation from Harvard-trained specialists. Proven programs for Fortune 100 companies and 25+ years representing clients. Free consultation.',
+	'title'      => 'Negotiation Services | Strategy, Coaching & Representation | Lapin Negotiation Services',
+	'desc'       => 'Strategic negotiation support for high-stakes matters — transactional deals and settlement negotiations. Risk and leverage assessment, tailored strategy, coaching and direct representation. Free consultation.',
 	'path'       => 'negotiation/',
 	'nav'        => 'negotiation',
 	'body_class' => 'page-negotiation',
 	'hero'       => array(
-		'eyebrow' => 'Services',
-		'title'   => 'Negotiation Services',
-		'cta'     => 'Free Consultation',
+		'eyebrow'   => 'Negotiation Services',
+		'title'     => 'Strategic Negotiation Support for High-Stakes Matters',
+		'lede'      => 'Clear strategy. Creative solutions. Stronger outcomes — in both transactional negotiations and settlement negotiations in conflicts and disputes.',
+		'statement' => 'We help you negotiate from strength.',
+		'cta'       => 'Free Consultation',
 	),
 	'schema'     => array(
 		array(
-			'@type'    => 'Service',
-			'name'     => 'Negotiation Services',
-			'provider' => array( '@id' => home_url( '/' ) . '#organization' ),
-			'serviceType' => 'Negotiation training, advice, support and representation',
+			'@type'       => 'Service',
+			'name'        => 'Negotiation Services',
+			'provider'    => array( '@id' => home_url( '/' ) . '#organization' ),
+			'serviceType' => 'Negotiation strategy, coaching, support and representation',
 			'areaServed'  => 'Southern California',
 		),
 	),
@@ -32,106 +40,251 @@ $lapin = array(
 
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-head.php';
 require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
+
+// "How We Help" — the client's four numbered stages. Each carries an icon,
+// title, intro, bullets and a closing line; stage 4 is prose only, as written.
+$lapin_steps = array(
+	array(
+		'icon'    => 'target',
+		'title'   => 'Assess Risks, Leverage & Objectives',
+		'intro'   => 'We begin by mapping the negotiation landscape:',
+		'bullets' => array(
+			'Your goals and constraints',
+			'The other party’s interests and pressures',
+			'Points of leverage and risk exposure',
+			'Relationship dynamics and communication challenges',
+		),
+		'note'    => 'This gives you a clear, strategic foundation.',
+	),
+	array(
+		'icon'    => 'lightbulb',
+		'title'   => 'Design a Tailored Strategy — Including Creative Solutions',
+		'intro'   => 'We develop a structured plan that positions you for success. Our hallmark is uncovering creative, interest-based options that expand value and open pathways others overlook:',
+		'bullets' => array(
+			'Innovative deal structures',
+			'Alternative concessions',
+			'Non-financial value creation',
+			'Strategic reframing of issues',
+		),
+		'note'    => 'This is where clients often gain the most.',
+	),
+	array(
+		'icon'    => 'messages-square',
+		'title'   => 'Coaching & Support Throughout the Negotiation',
+		'intro'   => 'You receive:',
+		'bullets' => array(
+			'Preparation for meetings and calls',
+			'Guidance on messaging and communication',
+			'Real-time advice as the negotiation evolves',
+			'Debriefs and strategy adjustments',
+		),
+		'note'    => 'You’re supported from preparation through implementation.',
+	),
+	array(
+		'icon'    => 'user-round-check',
+		'title'   => 'Representation When Needed',
+		'intro'   => 'For complex, sensitive, or high-stakes matters, we can represent you directly. Professional representation brings seasoned expertise and disciplined strategy to negotiations where experience, credibility and presence make a measurable difference.',
+		'bullets' => array(),
+		'note'    => '',
+	),
+);
+
+// "Types of Negotiations We Handle" — the client's two-column split.
+$lapin_types = array(
+	array(
+		'icon'  => 'handshake',
+		'title' => 'Transactional Negotiations',
+		'items' => array(
+			'Business deals and commercial agreements',
+			'Contract renewals and renegotiations',
+			'Vendor and supplier negotiations',
+			'Real estate and transactional matters',
+			'Senior-level employment agreements',
+		),
+	),
+	array(
+		'icon'  => 'scale',
+		'title' => 'Settlement Negotiations in Conflicts & Disputes',
+		'items' => array(
+			'Partnership and shareholder disputes',
+			'Workplace conflicts',
+			'Family business and interpersonal disputes',
+			'Sensitive personal matters requiring discretion',
+		),
+	),
+);
 ?>
 <style>
-	.svc-list { list-style: none; margin: 0 0 var(--space-md); padding: 0; }
-	.svc-list li { position: relative; padding-left: 1.5rem; margin-bottom: var(--space-sm); color: var(--color-ink-2); }
-	.svc-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.5rem; height: 0.5rem; background: var(--color-accent); }
-	.sec + .sec { border-top: 1px solid var(--color-rule); }
+	/* Hallmark · macrostructure: Split Studio → stepped studio (service family, design.md v2.8)
+	 * theme: locked Lapin system · genre: editorial-corporate · nav/footer: shared
+	 * pre-emit critique: P5 H5 E4 S5 R5 V4
+	 */
+
+	/* Hero: the client's H1 runs long — hold it to three lines on desktop. */
+	.page-negotiation .hero--page h1 { max-width: 20ch; }
+
+	/* ── 1 · Why work with a specialist (retained Split Studio voice) ─── */
+	.neg-why .lead { margin-bottom: var(--space-md); }
+	.neg-why .prose p:last-child { margin-bottom: 0; }
+	.neg-why .prose strong { color: var(--color-ink); }
+
+	/* ── 2 · How we help — four ordinal cards on the cream band ──────── */
+	.neg-steps {
+		list-style: none; margin: 0; padding: 0;
+		display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-xl);
+	}
+	@media (max-width: 63.9375rem) {
+		.neg-steps { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
+	}
+	/* .card supplies the paper fill, hairline and hover lift; the rose top edge
+	   is the only accent per card, keeping rose gold well inside the 5% budget. */
+	.neg-step {
+		display: flex; flex-direction: column;
+		padding: var(--space-xl);
+		border-top: 3px solid var(--color-accent);
+	}
+	.neg-step__top { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-md); }
+	.neg-step__num {
+		font-family: var(--font-display); font-weight: 700; font-size: var(--text-md);
+		letter-spacing: var(--tracking-display); line-height: 1;
+		font-variant-numeric: tabular-nums; color: var(--color-accent-strong);
+	}
+	.neg-step__rule { flex: 1; height: 1px; background: var(--color-rule); }
+	.neg-step__top svg {
+		width: 1.625rem; height: 1.625rem; flex-shrink: 0;
+		color: var(--color-accent); stroke-width: 1.4; opacity: 0.75;
+	}
+	.neg-step h3 { font-size: var(--text-md); line-height: 1.25; margin-bottom: var(--space-sm); }
+	.neg-step p { font-size: 0.9375rem; }
+	.neg-step__intro { color: var(--color-ink-2); }
+	.neg-step__note {
+		margin: auto 0 0; padding-top: var(--space-md);
+		border-top: 1px solid var(--color-rule);
+		font-weight: 600; color: var(--color-ink);
+	}
+	.neg-step > :last-child { margin-bottom: 0; }
+
+	/* Shared bullet voice — the site's small rose square mark. */
+	.neg-list { list-style: none; margin: 0 0 var(--space-md); padding: 0; display: grid; gap: var(--space-xs); }
+	.neg-list li {
+		position: relative; padding-left: 1.4rem;
+		color: var(--color-ink-2); font-size: 0.9375rem; line-height: 1.6;
+	}
+	.neg-list li::before {
+		content: ""; position: absolute; left: 0; top: 0.62em;
+		width: 0.375rem; height: 0.375rem; background: var(--color-accent);
+	}
+
+	/* ── 3 · Types we handle — two rule-topped columns (client brief) ── */
+	.neg-types { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2xl); }
+	@media (max-width: 47.9375rem) { .neg-types { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); } }
+	.neg-type { border-top: 2px solid var(--color-accent); padding-top: var(--space-md); }
+	.neg-type__head { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); }
+	.neg-type__head svg {
+		width: 1.75rem; height: 1.75rem; flex-shrink: 0;
+		color: var(--color-accent-strong); stroke-width: 1.4;
+	}
+	.neg-type h3 { font-size: var(--text-md); line-height: 1.3; margin: 0; }
+	.neg-type .neg-list { margin-bottom: 0; gap: var(--space-sm); }
+	.neg-type .neg-list li { font-size: var(--text-base); }
+
+	.neg-close {
+		margin: var(--space-2xl) 0 0; padding-top: var(--space-lg);
+		border-top: 1px solid var(--color-rule); max-width: 46rem;
+		font-family: var(--font-display); font-weight: 700;
+		font-size: var(--text-md); line-height: 1.4;
+		letter-spacing: var(--tracking-display); color: var(--color-ink);
+	}
 </style>
 
 <main id="main">
-	<section class="sec" id="negotiation-why-a-specialist">
+
+	<section class="sec neg-why" id="negotiation-why" aria-labelledby="neg-why-title">
 		<div class="wrap">
 			<div class="split">
 				<div>
-					<div class="sec-head">
-						<h2>Why a negotiation specialist?</h2>
+					<div class="sec-head rv">
+						<h2 id="neg-why-title">Why Work With a Negotiation Specialist</h2>
 					</div>
 					<div class="prose">
-						<p class="lead">Are you tired of negotiations turning into stressful, adversarial haggling, leading to frustrating compromises and suboptimal outcomes?</p>
-						<p>If so, our negotiation services may be the right solution for you. Our team of experienced specialists can help you develop the skills, strategies, and techniques needed to become a more effective and confident negotiator.</p>
-						<p>Through our training, consulting, or representation services, our negotiation specialists will guide you through a collaborative process to find mutually beneficial solutions that meet everyone’s needs. Our approach is based on understanding the underlying interests, priorities, and values of all parties involved.</p>
-						<p>By following this approach, you can achieve more efficient and profitable outcomes, secure solid contracts, and make better deals. Plus, the negotiation process itself will help you build strong, trusting relationships with your counterparts.</p>
-						<p>Don’t let negotiations become a source of stress and frustration — let our specialists help you achieve your goals.</p>
+						<p class="lead rv" style="--i:1">Negotiations can be stressful, high-pressure, and easy to mishandle. Without a structured approach or clear understanding of leverage, people often concede too much or miss opportunities for better terms.</p>
+						<p class="rv" style="--i:2">We bring <strong>objectivity, strategy, and creative problem-solving</strong> to help you secure agreements that are stronger, more profitable, and more durable — while protecting relationships and reducing risk.</p>
 					</div>
 				</div>
 				<figure class="split__media" aria-hidden="true">
-					<?php echo Lapin::icon( 'handshake' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					<?php echo Lapin::icon( 'award' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				</figure>
 			</div>
 		</div>
 	</section>
 
-	<section class="sec" id="negotiation-advice">
+	<section class="sec band--cream" id="negotiation-how" aria-labelledby="neg-how-title">
 		<div class="wrap">
-			<div class="split split--flip">
-				<figure class="split__media" aria-hidden="true">
-					<?php echo Lapin::icon( 'messages-square' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				</figure>
-				<div>
-					<div class="sec-head">
-						<h2>Negotiation advice &amp; support</h2>
-					</div>
-					<div class="prose">
-						<p class="lead">Are you struggling to negotiate a salary increase, close a business deal, or resolve a conflict?</p>
-						<p>You don’t have to navigate these tricky negotiations alone and risk being taken advantage of.</p>
-						<p>Our team of experienced professionals is here to help and support you every step of the way, from preparation through to post-negotiation and implementation. With their deep understanding of the negotiation process, our consultants can provide expert guidance, coaching, and behind-the-scenes advice to help you achieve the best possible outcomes efficiently.</p>
-						<p>Don’t miss out on this opportunity to achieve your negotiation objectives. Contact us today to schedule a free consultation and learn more about our negotiation consulting services. Let us help you get the results you deserve.</p>
-					</div>
-				</div>
+			<div class="sec-head rv">
+				<h2 id="neg-how-title">How We Help</h2>
 			</div>
+			<ol class="neg-steps" role="list">
+				<?php foreach ( $lapin_steps as $lapin_i => $lapin_step ) : ?>
+				<li class="neg-step card rv" style="--i:<?php echo esc_attr( $lapin_i % 2 ); ?>">
+					<div class="neg-step__top">
+						<span class="neg-step__num" aria-hidden="true"><?php echo esc_html( sprintf( '%02d', $lapin_i + 1 ) ); ?></span>
+						<span class="neg-step__rule" aria-hidden="true"></span>
+						<?php echo Lapin::icon( $lapin_step['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					</div>
+					<h3><?php echo esc_html( $lapin_step['title'] ); ?></h3>
+					<p class="neg-step__intro"><?php echo esc_html( $lapin_step['intro'] ); ?></p>
+					<?php if ( $lapin_step['bullets'] ) : ?>
+					<ul class="neg-list" role="list">
+						<?php foreach ( $lapin_step['bullets'] as $lapin_bullet ) : ?>
+						<li><?php echo esc_html( $lapin_bullet ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+					<?php endif; ?>
+					<?php if ( $lapin_step['note'] ) : ?>
+					<p class="neg-step__note"><?php echo esc_html( $lapin_step['note'] ); ?></p>
+					<?php endif; ?>
+				</li>
+				<?php endforeach; ?>
+			</ol>
 		</div>
 	</section>
 
-	<section class="sec" id="negotiation-representing">
+	<section class="sec sec--tight" id="negotiation-types" aria-labelledby="neg-types-title">
 		<div class="wrap">
-			<div class="split">
-				<div>
-					<div class="sec-head">
-						<h2>Negotiation representation</h2>
-					</div>
-					<div class="prose">
-						<p class="lead">Are you faced with a negotiation that is critical to your business or personal goals? Or a particularly complex negotiation? Or one which may be beyond your experience level?</p>
-						<p>You don’t have to go it alone. Our team of expert agents has over 25 years of experience representing clients in negotiations, and we’ve helped secure better deals and increased profits for numerous clients.</p>
-						<p>For example, in a recent real estate deal, we were able to negotiate a 20 percent discount for our client by leveraging our expertise and reputation as skilled negotiators. In other cases, we’ve helped clients navigate complex contract negotiations and achieve sustainable, profitable results.</p>
-						<p>But hiring an agent isn’t just about getting the best deal possible. An experienced agent can also bring objectivity to the negotiation process and act as a representative for your interests. Without the expertise and objectivity of an agent, you may be at a disadvantage and miss out on opportunities to secure a better deal.</p>
-					</div>
-				</div>
-				<figure class="split__media" aria-hidden="true">
-					<?php echo Lapin::icon( 'user-round-check' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				</figure>
+			<div class="sec-head rv">
+				<h2 id="neg-types-title">Types of Negotiations We Handle</h2>
 			</div>
+			<div class="neg-types">
+				<?php foreach ( $lapin_types as $lapin_i => $lapin_type ) : ?>
+				<article class="neg-type rv" style="--i:<?php echo esc_attr( $lapin_i ); ?>">
+					<div class="neg-type__head">
+						<?php echo Lapin::icon( $lapin_type['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<h3><?php echo esc_html( $lapin_type['title'] ); ?></h3>
+					</div>
+					<ul class="neg-list" role="list">
+						<?php foreach ( $lapin_type['items'] as $lapin_item ) : ?>
+						<li><?php echo esc_html( $lapin_item ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+				</article>
+				<?php endforeach; ?>
+			</div>
+			<p class="neg-close rv">Whether deal-making or dispute resolution, we help you negotiate with clarity, confidence, and creativity.</p>
 		</div>
 	</section>
 
-	<section class="sec" id="negotiation-training">
+	<?php // Page-specific CTA band — the client's own closing copy in the shared onyx band voice (design.md content law v2.8). ?>
+	<section class="cta-band band" aria-labelledby="neg-cta-title">
 		<div class="wrap">
-			<div class="split split--flip">
-				<figure class="split__media" aria-hidden="true">
-					<?php echo Lapin::icon( 'briefcase-business' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				</figure>
-				<div>
-					<div class="sec-head">
-						<h2>Negotiation training</h2>
-					</div>
-					<div class="prose">
-						<p class="lead">Are you looking to improve your negotiation and communication skills, achieve better outcomes, project confidence, and build stronger relationships?</p>
-						<p>Our negotiation training services can help you do all that and more. Our specialists have a proven track record of delivering highly effective, transformative programs to Fortune 100 companies, resulting in measurable and considerable results that further our clients’ business objectives and generate swift returns on training investment.</p>
-						<p>Our training programs are tailored to meet your specific goals and needs, and can be delivered one-on-one, in teams, or to larger groups. They are designed to be practical and hands-on, and will provide you with the opportunity to practice and hone your skills through role-playing and other interactive exercises. Some of the benefits of our negotiation training services include:</p>
-						<ul class="svc-list">
-							<li><strong>Customized training:</strong> We’ll work with you to understand your specific needs and design a program that meets those needs. This may include in-person training sessions, online coursework, or a combination of both.</li>
-							<li><strong>Practical experience:</strong> Our training programs are designed to be practical and hands-on, giving you the opportunity to apply your new skills in realistic scenarios.</li>
-							<li><strong>Measurable results:</strong> Our programs have a proven track record of delivering measurable and considerable results that further our clients’ business objectives and generate swift returns on training investment.</li>
-						</ul>
-						<p>Don’t let your negotiation and communication skills hold you back — let us help you take your career to the next level. Contact us today to schedule a free consultation and learn more about how we can help you.</p>
-					</div>
-				</div>
+			<h2 id="neg-cta-title" class="rv">Schedule a consultation to discuss your matter.</h2>
+			<p class="rv" style="--i:1">If you’re preparing for a negotiation — transactional or dispute-related — we can help you approach it with clarity, confidence, and a strategic advantage.</p>
+			<div class="cta-band__actions rv" style="--i:2">
+				<a class="btn btn--gold" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Schedule a Consultation</a>
+				<a class="btn btn--light" href="tel:<?php echo esc_attr( Lapin::PHONE_LOCAL_TEL ); ?>">Call Now — <?php echo esc_html( Lapin::PHONE_LOCAL ); ?></a>
 			</div>
 		</div>
 	</section>
-
-	<?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-cta-band.php'; ?>
 </main>
 
 <?php require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-footer.php'; ?>

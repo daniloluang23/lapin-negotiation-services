@@ -557,3 +557,56 @@ mission/vision + media below (drop the redundant intro/why-us).
    window width to ~500px, so `--window-size` can't show true-phone 1-col pillars).
 3. Confirm the headshot crop (`object-position: 50% 28%`) frames Raphael's face to taste;
    Y is tunable in the `.about-hero__media img` rule.
+
+
+---
+
+# Negotiation Services page — client copy revision (2026-08-30)
+
+Client (Raphael) supplied a complete replacement for `/negotiation/` plus a layout brief:
+strong simple hero, clear segmentation per service area, two-column "Types of Negotiations
+We Handle", smooth section flow, dividers / subtle icons / light accents, CTA — all
+consistent with Home + About Us.
+
+## Plan (complete)
+- [x] Read design.md (locked system) + Home/About templates before touching anything
+- [x] Extend the shared page hero with an optional `statement` line (gold one-liner)
+- [x] Rebuild `page-lapin-negotiation.php` from the client doc, verbatim
+- [x] Vary the section rhythm: split opener → cream band step cards → two-column types → CTA
+- [x] Client's own CTA copy in the shared onyx band voice
+- [x] Amend design.md (v2.8) + .hallmark/log.json
+- [x] PHP lint + 200 smoke test + desktop/narrow screenshots
+
+## Review
+- **Structure (Stepped Studio — a service-family extension, not a new system):**
+  hero (eyebrow · H1 · lede · gold statement · gold Free Consultation box) →
+  *Why Work With a Negotiation Specialist* as the retained 65/35 Split Studio diptych
+  (`award`) → *How We Help* on the cream band as four ordinal cards, 2×2 desktop / stacked
+  ≤1023px (`target` · `lightbulb` · `messages-square` · `user-round-check`) → *Types of
+  Negotiations We Handle* as two rule-topped columns (`handshake` · `scale`), 2-col ≥768px,
+  + the closing display line → client CTA band.
+- **Tokens only** — no raw hex, no raw px spacing. Rose gold appears as: the hero eyebrow,
+  four 3px card top edges, two 2px column rules, the small list marks and two icon fills —
+  comfortably inside the ≤5% budget.
+- **Motion** stays at the system's three primitives: masthead `.reveal` entrance, `.rv`
+  scroll reveals, `.card` hover lift. No new JS.
+- **Copy is verbatim** from the client's doc, including the em dashes and the bolded
+  "objectivity, strategy, and creative problem-solving".
+- **Removed:** the four live-site sections (Why a negotiation specialist? / Negotiation
+  advice & support / Negotiation representation / Negotiation training). Nothing in the
+  site linked their anchors, so no dead links.
+- **Verified:** PHP lint clean on the three touched files; `/negotiation/` (and `/`,
+  `/overview/`, `/contact/`) return 200; rendered page has 4 step cards, 2 type columns,
+  7 inline icons, 1 CTA band, watermark intact; screenshots at 1440px and 500px show no
+  overflow and correct single-column collapse.
+
+## Open item for the client
+- **"Negotiation training" has no home on the site any more.** The new doc doesn't cover it,
+  and it was the only page describing the Fortune 100 training programs (the credential still
+  appears on the home creds strip). Options: re-add it as a fifth *How We Help* stage, give it
+  its own page under Services, or drop it deliberately. Awaiting Raphael's call.
+
+## Lessons
+- Headless Chrome CLI clamps `--window-size` width to ~500px (per the About session) — 500px
+  is still enough to verify the ≤1023px single-column collapse, but a true ≤414px pass needs
+  puppeteer viewport emulation, which isn't installed here.

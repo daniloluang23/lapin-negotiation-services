@@ -373,6 +373,15 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .hero--page .wrap { padding-block: var(--space-2xl) var(--space-2xl); }
 .hero--page h1 { font-size: var(--text-3xl); max-width: 24ch; }
 .hero--page .hero__sub { font-size: var(--text-base); margin-top: var(--space-sm); }
+/* Optional one-line positioning statement under a service-page lede (soft gold
+   on the onyx masthead). Set via $lapin['hero']['statement']. */
+.hero__statement {
+	font-family: var(--font-display); font-weight: 700;
+	font-size: var(--text-md); line-height: 1.3;
+	letter-spacing: var(--tracking-display);
+	color: var(--color-gold); max-width: 34ch;
+	margin: var(--space-md) 0 0;
+}
 /* Highlighted free-consultation CTA in the service-page hero (client 2026-07-22:
    "highlight that call to action … minimally a gold box"). Gold-outlined chip
    over the onyx masthead, phone numbers as tel: links. */

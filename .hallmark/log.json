@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-08-30",
+    "scope": "page",
+    "target": "wp-content/plugins/lapin/templates/page-lapin-negotiation.php",
+    "macrostructure": "Split Studio → Stepped Studio (service family extension)",
+    "theme": "locked design.md system (no rotation — system-managed project)",
+    "theme_axes": "dark-masthead-light-body / geometric-sans / warm-rose (~35)",
+    "enrichment": "none — typography + inline Lucide icons + shared corner-sweep watermark",
+    "nav": "N1b shared onyx masthead",
+    "footer": "shared Ft-index 3-col",
+    "brief": "Client (Raphael) revision doc: new Negotiation Services copy — hero + Why a specialist + 4 ordinal How-We-Help steps + two-column Types + client CTA"
+  },
+  {
     "date": "2026-07-19",
     "scope": "app",
     "macrostructure": "Marquee Hero split (home) / Split Studio (services) / Long Document (content)",

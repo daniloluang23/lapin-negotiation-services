@@ -49,7 +49,11 @@ Quiet motion, generous negative space, warm metallic accents on deep onyx.
                                qualification cards (paper), media wall (cream,
                                bridge-motif audio facades), CTA band.
                                (Quals before media per client, 2026-07-22.)
-- Service pages:               **Split Studio** — 65/35 text/icon diptychs.
+- Service pages:               **Split Studio** — 65/35 text/icon diptychs;
+                               may extend to **Stepped Studio** (v2.8) when the
+                               page carries a process: split opener → cream band
+                               of ordinal step cards → two rule-topped columns →
+                               CTA band.
 - Content pages:               **Long Document** — editorial prose, inline heads.
 - Contact:                     split utility — form left, contact facts right.
 - Blog:                        index = card grid; posts = Long Document.
@@ -182,7 +186,12 @@ all use rosewood #A97968 (pieces + LAPIN + subtext + rule) with deep russet
   reviews grid (first 6 Google reviews via Trustindex sync, bundled snapshot
   fallback) + centered 40+ five-star band, bridge-motif audio facades on the
   media wall, numeral marks (no photos) on the qualification cards.
-- Service pages: inline Lucide icons, no icon-tile grids.
+- Service pages: inline Lucide icons, no icon-tile grids. Ordinal step cards
+  (`.neg-step`) may carry a 3px rose top edge, an `01`–`04` numeral in
+  `--color-accent-strong`, a hairline lead-out rule and a small line icon at
+  0.75 opacity; the bottom note aligns across the row (`margin-top: auto`).
+  A service page MAY replace the shared CTA band with client-supplied closing
+  copy, rendered in the same `.cta-band .band` voice and button pair.
 - Blog cards: featured image (WebP, width/height, lazy), date, title, excerpt.
 - No page invents metrics, testimonials, or logos.
 
@@ -370,6 +379,32 @@ nav-only masthead).
   `assets/images/about-headshot-{800,1200}.webp` (portrait 2:3); it is the page LCP —
   preloaded with imagesrcset + `fetchpriority="high"`, `object-position: 50% 28%` (Y tunable
   via the crop comment). New Lucide icons added: `target.svg`, `shield.svg`.
+
+**v2.8 — Negotiation page rebuilt from the client's revision doc (2026-08-30, client-directed).**
+Raphael supplied a complete replacement for `/negotiation/` ("NEGOTIATION SERVICES PAGE",
+Word doc) with a brief for a scannable, segmented, premium layout consistent with Home and
+About. The page's four verbatim live-site sections (Why a negotiation specialist? · Negotiation
+advice & support · Negotiation representation · Negotiation training) are **retired**; the new
+client copy is used verbatim (a client-directed exception to the live-site verbatim rule, same
+precedent as the 2026-07-21 founder/quals replacement).
+- **Structure (Stepped Studio):** masthead hero (eyebrow "Negotiation Services" + H1 "Strategic
+  Negotiation Support for High-Stakes Matters" + lede + the new gold statement line + the
+  gold Free Consultation box) → **Why Work With a Negotiation Specialist** as the retained
+  Split Studio diptych (`award` icon) → **How We Help** on the cream band as four ordinal step
+  cards (`target` / `lightbulb` / `messages-square` / `user-round-check`), 2×2 on desktop,
+  stacked below 1024px → **Types of Negotiations We Handle** as the client's two rule-topped
+  columns (`handshake` transactional / `scale` settlement) + the closing display line →
+  the client's own CTA copy in the shared onyx band voice.
+- **New hero affordance:** `$lapin['hero']['statement']` renders an optional one-line
+  positioning statement under the lede — DM Sans 700, `--text-md`, `--color-gold`, 34ch cap
+  (`.hero__statement` in `lapin-tokens.php`). Reusable by any service page.
+- **CTA band:** this page ships the client's closing copy ("Schedule a consultation to discuss
+  your matter." + the "If you're preparing for a negotiation…" line) instead of the shared
+  `lapin-cta-band.php`; buttons stay the standard gold/outline pair.
+- **Open item:** the retired "Negotiation training" section (Fortune 100 programs, customized
+  training / practical experience / measurable results) has **no home on the site** — the new
+  doc drops it. Flagged for client decision; the Fortune 100 training credential still appears
+  on the home creds strip.
 
 ## Performance law (95+ mobile/desktop, 100 SEO)
 
