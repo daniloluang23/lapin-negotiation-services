@@ -187,8 +187,9 @@ all use rosewood #A97968 (pieces + LAPIN + subtext + rule) with deep russet
   fallback) + centered 40+ five-star band, bridge-motif audio facades on the
   media wall, numeral marks (no photos) on the qualification cards.
 - Service pages: inline Lucide icons, no icon-tile grids. Ordinal step cards
-  (`.neg-step`) may carry a 3px rose top edge, an `01`–`04` numeral in
-  `--color-accent-strong`, a hairline lead-out rule and a small line icon at
+  (`.neg-step`) may carry a 3px rose top edge, a stage word in
+  `--color-accent-strong` (label voice; v2.9 — was an `01`–`04` numeral), a
+  hairline lead-out rule and a small line icon at
   0.75 opacity; the bottom note aligns across the row (`margin-top: auto`).
   A service page MAY replace the shared CTA band with client-supplied closing
   copy, rendered in the same `.cta-band .band` voice and button pair.
@@ -405,6 +406,73 @@ precedent as the 2026-07-21 founder/quals replacement).
   training / practical experience / measurable results) has **no home on the site** — the new
   doc drops it. Flagged for client decision; the Fortune 100 training credential still appears
   on the home creds strip.
+
+**v2.9 — Negotiation copy revision 2 + client design notes (2026-09-05, client-directed).**
+Raphael's second revision doc replaces the 2026-08-30 copy wholesale (used verbatim) and
+carries three design notes, all applied:
+- **Subpage hero H1 sizing (site-wide fix).** `.hero--page h1` was a fixed `--text-3xl`
+  (48.8px at every width), so on a phone every subpage title rendered *larger* than the home
+  hero (40px) while being smaller on desktop. New token `--text-hero-page:
+  clamp(2.5rem, 2vw + 1.6rem, 3.0518rem)` floors at the home hero's mobile size and keeps the
+  existing desktop size. Applies to every subpage, not just Negotiation.
+- **Lede parity.** Both paragraphs under a service-page section head now share the opening
+  paragraph's size (`--text-md`/1.55) — the `.lead` + body-size pairing is retired on this page.
+- **Stage words replace ordinals.** The "How We Help" cards carry ASSESS · DESIGN · ADVISE ·
+  REPRESENT (`.neg-step__label`) where the `01`–`04` numerals sat — same position, same
+  `--color-accent-strong` copper, label voice (DM Sans 700, `--text-sm`, `--tracking-label`,
+  uppercase); the hairline accent rule beside them is kept. The word duplicates the card
+  heading, so it is `aria-hidden`.
+- **Hero order.** `$lapin['hero']['statement']` now renders *between* the H1 and the lede
+  (H1 → short gold punch line → explanatory sentence), matching the client's doc order.
+- **Copy deltas:** hero punch line is "Clear strategy. Creative solutions. Stronger Outcomes."
+  (client capitalisation, 2026-09-05)
+  ("We help you negotiate from strength." retired); both Why-Work-With paragraphs rewritten
+  (the bolded "objectivity, strategy, and creative problem-solving" run is no longer bolded);
+  stages 2–4 gain second lead paragraphs and stage 4 gains a closing line; stage 3 gains a
+  fifth bullet; the types lists grow (Partnership agreements · Senior-level employment and
+  compensation agreements · Trust and Estate disputes · Judgement Settlements · Contract and
+  commercial disputes) and the H2 is verbatim "Types of Negotiations We Handle Include:";
+  the CTA gains the heading "Approach Your Next Negotiation Strategically" and keeps
+  "Schedule a consultation to discuss your matter." as a gold ask line above the buttons.
+- **Still open:** the retired "Negotiation training" section (v2.8) has no home on the site.
+
+**v2.10 — Dispute Resolution page rebuilt from the client's copy doc + design brief
+(2026-09-05, client-directed).**
+Raphael supplied a complete replacement for `/dispute-resolution/` ("Dispute Resolution Page")
+plus a "matched to Negotiation page" design brief. The page's four verbatim live-site sections
+(Avoid the costs of court · Settlement negotiation advice and coaching · Settlement negotiation
+agent · Why a dispute resolution specialist?) are **retired**; the new client copy is used
+verbatim (same client-directed exception to the live-site verbatim rule as v2.8/v2.9).
+- **Positioning shift:** the page no longer sells "ADR instead of litigation" — it sells
+  stabilizing *escalated* conflict, explicitly broader than mediation and upstream of it.
+  `<title>`, meta description and Service `serviceType` all re-aimed accordingly.
+- **Structure (Stepped Studio, sibling of `/negotiation/`):** masthead hero (eyebrow "Dispute
+  Resolution" + H1 "Dispute Resolution When Conflict Escalates" + lede + the gold Free
+  Consultation box; no `statement` line — the client supplied none) → **How We Help** on the
+  cream band as six capability cards (`shield` / `network` / `layers` / `messages-square` /
+  `target` / `handshake`), 3-up desktop → 2-up ≤1024px → stacked ≤768px → **How This Differs
+  From Mediation** as a single cream box on paper (1px rule, 3px rose top edge, `--space-xl`
+  padding — the brief's "lightly shaded box") → **Who This Is For** as a three-column rose-mark
+  bullet grid → **Outcome** on the cream band: lede + a three-part rule-topped bar (Stabilized
+  Conflict · Reopened Interaction · Clear Path Forward, DM Sans 700, hairline separators) →
+  the client's own CTA copy in the shared onyx band voice.
+- **Card anatomy:** `.dr-card` reuses the v2.9 stage-card head rhythm (icon + hairline lead-out
+  + 3px rose top edge) **without** the stage word — the six items are parallel capabilities, not
+  an ordinal sequence, and inventing stage labels would be invented content.
+- **Copy-source conflicts, resolved:** card titles follow the design brief's "exact titles"
+  ("Reopen Interaction Channels", not the copy doc's "Reopen Channels of Interaction"), and the
+  section header is the brief's "How This Differs From Mediation" (not "What Makes This Distinct
+  From Mediation"). **Who This Is For keeps the copy doc's full 10-item list** — the brief's
+  echo drops Family business / Trust & Estate / Litigated disputes, and dropping client copy is
+  the worse error. The Outcome lede is the brief's longer version (…"whether through mediation,
+  negotiation, or facilitated agreement-building").
+- **Brief notes deliberately not followed:** the brief's "no imagery; clean white background"
+  hero is overridden by the site-wide bridge masthead (v2.4 law — one artwork site-wide); the
+  hero CTA stays the gold `Free Consultation` phone box (v2.6 services law) rather than a
+  "Schedule a Consultation" button, which is carried by the CTA band instead.
+- **Open item:** the retired live-site copy included the only on-site explanation of settlement
+  *agent* representation on this page. `/negotiation/` still covers representation; flagged in
+  case the client wants an agent-representation line kept here.
 
 ## Performance law (95+ mobile/desktop, 100 SEO)
 

@@ -1,5 +1,29 @@
 [
   {
+    "date": "2026-09-05",
+    "scope": "page",
+    "target": "wp-content/plugins/lapin/templates/page-lapin-dispute-resolution.php",
+    "macrostructure": "Stepped Studio (service family) — sibling of /negotiation/",
+    "theme": "locked design.md system (no rotation — system-managed project)",
+    "theme_axes": "dark-masthead-light-body / geometric-sans / warm-rose (~35)",
+    "enrichment": "none — typography + inline Lucide icons + shared corner-sweep watermark",
+    "nav": "N1b shared onyx masthead",
+    "footer": "shared Ft-index 3-col",
+    "brief": "Client copy doc + 'match the Negotiation page' design brief: escalation-stabilization positioning, 6 How-We-Help cards on cream, boxed mediation distinction, 3-col Who-This-Is-For, 3-part Outcome bar, client CTA"
+  },
+  {
+    "date": "2026-09-05",
+    "scope": "page",
+    "target": "wp-content/plugins/lapin/templates/page-lapin-negotiation.php",
+    "macrostructure": "Stepped Studio (service family) — unchanged, revision pass",
+    "theme": "locked design.md system (no rotation — system-managed project)",
+    "theme_axes": "dark-masthead-light-body / geometric-sans / warm-rose (~35)",
+    "enrichment": "none — typography + inline Lucide icons + shared corner-sweep watermark",
+    "nav": "N1b shared onyx masthead",
+    "footer": "shared Ft-index 3-col",
+    "brief": "Client revision 2: full copy replacement + 3 design notes (subpage hero H1 floors at home hero mobile size site-wide; Why-section paragraphs share one size; ASSESS/DESIGN/ADVISE/REPRESENT stage words replace 01-04)"
+  },
+  {
     "date": "2026-08-30",
     "scope": "page",
     "target": "wp-content/plugins/lapin/templates/page-lapin-negotiation.php",

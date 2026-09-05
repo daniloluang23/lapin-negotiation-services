@@ -87,6 +87,9 @@ define( 'LAPIN_TOKENS_EMITTED', true );
 	--text-2xl: 2.4414rem; --text-3xl: 3.0518rem;
 	--text-display: clamp(2.5rem, 4vw + 1rem, 4.25rem);
 	--text-display-s: clamp(2rem, 3vw + 1rem, 3.25rem);
+	/* Subpage hero H1 — floors at the home hero's mobile size (2.5rem) so no
+	   subpage title outgrows "Building Bridges." on a phone (client 2026-09-05). */
+	--text-hero-page: clamp(2.5rem, 2vw + 1.6rem, 3.0518rem);
 
 	--tracking-display: -0.015em;
 	--tracking-label: 0.14em;
@@ -371,7 +374,7 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 	.hero--home::before { background: linear-gradient(to bottom, rgb(22 20 24 / 0.8) 0%, rgb(22 20 24 / 0.5) 45%, rgb(22 20 24 / 0.12) 100%); }
 }
 .hero--page .wrap { padding-block: var(--space-2xl) var(--space-2xl); }
-.hero--page h1 { font-size: var(--text-3xl); max-width: 24ch; }
+.hero--page h1 { font-size: var(--text-hero-page); max-width: 24ch; }
 .hero--page .hero__sub { font-size: var(--text-base); margin-top: var(--space-sm); }
 /* Optional one-line positioning statement under a service-page lede (soft gold
    on the onyx masthead). Set via $lapin['hero']['statement']. */

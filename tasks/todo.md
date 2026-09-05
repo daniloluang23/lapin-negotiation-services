@@ -610,3 +610,92 @@ consistent with Home + About Us.
 - Headless Chrome CLI clamps `--window-size` width to ~500px (per the About session) — 500px
   is still enough to verify the ≤1023px single-column collapse, but a true ≤414px pass needs
   puppeteer viewport emulation, which isn't installed here.
+
+
+---
+
+# Negotiation page — client revision 2 + design notes (2026-09-05)
+
+Raphael returned a second copy revision plus three design comments. All applied.
+
+## Plan (complete)
+- [x] Subpage hero H1: match the home hero's size on mobile (his comment 1)
+- [x] "Why Work with a Negotiation Specialist": one size for both paragraphs (comment 2)
+- [x] "How We Help": ASSESS / DESIGN / ADVISE / REPRESENT replace 01-04, same spot,
+      same copper, accent rule kept (comment 3)
+- [x] Replace the page copy with revision 2, verbatim
+- [x] design.md v2.9 + .hallmark/log.json + this log
+
+## Review
+- **Hero H1 was a real site-wide bug.** `.hero--page h1` was a fixed `--text-3xl` (48.8px at
+  every width) while the home H1 is fluid and floors at 40px — so every subpage title was
+  ~22% larger than home on a phone. Fixed with a new `--text-hero-page` token,
+  `clamp(2.5rem, 2vw + 1.6rem, 3.0518rem)`. Measured: 390px → 40.0px (home 40.0px),
+  414px → 40.0px (home 40.0px), 1440px → 48.8px (unchanged, desktop was fine per client).
+  Every subpage benefits.
+- **Why section:** `.neg-why .prose p` is now `--text-md`/1.55 for both paragraphs; the
+  `.lead` class is gone from this page. Revision 2 also drops the bold run, so the
+  paragraphs are now uniform in size, weight and face.
+- **Stage words:** `.neg-step__num` → `.neg-step__label`, DM Sans 700 `--text-sm` uppercase
+  with `--tracking-label`, still `--color-accent-strong`. `white-space: nowrap` so
+  "REPRESENT" can't wrap; the flex rule absorbs the width difference. `aria-hidden` kept —
+  the word duplicates the card heading for screen readers.
+- **Hero order changed** in the shared partial: `statement` now renders between the H1 and
+  the lede (H1 → gold punch line → explanatory sentence), per the client's doc order.
+  Guarded by `! empty()`, so the other subpages are unaffected.
+- **Copy** is verbatim revision 2 throughout, including the H2 "Types of Negotiations We
+  Handle Include:" (trailing colon as written) and "Judgement Settlements" as spelled.
+  Stage 4 now has a closing line, so the fourth card is no longer visually short.
+- **Verified:** PHP lint clean on all three touched files; source spot-checks pass; no raw
+  hex/oklch/px in the style block; hero clamp math confirmed against the home token.
+
+## Blocked — needs the site running
+Local's PHP service is stopped (nginx answers, PHP-FPM does not — every page returns 502,
+including untouched ones; `lapin.local` does not resolve). Could not run the 200 smoke test
+or take screenshots. **Start the site in the Local app, then re-run:**
+`for p in "" overview/ negotiation/ contact/; do curl -s -o /dev/null -w "$p %{http_code}
+" "http://lapin-negotiation-services.local/$p"; done`
+and re-screenshot `/negotiation/` at 1440px and 500px before deploying.
+
+
+---
+
+# Dispute Resolution page — client copy doc + design brief (2026-09-05)
+
+Raphael supplied a full replacement for `/dispute-resolution/` plus a page-design brief
+explicitly asking for it to match the Negotiation page. Rebuilt as a Stepped Studio sibling.
+
+## Plan (complete)
+- [x] Retire the four verbatim live-site sections; new client copy throughout
+- [x] Hero: eyebrow + new H1/sub-headline + the gold Free Consultation box (negotiation parity)
+- [x] "How We Help": 6 cards on the cream band, 3-up desktop / 2-up tablet / stacked mobile
+- [x] "How This Differs From Mediation": the brief's single shaded box
+- [x] "Who This Is For": three-column bullet grid
+- [x] "Outcome": lede + three-part rule-topped bar
+- [x] Client's own CTA copy in the shared onyx band voice
+- [x] Re-aimed `<title>`, meta description, Service JSON-LD
+- [x] Hero punch line on `/negotiation/`: "Stronger outcomes." → "Stronger Outcomes."
+- [x] design.md v2.10 + .hallmark/log.json + this log
+
+## Review
+- **Card anatomy** reuses the v2.9 stage-card head (icon + hairline lead-out + 3px rose top
+  edge) but drops the stage word — the six items are parallel capabilities, not an ordinal
+  sequence, and inventing stage labels would be invented content.
+- **Copy-source conflicts** (the doc and the brief disagree in three places): card titles and
+  the mediation-section header follow the brief's "exact titles"; Who This Is For keeps the
+  doc's full 10-item list (the brief's echo silently drops Family business / Trust & Estate /
+  Litigated disputes); the Outcome lede uses the brief's longer version.
+- **Brief notes deliberately overridden:** the "no imagery, clean white background" hero loses
+  to the site-wide bridge masthead (v2.4), and the hero CTA stays the gold Free Consultation
+  phone box (v2.6 services law) — "Schedule a Consultation" is carried by the CTA band instead.
+- **Positioning shift:** the page no longer argues "ADR instead of litigation"; it sells
+  stabilizing escalated conflict, upstream of and broader than mediation. Metadata re-aimed.
+- **Open item:** the retired copy held the only on-site explanation of settlement *agent*
+  representation. `/negotiation/` still covers representation — flagged for the client.
+- **Verified:** PHP lint clean on both touched templates; log.json re-parses; grid tracks all
+  `minmax(0, 1fr)`; no raw hex/oklch/px in the style block.
+
+## Blocked — needs the site running
+Local's PHP service is still stopped (home, /negotiation/ and /dispute-resolution/ all return
+502). No smoke test and no screenshots. **Start the site in Local, then re-run the seven-page
+smoke test and screenshot `/dispute-resolution/` at 1440px and 500px before deploying.**

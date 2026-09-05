@@ -8,7 +8,7 @@
  *   array( 'title' => '…', 'lede' => '…' )     — compact page hero (H1 + lede)
  *   array( 'title' => '…', 'lede' => '…',
  *          'eyebrow' => '…' )                  — optional small label above the H1
- *   'statement' => '…'                         — optional gold one-liner under the lede
+ *   'statement' => '…'                         — optional gold one-liner between H1 and lede
  *   'cta' => '…' | true                        — optional highlighted free-consultation box
  * Unset — no hero block (masthead is nav-only).
  */
@@ -49,12 +49,12 @@ if ( 'home' === ( $lapin_hero_cfg['type'] ?? '' ) ) : ?>
 		<span class="hero__eyebrow reveal" style="--i:0"><?php echo esc_html( $lapin_hero_cfg['eyebrow'] ); ?></span>
 		<?php endif; ?>
 		<h1 class="reveal" style="--i:1"><?php echo esc_html( $lapin_hero_cfg['title'] ); ?></h1>
-		<?php if ( ! empty( $lapin_hero_cfg['lede'] ) ) : ?>
-		<p class="hero__sub reveal" style="--i:2"><?php echo esc_html( $lapin_hero_cfg['lede'] ); ?></p>
-		<?php endif; ?>
-		<?php // Optional one-line positioning statement under the lede (soft gold). ?>
+		<?php // Optional short positioning line between the H1 and the lede (soft gold). ?>
 		<?php if ( ! empty( $lapin_hero_cfg['statement'] ) ) : ?>
 		<p class="hero__statement reveal" style="--i:2"><?php echo esc_html( $lapin_hero_cfg['statement'] ); ?></p>
+		<?php endif; ?>
+		<?php if ( ! empty( $lapin_hero_cfg['lede'] ) ) : ?>
+		<p class="hero__sub reveal" style="--i:2"><?php echo esc_html( $lapin_hero_cfg['lede'] ); ?></p>
 		<?php endif; ?>
 		<?php // Highlighted free-consultation CTA (service pages). Label is configurable; phone numbers come from the Lapin constants. ?>
 		<?php if ( ! empty( $lapin_hero_cfg['cta'] ) ) : ?>
