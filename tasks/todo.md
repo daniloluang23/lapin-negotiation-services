@@ -699,3 +699,41 @@ explicitly asking for it to match the Negotiation page. Rebuilt as a Stepped Stu
 Local's PHP service is still stopped (home, /negotiation/ and /dispute-resolution/ all return
 502). No smoke test and no screenshots. **Start the site in Local, then re-run the seven-page
 smoke test and screenshot `/dispute-resolution/` at 1440px and 500px before deploying.**
+
+---
+
+## 2026-09-05 · Mediation page rebuilt from the client's copy doc + design brief
+
+Raphael's email re-sent all three service pages; `/negotiation/` and `/dispute-resolution/`
+were already rebuilt earlier today, `/mediation/` was still the old live-site copy from
+2026-08-21. Rebuilt it as the third Stepped Studio sibling. See design.md **v2.12**.
+
+**Done**
+- [x] `page-lapin-mediation.php` rewritten: hero (eyebrow "Mediation Services" + H1
+      "Mediation for Complex & Contentious Disputes" + lede + gold Free Consultation box) →
+      What Mediation Is (Split Studio, `users-round`) → How We Help (cream, six cards,
+      the brief's **two-column** grid) → three-panel distinction with sibling cross-links →
+      Who This Is For (3-col) → Outcome (heading + lede) → Advisory Services callout →
+      onyx CTA band.
+- [x] Metadata + Service JSON-LD re-aimed off the retired "alternative to litigation"
+      framing (no more $1,500–$5,000 claim in the meta description).
+- [x] Copy corrections: "a advisory service" → "an advisory service"; "cofounder" →
+      "Co-founder"; "Trust & estate" → "Trust & Estate".
+- [x] Outcome bar deliberately **not** built — v2.11 retired that half of the structure on
+      `/dispute-resolution/` as repetitive of the lede it sat under. (Caught mid-build: the
+      DR template changed on disk at 10:05 while this page was being written.)
+- [x] PHP lint clean · seven-page smoke test all 200 · desktop 1440px and mobile 500px
+      screenshots reviewed.
+
+**Lesson.** Headless Chrome `--window-size=414` lays out at the ~500px clamp and then crops
+the canvas to 414 — the result *looks* like horizontal overflow but is not. Shoot at 500px
+(or use puppeteer viewport emulation) before chasing a phantom responsive bug.
+
+**Open items for the client**
+- The **mediation vs. litigation comparison table** (9 verbatim pairs) is now homeless. It
+  was the page's strongest conversion asset and the new copy doc omits it. Keep it as a
+  section here, move it to `/practice-areas/`, or drop it?
+- The CTA band heading "Ready to bring a neutral process to the table?" is authored in the
+  sibling pages' voice — the client's doc ends at Advisory Services. Needs sign-off.
+- Preparation coaching for parties in **our own** mediations is no longer described
+  anywhere; the new Advisory Services copy scopes that support to third-party mediations.

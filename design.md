@@ -474,6 +474,86 @@ verbatim (same client-directed exception to the live-site verbatim rule as v2.8/
   *agent* representation on this page. `/negotiation/` still covers representation; flagged in
   case the client wants an agent-representation line kept here.
 
+**v2.11 — client-directed copy corrections, 2026-09-05 (same session, later pass).**
+- **`/negotiation/` hero statement:** every word now capitalized —
+  "Clear Strategy. Creative Solutions. Stronger Outcomes." (was "Clear strategy. Creative
+  solutions. Stronger Outcomes."). The gold statement line is title-cased in full from here on.
+- **`/dispute-resolution/` How We Help, card 2:** title is now **"Open Backchannels for
+  Dialogue"** (was the brief's "Reopen Interaction Channels"), superseding the v2.10
+  copy-source resolution for this one card.
+- **`/dispute-resolution/` Outcome lede:** the trailing qualifier is cut — reads "A stabilized
+  conflict, restored channels of interaction, and a clear pathway toward resolution." The
+  v2.10 decision to use the brief's longer "…whether through mediation, negotiation, or
+  facilitated agreement-building" is reversed.
+- **`/dispute-resolution/` Outcome bar removed:** the three-part rule-topped bar (Stabilized
+  Conflict · Reopened Interaction · Clear Path Forward) is cut as repetitive of the lede it
+  sat under. The Outcome section is now heading + lede only; `.dr-outcome` CSS deleted with it.
+  This retires that half of the v2.10 Outcome structure.
+- **`/dispute-resolution/` hero sub-headline replaced** with the client's corrected line: "We
+  introduce a structured process so parties can move from impasse to **stability and
+  constructive engagement**." (was "…from impasse to resolution.") This is the authoritative
+  version — the v2.10 lede came from a superseded draft.
+
+**v2.12 — Mediation page rebuilt from the client's copy doc + design brief
+(2026-09-05, client-directed).**
+Raphael supplied the third and last page replacement ("Mediation Services Page") plus a
+six-point design brief, in the same email that re-sent the corrected Negotiation and
+Dispute Resolution copy. The page's four verbatim live-site sections (Mediation — an
+alternative to litigation · Mediation services · Mediation preparation, support and
+coaching · The power of mediation vs. the costs of litigation) are **retired**; the new
+client copy is used verbatim (same client-directed exception as v2.8/v2.9/v2.10). The
+service family is now complete and consistent across all three pages.
+- **Positioning:** mediation as a *neutral, facilitated process* for parties who are
+  ready — or can be made ready — to engage in structured dialogue; explicitly downstream
+  of Dispute Resolution and distinct from Negotiation. `<title>`, meta description and
+  Service `serviceType` re-aimed accordingly (the old "alternative to litigation" and
+  "$1,500–$5,000 per party" framing is gone).
+- **Structure (Stepped Studio, sibling of `/negotiation/` + `/dispute-resolution/`):**
+  masthead hero (eyebrow "Mediation Services" + H1 "Mediation for Complex & Contentious
+  Disputes" + lede + the gold Free Consultation box; no `statement` line — the client
+  supplied none) → **What Mediation Is — And Why It Matters** as the retained Split Studio
+  diptych (`users-round` icon) → **How We Help** on the cream band as six capability cards
+  (`scale` / `layers` / `target` / `lightbulb` / `messages-square` / `handshake`) in the
+  brief's **two-column** grid, stacked ≤1024px → **What Makes This Distinct from Negotiation
+  & Dispute Resolution** as three equal panels → **Who This Is For** as a three-column
+  rose-mark bullet grid → **Outcome** on the cream band as heading + lede (no bar — v2.11
+  law) → **Additional Advisory Services** as one wide cream callout with the icon at the
+  shoulder → a CTA band in the shared onyx voice.
+- **Card anatomy:** `.med-card` reuses the `.dr-card` head rhythm (icon + hairline lead-out
+  + 3px rose top edge) with no stage word. The brief's two-column layout (vs. the DR page's
+  three-up) gives the six cards `--space-xl` padding, matching `.neg-step`.
+- **Three-way distinction, new component:** `.med-distinct` renders the client's three
+  definitions as equal panels — Negotiation and Dispute Resolution on paper with a neutral
+  hairline top edge, Mediation in `--color-paper-2` with the 3px rose top edge and its term
+  in `--color-accent-strong`. The two sibling terms are **links** to `/negotiation/` and
+  `/dispute-resolution/` (rose underline on the term only) — the site's first inline
+  service-to-service cross-links, and the reason this page uses three panels rather than
+  the DR page's single shaded box.
+- **Copy corrections applied:** the doc's "we offer a advisory service" → "an advisory
+  service"; "Partnership or cofounder disputes" → "Co-founder" and "Trust & estate matters"
+  → "Trust & Estate", both to match the sibling pages' house style. The doc's `<strong>`
+  runs (neutral, structured environment · high-trust, professional process · neutral,
+  facilitated process · advisory service · outside) are preserved.
+- **Brief notes deliberately not followed:** "Mediation Services" is the hero **eyebrow**
+  and "Mediation for Complex & Contentious Disputes" the **H1**, not the reverse the brief's
+  wording implies — the H1 must carry the descriptive line for SEO, and this is the exact
+  relationship the client already approved on `/negotiation/` ("Negotiation Services" eyebrow
+  → descriptive H1). The brief's "same call to action" is read as the hero's gold
+  `Free Consultation` phone box (v2.6 services law), which is what the siblings carry.
+- **Authored, pending client sign-off:** the CTA band heading "Ready to bring a neutral
+  process to the table?" — the client's doc ends at Advisory Services and supplies no closing
+  copy, same situation as `/dispute-resolution/` in v2.10. The body line and button pair are
+  the shared band's approved copy.
+- **Open item:** the retired **mediation vs. litigation comparison table** (9 verbatim pairs:
+  resolved in a day vs. years, $1,500–$5,000 vs. tens of thousands, private vs. public record,
+  relationships salvaged vs. sworn enemies) was the site's strongest conversion asset and has
+  **no home anywhere on the site** now. The client's section list does not include it. Flagged
+  for a decision — it would sit naturally as a section on this page or on `/practice-areas/`.
+- **Open item:** the retired "Mediation preparation, support and coaching" section is largely
+  superseded by the new Advisory Services section, but the new copy scopes that support to
+  *third-party* mediations only. Preparation coaching for parties in **our own** mediations is
+  no longer described anywhere.
+
 ## Performance law (95+ mobile/desktop, 100 SEO)
 
 - Zero builder CSS/JS; theme styles dequeued; WP head cruft stripped.

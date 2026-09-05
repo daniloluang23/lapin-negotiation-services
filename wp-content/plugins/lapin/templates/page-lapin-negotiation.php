@@ -23,7 +23,7 @@ $lapin = array(
 	'hero'       => array(
 		'eyebrow'   => 'Negotiation Services',
 		'title'     => 'Strategic Negotiation Support for High-Stakes Matters',
-		'statement' => 'Clear strategy. Creative solutions. Stronger Outcomes.',
+		'statement' => 'Clear Strategy. Creative Solutions. Stronger Outcomes.',
 		'lede'      => 'Strategic negotiation advice, support, and representation for transactional negotiations and the resolution of conflicts and disputes.',
 		'cta'       => 'Free Consultation',
 	),

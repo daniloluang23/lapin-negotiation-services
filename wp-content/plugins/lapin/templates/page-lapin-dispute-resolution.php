@@ -23,7 +23,7 @@ $lapin = array(
 	'hero'       => array(
 		'eyebrow' => 'Dispute Resolution',
 		'title'   => 'Dispute Resolution When Conflict Escalates',
-		'lede'    => 'We introduce a structured process so parties can move from impasse to resolution.',
+		'lede'    => 'We introduce a structured process so parties can move from impasse to stability and constructive engagement.',
 		'cta'     => 'Free Consultation',
 	),
 	'schema'     => array(
@@ -49,7 +49,7 @@ $lapin_help = array(
 	),
 	array(
 		'icon'  => 'network',
-		'title' => 'Reopen Interaction Channels',
+		'title' => 'Open Backchannels for Dialogue',
 		'body'  => 'We re-establish contact, rebuild backchannels, and create structured pathways for information to flow. This includes guided exchanges, reframing, and sequencing to prevent further escalation.',
 	),
 	array(
@@ -89,8 +89,6 @@ $lapin_for = array(
 	'Conflicts where mediation is not yet viable',
 );
 
-// "Outcome" — the three-part closing bar.
-$lapin_outcomes = array( 'Stabilized Conflict', 'Reopened Interaction', 'Clear Path Forward' );
 ?>
 <style>
 	/* Hallmark · macrostructure: Split Studio → stepped studio (service family, design.md v2.10)
@@ -159,30 +157,6 @@ $lapin_outcomes = array( 'Stabilized Conflict', 'Reopened Interaction', 'Clear P
 		content: ""; position: absolute; left: 0; top: 0.62em;
 		width: 0.375rem; height: 0.375rem; background: var(--color-accent);
 	}
-
-	/* ── 4 · Outcome — three equal blocks, thin separators ───────────── */
-	.dr-outcome {
-		list-style: none; margin: var(--space-xl) 0 0; padding: 0;
-		display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-		border-top: 1px solid color-mix(in srgb, var(--color-ink) 16%, transparent);
-	}
-	.dr-outcome li {
-		padding: var(--space-lg) var(--space-md); min-width: 0;
-		font-family: var(--font-display); font-weight: 700;
-		font-size: var(--text-md); line-height: 1.3;
-		letter-spacing: var(--tracking-display); color: var(--color-ink);
-		overflow-wrap: anywhere;
-	}
-	.dr-outcome li:first-child { padding-left: 0; }
-	.dr-outcome li + li { border-left: 1px solid color-mix(in srgb, var(--color-ink) 16%, transparent); }
-	@media (max-width: 47.9375rem) {
-		.dr-outcome { grid-template-columns: minmax(0, 1fr); }
-		.dr-outcome li { padding-inline: 0; }
-		.dr-outcome li + li {
-			border-left: 0;
-			border-top: 1px solid color-mix(in srgb, var(--color-ink) 16%, transparent);
-		}
-	}
 </style>
 
 <main id="main">
@@ -237,12 +211,7 @@ $lapin_outcomes = array( 'Stabilized Conflict', 'Reopened Interaction', 'Clear P
 			<div class="sec-head rv">
 				<h2 id="dr-outcome-title">Outcome</h2>
 			</div>
-			<p class="lead rv" style="--i:1">A stabilized conflict, restored channels of interaction, and a clear pathway toward resolution — whether through mediation, negotiation, or facilitated agreement-building.</p>
-			<ul class="dr-outcome rv" style="--i:2" role="list">
-				<?php foreach ( $lapin_outcomes as $lapin_item ) : ?>
-				<li><?php echo esc_html( $lapin_item ); ?></li>
-				<?php endforeach; ?>
-			</ul>
+			<p class="lead rv" style="--i:1">A stabilized conflict, restored channels of interaction, and a clear pathway toward resolution.</p>
 		</div>
 	</section>
 

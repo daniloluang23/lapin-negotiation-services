@@ -2,6 +2,18 @@
   {
     "date": "2026-09-05",
     "scope": "page",
+    "target": "wp-content/plugins/lapin/templates/page-lapin-mediation.php",
+    "macrostructure": "Stepped Studio (service family) — third sibling of /negotiation/ and /dispute-resolution/",
+    "theme": "locked design.md system (no rotation — system-managed project)",
+    "theme_axes": "dark-masthead-light-body / geometric-sans / warm-rose (~35)",
+    "enrichment": "none — typography + inline Lucide icons + shared corner-sweep watermark",
+    "nav": "N1b shared onyx masthead",
+    "footer": "shared Ft-index 3-col",
+    "brief": "Client copy doc + 6-point design brief: neutral-facilitator positioning, Split Studio opener, 6 How-We-Help cards two-up on cream, three-panel distinction with sibling cross-links, 3-col Who-This-Is-For, Outcome lede, Advisory Services callout"
+  },
+  {
+    "date": "2026-09-05",
+    "scope": "page",
     "target": "wp-content/plugins/lapin/templates/page-lapin-dispute-resolution.php",
     "macrostructure": "Stepped Studio (service family) — sibling of /negotiation/",
     "theme": "locked design.md system (no rotation — system-managed project)",
