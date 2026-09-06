@@ -333,8 +333,7 @@ $lapin_for = array(
 	<section class="cta-band band" aria-labelledby="med-cta-title">
 		<div class="wrap">
 			<h2 id="med-cta-title" class="rv">Ready to bring a neutral process to the table?</h2>
-			<p class="rv" style="--i:1">For a free, no-obligation consultation with a specialist:</p>
-			<div class="cta-band__actions rv" style="--i:2">
+			<div class="cta-band__actions rv" style="--i:1">
 				<a class="btn btn--gold" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Schedule a Consultation</a>
 				<a class="btn btn--light" href="tel:<?php echo esc_attr( Lapin::PHONE_LOCAL_TEL ); ?>">Call Now &mdash; <?php echo esc_html( Lapin::PHONE_LOCAL ); ?></a>
 			</div>
