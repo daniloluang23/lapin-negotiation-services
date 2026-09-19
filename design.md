@@ -554,6 +554,30 @@ service family is now complete and consistent across all three pages.
   *third-party* mediations only. Preparation coaching for parties in **our own** mediations is
   no longer described anywhere.
 
+**v2.13 — Home page: positioning statement + service links above Practice Areas
+(2026-09-19, client-directed).** Client feedback: visitors weren't grasping what the firm
+does quickly enough from the home page.
+- **Positioning statement (`.statement-band`):** a single centered line — "We step in when
+  negotiations stall, conflicts escalate, or parties reach an impasse—providing a path
+  toward resolution." (client's revised wording; the initial draft's "a strategic path" was
+  cut) — sits directly below the credentials strip (client swapped the original hero→statement→
+  creds order so the strip reads first). Deliberately not a card/box: DM Sans 600, `--text-md`,
+  46ch cap width, with a centered 3.5rem/3px accent bar above it (the `.sec-head::after`
+  signature, mirrored upward) standing in for a divider; symmetric `--space-2xl` padding
+  top/bottom (an asymmetric first pass crowded the strip below it). The closing clause is set
+  in `--color-accent-strong`.
+- **"How We Help" (`#home-services`, `.svc-card`):** three link-cards to the service pages
+  (Negotiation `messages-square` · Dispute Resolution `users-round` · Mediation `scale`),
+  sitting between the statement and Practice Areas. Per the client's reference screenshot,
+  each carries a small circular icon mark (88px, `.qual__mark`'s paper-2 + hairline-ring +
+  inner-accent-ring anatomy at service-page-card scale rather than the qualification section's
+  160px), an uppercase title, a one-line description, and a decorative "Learn More →" affordance
+  (`.post-card__more` voice) — the whole card is the link, matching `.pa-item`'s single-anchor
+  pattern. Columns get hairline dividers (`.creds__item`'s border-left convention) at ≥40rem;
+  a 3-column grid collapsing to 1 column ≤40rem, dividers dropped when stacked. Extra bottom
+  margin is added ≤1024px (`--space-2xl` vs. `--space-xl`) per client note that this section
+  and Practice Areas read as too close together on mobile.
+
 ## Performance law (95+ mobile/desktop, 100 SEO)
 
 - Zero builder CSS/JS; theme styles dequeued; WP head cruft stripped.

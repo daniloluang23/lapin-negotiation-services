@@ -128,6 +128,59 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 		.founder { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
 		.founder__portrait img { width: min(60%, 18rem); }
 	}
+	/* Positioning statement (client request 2026-09-19): a single elegant line
+	   between the hero and the credentials/practice-areas content — plain
+	   text, no card/box, echoing the sec-head::after accent bar above it. */
+	.statement-band { padding-block: var(--space-2xl); text-align: center; }
+	.statement-band__text {
+		position: relative; max-width: 46ch; margin: 0 auto; padding-top: var(--space-lg);
+		font-family: var(--font-display); font-weight: 600;
+		font-size: var(--text-md); line-height: 1.5; color: var(--color-ink);
+	}
+	.statement-band__text::before {
+		content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+		width: 3.5rem; height: 3px; background: var(--color-accent);
+	}
+	.statement-band__text strong { color: var(--color-accent-strong); font-weight: 700; }
+	/* "How We Help" — three links to the service pages, directly above Practice
+	   Areas (client request 2026-09-19). Card anatomy borrows the qualification
+	   marks (.qual__mark, paper-2 circle + hairline ring + inner accent ring)
+	   at a smaller size, plus the creds strip's hairline column dividers. */
+	.home-services__head { text-align: center; }
+	.home-services__head::after { margin-inline: auto; }
+	.home-services-grid {
+		display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--space-lg); margin-bottom: var(--space-xl);
+	}
+	@media (max-width: 63.9375rem) { .home-services-grid { margin-bottom: var(--space-2xl); } }
+	@media (max-width: 40rem) { .home-services-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xl); } }
+	.svc-card {
+		text-decoration: none; display: flex; flex-direction: column; align-items: center;
+		text-align: center; gap: var(--space-xs); padding: var(--space-md) var(--space-lg);
+		border-left: 1px solid var(--color-rule);
+	}
+	.svc-card:first-child { border-left: 0; }
+	@media (max-width: 40rem) { .svc-card { border-left: 0; padding-inline: 0; } }
+	.svc-card__mark {
+		position: relative; display: grid; place-items: center;
+		width: 88px; height: 88px; margin-bottom: var(--space-sm);
+		background: var(--color-paper-2); border: 1px solid var(--color-rule); border-radius: 50%;
+	}
+	.svc-card__mark::after {
+		content: ""; position: absolute; inset: 6px;
+		border: 1px solid var(--color-accent); border-radius: 50%; opacity: 0.55;
+	}
+	.svc-card__mark svg { width: 2rem; height: 2rem; color: var(--color-accent); stroke-width: 1.5; }
+	.svc-card h3 {
+		font-size: var(--text-body); text-transform: uppercase; letter-spacing: 0.05em;
+		margin: 0; color: var(--color-ink);
+	}
+	.svc-card p { font-size: 0.9375rem; color: var(--color-ink-2); max-width: 24ch; margin: 0; }
+	.svc-card__more {
+		margin-top: var(--space-2xs); font-weight: 600; font-size: 0.875rem;
+		letter-spacing: 0.03em; color: var(--color-accent-strong);
+	}
+	.svc-card:hover .svc-card__more { text-decoration: underline; text-decoration-color: var(--color-accent); text-underline-offset: 3px; }
 	.pa-head { text-align: center; }
 	.pa-head::after { margin-inline: auto; }
 	.pa-grid {
@@ -236,7 +289,38 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 		</div>
 	</section>
 
-	<section class="sec sec--tight" id="practice-areas" aria-labelledby="pa-title">
+	<section class="statement-band" aria-label="Positioning statement">
+		<div class="wrap">
+			<p class="statement-band__text rv">We step in when negotiations stall, conflicts escalate, or parties reach an impasse&mdash;<strong>providing a path toward resolution.</strong></p>
+		</div>
+	</section>
+
+	<section class="sec sec--tight" id="home-services" aria-labelledby="home-services-title">
+		<div class="wrap">
+			<div class="sec-head home-services__head rv">
+				<h2 id="home-services-title">How We Help</h2>
+			</div>
+			<div class="home-services-grid">
+				<?php
+				$lapin_svc = array(
+					array( 'negotiation', 'messages-square', 'Negotiation', 'Strategic support for your most important conversations.' ),
+					array( 'dispute-resolution', 'users-round', 'Dispute Resolution', 'Practical solutions when conflicts escalate.' ),
+					array( 'mediation', 'scale', 'Mediation', 'A neutral process to reach lasting agreements.' ),
+				);
+				foreach ( $lapin_svc as $lapin_i => $lapin_item ) :
+				?>
+				<a class="svc-card rv" style="--i:<?php echo esc_attr( $lapin_i ); ?>" href="<?php echo esc_url( home_url( '/' . $lapin_item[0] . '/' ) ); ?>">
+					<span class="svc-card__mark" aria-hidden="true"><?php echo Lapin::icon( $lapin_item[1] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					<h3><?php echo esc_html( $lapin_item[2] ); ?></h3>
+					<p><?php echo esc_html( $lapin_item[3] ); ?></p>
+					<span class="svc-card__more" aria-hidden="true">Learn More &rarr;</span>
+				</a>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</section>
+
+	<section class="sec sec--tight band--cream" id="practice-areas" aria-labelledby="pa-title">
 		<div class="wrap">
 			<div class="sec-head pa-head rv">
 				<h2 id="pa-title">Practice Areas</h2>
