@@ -130,16 +130,15 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	}
 	/* Positioning statement (client request 2026-09-19): a single elegant line
 	   between the hero and the credentials/practice-areas content — plain
-	   text, no card/box, echoing the sec-head::after accent bar above it. */
+	   text, no card/box. A small monochrome bridge glyph (brand's signature
+	   motif, echoed from the hero/watermark) stands in for a plain rule
+	   (client request 2026-09-21 — swapped out for the accent bar). */
 	.statement-band { padding-block: var(--space-2xl); text-align: center; }
+	.statement-band__bridge { display: block; width: 7rem; height: auto; margin: 0 auto var(--space-lg); color: var(--color-accent); }
 	.statement-band__text {
-		position: relative; max-width: 46ch; margin: 0 auto; padding-top: var(--space-lg);
+		max-width: 46ch; margin: 0 auto;
 		font-family: var(--font-display); font-weight: 600;
 		font-size: var(--text-md); line-height: 1.5; color: var(--color-ink);
-	}
-	.statement-band__text::before {
-		content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-		width: 3.5rem; height: 3px; background: var(--color-accent);
 	}
 	.statement-band__text strong { color: var(--color-accent-strong); font-weight: 700; }
 	/* "How We Help" — three links to the service pages, directly above Practice
@@ -173,7 +172,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	.svc-card__mark svg { width: 2rem; height: 2rem; color: var(--color-accent); stroke-width: 1.5; }
 	.svc-card h3 {
 		font-size: var(--text-body); text-transform: uppercase; letter-spacing: 0.05em;
-		margin: 0; color: var(--color-ink);
+		margin: 0; color: var(--color-accent-strong);
 	}
 	.svc-card p { font-size: 0.9375rem; color: var(--color-ink-2); max-width: 24ch; margin: 0; }
 	.svc-card__more {
@@ -291,7 +290,13 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 
 	<section class="statement-band" aria-label="Positioning statement">
 		<div class="wrap">
-			<p class="statement-band__text rv">We step in when negotiations stall, conflicts escalate, or parties reach an impasse&mdash;<strong>providing a path toward resolution.</strong></p>
+			<?php // Minimal line-art echo of the hero/watermark bridge motif — brand signature, not the photographic bridge. ?>
+			<svg class="statement-band__bridge rv" viewBox="0 0 64 28" fill="none" aria-hidden="true" focusable="false">
+				<path d="M6 23 Q32 3 58 23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+				<path d="M20 10 L20 23M32 4 L32 23M44 10 L44 23" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+				<line x1="1" y1="23" x2="63" y2="23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+			</svg>
+			<p class="statement-band__text rv" style="--i:1">We step in when negotiations stall, conflicts escalate, or parties reach an impasse&mdash;<strong>providing a path toward resolution.</strong></p>
 		</div>
 	</section>
 

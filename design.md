@@ -577,6 +577,21 @@ does quickly enough from the home page.
   a 3-column grid collapsing to 1 column ≤40rem, dividers dropped when stacked. Extra bottom
   margin is added ≤1024px (`--space-2xl` vs. `--space-xl`) per client note that this section
   and Practice Areas read as too close together on mobile.
+- **Practice Areas** gets `.band--cream` (client 2026-09-21: wanted visual separation from How
+  We Help above it; a dividing rule was considered and rejected in favor of the background
+  swap, which also matches the Testimonials section's existing paper/cream alternation).
+- **Statement bridge glyph (2026-09-21, client-directed):** the accent bar above the
+  positioning statement is replaced with a small line-art bridge glyph (`.statement-band__bridge`,
+  inline SVG, tied arch + three hangers + deck, `currentColor` on `--color-accent`) — the
+  client asked for the brand's bridge motif instead of a plain rule. This is a new minimal
+  monochrome mark, not the photographic `bridge-theme-*.webp` or the multi-color
+  `#lapin-bridge-mini` symbol (tuned for dark facade backgrounds; low-contrast on this
+  section's paper background).
+- **`.svc-card h3` recolored to `--color-accent-strong`** (client 2026-09-21: "gold" service
+  titles). The literal `--color-gold` token is reserved for onyx/dark backgrounds and reads as
+  low-contrast on paper — `--color-accent-strong` is the site's established readable
+  gold/rosewood text color on light backgrounds (same token as the founder role line and the
+  Mediation panel's distinct-term highlight).
 
 ## Performance law (95+ mobile/desktop, 100 SEO)
 
