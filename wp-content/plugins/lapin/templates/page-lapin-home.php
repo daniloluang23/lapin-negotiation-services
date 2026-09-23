@@ -290,11 +290,30 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 
 	<section class="statement-band" aria-label="Positioning statement">
 		<div class="wrap">
-			<?php // Minimal line-art echo of the hero/watermark bridge motif — brand signature, not the photographic bridge. ?>
-			<svg class="statement-band__bridge rv" viewBox="0 0 64 28" fill="none" aria-hidden="true" focusable="false">
-				<path d="M6 23 Q32 3 58 23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-				<path d="M20 10 L20 23M32 4 L32 23M44 10 L44 23" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
-				<line x1="1" y1="23" x2="63" y2="23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+			<?php // Bridge glyph supplied by the client as a finished SVG (2026-09-23) — c2pa provenance metadata stripped, stroke hardcoded to hex swapped for currentColor so it takes --color-accent like every other icon on the site. ?>
+			<svg class="statement-band__bridge rv" viewBox="0 0 300 60" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+				<g stroke-width="1.6">
+					<line x1="33" y1="6" x2="33" y2="48"/>
+					<line x1="44" y1="6" x2="44" y2="42.9"/>
+					<line x1="55" y1="6" x2="55" y2="37.6"/>
+					<line x1="66" y1="6" x2="66" y2="32.2"/>
+					<line x1="77" y1="6" x2="77" y2="26.7"/>
+					<line x1="88" y1="6" x2="88" y2="21.4"/>
+					<line x1="99" y1="6" x2="99" y2="16.5"/>
+					<line x1="110" y1="6" x2="110" y2="12.2"/>
+					<line x1="187" y1="6" x2="187" y2="11.2"/>
+					<line x1="198" y1="6" x2="198" y2="15.3"/>
+					<line x1="209" y1="6" x2="209" y2="20.1"/>
+					<line x1="220" y1="6" x2="220" y2="25.3"/>
+					<line x1="231" y1="6" x2="231" y2="30.7"/>
+					<line x1="242" y1="6" x2="242" y2="36.1"/>
+					<line x1="253" y1="6" x2="253" y2="41.5"/>
+					<line x1="264" y1="6" x2="264" y2="46.6"/>
+				</g>
+				<path d="M24 52 C70 32 100 12 128 7.5 L172 7.5 C200 12 230 32 276 52" stroke-width="3"/>
+				<line x1="2" y1="6" x2="298" y2="6" stroke-width="3"/>
+				<path d="M20 6 V54 M280 6 V54" stroke-width="4.5"/>
+				<path d="M6 54 H34 M266 54 H294" stroke-width="3"/>
 			</svg>
 			<p class="statement-band__text rv" style="--i:1">We step in when negotiations stall, conflicts escalate, or parties reach an impasse&mdash;<strong>providing a path toward resolution.</strong></p>
 		</div>

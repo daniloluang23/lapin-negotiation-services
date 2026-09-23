@@ -580,13 +580,22 @@ does quickly enough from the home page.
 - **Practice Areas** gets `.band--cream` (client 2026-09-21: wanted visual separation from How
   We Help above it; a dividing rule was considered and rejected in favor of the background
   swap, which also matches the Testimonials section's existing paper/cream alternation).
-- **Statement bridge glyph (2026-09-21, client-directed):** the accent bar above the
-  positioning statement is replaced with a small line-art bridge glyph (`.statement-band__bridge`,
-  inline SVG, tied arch + three hangers + deck, `currentColor` on `--color-accent`) — the
-  client asked for the brand's bridge motif instead of a plain rule. This is a new minimal
-  monochrome mark, not the photographic `bridge-theme-*.webp` or the multi-color
-  `#lapin-bridge-mini` symbol (tuned for dark facade backgrounds; low-contrast on this
-  section's paper background).
+- **Statement bridge glyph (`.statement-band__bridge`, inline SVG, `currentColor` on
+  `--color-accent`):** the accent bar above the positioning statement is replaced with a small
+  line-art bridge glyph (client 2026-09-21). Enlarged from 4rem to 7rem wide the same session.
+  Redrawn twice on 2026-09-23 against reference screenshots (two rejected reconstructions —
+  a single-arch viaduct with an open crown, then a hand-built twin-arch guess), before the
+  client supplied a finished SVG directly. That file is now used verbatim for the geometry —
+  suspension-profile silhouette: full-width top cap line, two tall end towers with foot caps,
+  a single cable path (cubic beziers, low at the towers/high across a flat mid-span crown), and
+  16 vertical hangers of graduated length (long near the towers, short toward center) — viewBox
+  `300×60`. Two things were stripped/changed from the client's file on the way in: the embedded
+  C2PA provenance manifest (~14KB of unrelated base64 metadata, no reason to ship it inline on
+  every pageview) and the hardcoded `stroke="#b5746a"` (off-token — swapped for `currentColor`
+  so it takes `--color-accent` like every other icon on the site, same as the rest of this
+  section). This is a new minimal monochrome mark, not the photographic `bridge-theme-*.webp`
+  or the multi-color `#lapin-bridge-mini` symbol (tuned for dark facade backgrounds;
+  low-contrast on this section's paper background).
 - **`.svc-card h3` recolored to `--color-accent-strong`** (client 2026-09-21: "gold" service
   titles). The literal `--color-gold` token is reserved for onyx/dark backgrounds and reads as
   low-contrast on paper — `--color-accent-strong` is the site's established readable
