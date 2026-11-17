@@ -1,6 +1,6 @@
 <?php
 /**
- * Head analytics + Search Console verification.
+ * Head analytics, ad tags + Search Console verification.
  *
  * Required from lapin-head.php, inside <head>. Two independent outputs:
  *
@@ -10,12 +10,30 @@
  *     stays blank; the constant is a one-line escape hatch if the property ever
  *     needs HTML-tag re-verification.
  *
- *  2. Google Analytics 4 (gtag.js) — emitted only when Lapin::tracking_allowed()
- *     returns true, i.e. live domain + not logged in + not opted out (cookie or
- *     Global Privacy Control). No GTM: plain gtag per client direction. The
- *     cookie banner (lapin-cookie-banner.php) neutralises GA client-side on
- *     "Reject" for the current page view; this gate keeps it off on every load
- *     after the choice is stored.
+ *  2. Tracking — GA4, Google Ads and Microsoft UET. Two gates:
+ *
+ *     Server: emitted only when Lapin::tracking_allowed() is true (live domain,
+ *     not logged in). It does not look at the opt-out: the live host's edge
+ *     page cache serves one copy of each page to everyone, whatever their
+ *     cookie or GPC header (verified 17.11.26: x-kinsta-cache HIT for all), and
+ *     an opt-out check on a cache miss would cache a tag-free page for everyone.
+ *
+ *     Browser: so the opt-out is enforced here, before anything loads. The inline
+ *     script reads the lapin_cookie_consent cookie and navigator.globalPrivacyControl
+ *     and, if the visitor has opted out, defines no gtag, queues nothing and
+ *     injects neither loader. The cookie banner (lapin-cookie-banner.php)
+ *     neutralises tags already running on the page view where Reject is clicked.
+ *
+ *     Google Ads rides on the GA4 gtag.js loader (Google: one Google tag per
+ *     page) — a second gtag.js would double-load and can double-count. The call
+ *     snippet makes Google swap Lapin::PHONE_LOCAL for a forwarding number for
+ *     ad visitors, so its phone_conversion_number must match the displayed
+ *     format exactly. Every script is async: nothing here blocks rendering.
+ *
+ *     Lead events (GA4 generate_lead, Microsoft submit_lead_form) fire once per
+ *     real contact form send: Lapin_Contact sets a short-lived lapin_lead cookie
+ *     on the success redirect and this script consumes it, so reloads, back
+ *     button and shared /contact/?sent=1 links never count again.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,13 +50,50 @@ if ( ! Lapin::tracking_allowed() ) {
 	return;
 }
 
-$lapin_ga_id = Lapin::GA4_ID;
+$lapin_tracking = array(
+	'consentCookie' => Lapin::CONSENT_COOKIE,
+	'leadCookie'    => Lapin::LEAD_COOKIE,
+	'ga4'           => Lapin::GA4_ID,
+	'ads'           => Lapin::GOOGLE_ADS_ID,
+	'adsCall'       => Lapin::GOOGLE_ADS_ID . '/' . Lapin::GOOGLE_ADS_CALL_LABEL,
+	'phone'         => Lapin::PHONE_LOCAL,
+	'uet'           => Lapin::MS_UET_ID,
+);
 ?>
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo rawurlencode( $lapin_ga_id ); ?>"></script>
 <script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', '<?php echo esc_js( $lapin_ga_id ); ?>');
+(function (w, d, cfg) {
+	function readCookie(name) {
+		var m = d.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+		return m ? decodeURIComponent(m[1]) : '';
+	}
+
+	// One-time lead flag from a real contact form send: consume it whatever happens.
+	var isLead = readCookie(cfg.leadCookie) === '1';
+	if (isLead) { d.cookie = cfg.leadCookie + '=;path=/;max-age=0;SameSite=Lax'; }
+
+	// Opt-out gate. "rejected", or a GPC signal with no explicit Accept, means
+	// nothing loads. Mirrors the cookie banner's GPC rule.
+	var consent = readCookie(cfg.consentCookie);
+	if (consent === 'rejected' || (w.navigator.globalPrivacyControl === true && consent !== 'accepted')) {
+		return;
+	}
+
+	// Google: GA4 + Google Ads on one gtag.js.
+	w.dataLayer = w.dataLayer || [];
+	w.gtag = function () { w.dataLayer.push(arguments); };
+	w.gtag('js', new Date());
+	w.gtag('config', cfg.ga4);
+	w.gtag('config', cfg.ads);
+	w.gtag('config', cfg.adsCall, { 'phone_conversion_number': cfg.phone });
+	if (isLead) { w.gtag('event', 'generate_lead', { 'form_id': 'contact' }); }
+	var g = d.createElement('script');
+	g.async = true;
+	g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(cfg.ga4);
+	d.head.appendChild(g);
+
+	// Microsoft UET: the agency's snippet, unchanged apart from the tag id.
+	(function(w,d,t,u,o){w[u]=w[u]||[],o.ts=(new Date).getTime();var n=d.createElement(t); n.src="https://bat.bing.net/bat.js?ti="+o.ti+("uetq"!=u?"&q="+u:""),n.async=1, n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&"loaded"!==s&&"complete"!==s||( o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad"),n.onload=n.onreadystatechange=null)}; var i=d.getElementsByTagName(t)[0];i.parentNode.insertBefore(n,i); })(w,d,"script","uetq",{ti:cfg.uet, enableAutoSpaTracking: true});
+	if (isLead) { w.uetq.push('event', 'submit_lead_form', {}); }
+})(window, document, <?php echo wp_json_encode( $lapin_tracking ); ?>);
 </script>

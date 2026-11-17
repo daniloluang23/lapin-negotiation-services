@@ -38,7 +38,14 @@ final class Lapin {
 	const GA4_ID           = 'G-YDVFENWDSD';           // GA4 Measurement ID (same property as the pre-redesign site).
 	const GSC_VERIFICATION = '';                        // Optional google-site-verification token; the meta tag is only emitted when non-empty. The live domain is already verified in Search Console, so this normally stays blank.
 	const PROD_HOSTS       = array( 'lapinnegotiationservices.com', 'www.lapinnegotiationservices.com' );
+
+	// Paid media conversion tracking (Logical Position, snippets sent 04.09.26).
+	// Same consent gate as GA4: see tracking_allowed() and lapin-analytics.php.
+	const GOOGLE_ADS_ID         = 'AW-706048676';         // Google Ads tag, configured on the shared gtag.js.
+	const GOOGLE_ADS_CALL_LABEL = 'jKMKCLepyO4cEKTl1dAC'; // Website call conversion (Google forwarding number swaps PHONE_LOCAL).
+	const MS_UET_ID             = '56183216';             // Microsoft Advertising UET tag.
 	const CONSENT_COOKIE   = 'lapin_cookie_consent';    // First-party opt-out cookie: '' (unset) | 'accepted' | 'rejected'.
+	const LEAD_COOKIE      = 'lapin_lead';              // One-time flag set on a real contact form send; consumed by lapin-analytics.php.
 
 	private static ?Lapin $instance = null;
 
@@ -93,39 +100,28 @@ final class Lapin {
 	}
 
 	/**
-	 * Central gate for front-end analytics (GA4). Opt-out model, tuned for
-	 * California CCPA/CPRA. Returns false — GA4 is NOT emitted — when any of:
+	 * Central gate for front-end analytics and ad tags (GA4, Google Ads,
+	 * Microsoft UET). Opt-out model, tuned for California CCPA/CPRA. Returns
+	 * false — none of them are emitted — when any of:
 	 *
 	 *  - Non-production host (the Local .local dev site, staging, previews). GA
 	 *    must only fire on the live domain so dev traffic never pollutes the data.
 	 *  - The visitor is logged in (client request: never track signed-in users).
-	 *  - The visitor clicked "Reject" in the cookie banner (opt-out cookie).
-	 *  - A Global Privacy Control signal is present (Sec-GPC: 1) and the visitor
-	 *    has not explicitly accepted on this site. CA law requires GPC to be
-	 *    honored as a valid opt-out of sale/sharing.
 	 *
-	 * Unset or "accepted" consent both allow tracking (opt-out model — GA loads
-	 * by default until rejected). Read by lapin-analytics.php and mirrored client
-	 * side by the cookie banner.
+	 * The visitor's opt-out (Reject cookie, or Global Privacy Control without an
+	 * explicit Accept) is deliberately NOT checked here. The live edge cache
+	 * serves one copy of each page to everyone, so a server-side opt-out check
+	 * does nothing for cached pages, and worse: an opted-out visitor (Brave sends
+	 * Sec-GPC by default) hitting a cache miss would get a tag-free page cached
+	 * for every visitor. The opt-out is enforced in the browser instead, by the
+	 * head gate in lapin-analytics.php and by the cookie banner.
 	 */
 	public static function tracking_allowed(): bool {
 		$host = wp_parse_url( home_url(), PHP_URL_HOST );
 		if ( ! in_array( $host, self::PROD_HOSTS, true ) ) {
 			return false;
 		}
-		if ( is_user_logged_in() ) {
-			return false;
-		}
-		$consent = $_COOKIE[ self::CONSENT_COOKIE ] ?? '';
-		if ( 'rejected' === $consent ) {
-			return false;
-		}
-		// Global Privacy Control: honored unless the visitor explicitly accepted.
-		$gpc = '1' === ( $_SERVER['HTTP_SEC_GPC'] ?? '' );
-		if ( $gpc && 'accepted' !== $consent ) {
-			return false;
-		}
-		return true;
+		return ! is_user_logged_in();
 	}
 
 	/**

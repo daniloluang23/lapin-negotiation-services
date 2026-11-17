@@ -9,6 +9,9 @@
 !/CLAUDE.md
 !/.github/
 
+# Tests (never deployed: the deploy uploads wp-content/ only)
+!/tests/
+
 # Project docs: locked design system, task log, Hallmark run log
 !/design.md
 !/tasks/

@@ -74,7 +74,30 @@ final class Lapin_Contact {
 		// Success when the message reached the database or the inbox;
 		// 'failed' only when both routes were lost.
 		$ok = $saved || $sent;
+		if ( $ok ) {
+			self::flag_lead();
+		}
 		$this->redirect( $back, $ok ? '' : 'failed', $ok );
+	}
+
+	/**
+	 * One-time lead flag for conversion tracking, set only here on a genuine
+	 * send (never on the honeypot's fake success). lapin-analytics.php reads it
+	 * once on the /contact/?sent=1 page and deletes it, so a reload, the back
+	 * button or a shared link never counts as a second lead.
+	 */
+	private static function flag_lead(): void {
+		setcookie(
+			Lapin::LEAD_COOKIE,
+			'1',
+			array(
+				'expires'  => time() + 600,
+				'path'     => '/',
+				'secure'   => is_ssl(),
+				'httponly' => false, // Read and cleared by the inline tracking script.
+				'samesite' => 'Lax',
+			)
+		);
 	}
 
 	/** Old input for re-populating the form after a validation error. */

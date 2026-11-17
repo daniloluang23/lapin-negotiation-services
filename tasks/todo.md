@@ -737,3 +737,38 @@ the canvas to 414 — the result *looks* like horizontal overflow but is not. Sh
   sibling pages' voice — the client's doc ends at Advisory Services. Needs sign-off.
 - Preparation coaching for parties in **our own** mediations is no longer described
   anywhere; the new Advisory Services copy scopes that support to third-party mediations.
+
+---
+
+## 17.11.26 · Paid media conversion tracking (Logical Position snippets)
+
+Client forwarded the agency's 04.09.26 snippets: Microsoft UET (ti 56183216), Google Ads
+base tag (AW-706048676) and a Google call-forwarding snippet for 310-984-6952. Branch
+`feat/paid-media-tracking`, local only, not committed or deployed.
+
+**Done**
+- [x] Ads config added to the existing GA4 gtag.js (Google: one Google tag per page), call
+      snippet with `phone_conversion_number` = `Lapin::PHONE_LOCAL`, UET snippet verbatim
+      apart from the id. Ids are constants on `Lapin`.
+- [x] Lead events: `generate_lead` (GA4) + `submit_lead_form` (UET), once per genuine form
+      send via a one-time `lapin_lead` cookie set in `Lapin_Contact::flag_lead()`.
+- [x] **Opt-out moved to the browser.** The live edge cache (`x-kinsta-cache: HIT`) serves
+      one copy to everyone, so the old server-side Reject/GPC check never ran on cached
+      pages: GA4 was firing for opted-out visitors. The head script now checks the consent
+      cookie + GPC before loading anything; the server gate keeps only host + logged-in, so
+      an opted-out cache miss can't cache a tag-free page for everyone.
+- [x] Banner Reject also denies Google Ads + UET consent and clears `_gcl_*` / `_uet*`
+      cookies and storage. Banner copy and privacy policy updated to disclose the ad tags
+      (**draft, needs client sign-off**).
+- [x] `tests/tracking/tracking.test.mjs` (node, stubs WP, uses Local's PHP): 16 pass on the
+      new code, 14 fail on the original. Independent review run twice; findings fixed.
+
+**Before deploy**
+- Client approves the banner + privacy policy wording.
+- Publish the Privacy Policy page on live (slug `privacy-policy` returns 404 today).
+- After deploy: purge the Kinsta cache; verify tags, the opt-out, a test form send and the
+  call swap (`#google-wcc-debug`); run Lighthouse on live (tags only render on live hosts).
+
+**Not proved:** `flag_lead()` itself (tests plant the cookie); Google/Microsoft network
+behaviour after a consent update; Lighthouse impact.
+**Rollback:** revert the commit and redeploy (no new files under wp-content).

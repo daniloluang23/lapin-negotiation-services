@@ -7,15 +7,19 @@
  * canonical design tokens (var(--token, #hexfallback) so it also renders on any
  * surface that skips the token block) + inline JS.
  *
- * Model (California is an opt-OUT regime, so GA4 runs by default):
- *  - First visit, no GPC → banner shown; GA4 already loading (server gate).
- *  - Accept → lapin_cookie_consent=accepted; GA4 keeps running.
- *  - Reject → lapin_cookie_consent=rejected; GA4 neutralised this page view
- *             (ga-disable flag + drops _ga* cookies) and suppressed server-side
- *             on every later load. This is the "Do Not Sell/Share" opt-out.
+ * Model (California is an opt-OUT regime, so tracking runs by default). "Tracking"
+ * here means GA4, Google Ads and Microsoft UET, all emitted by lapin-analytics.php:
+ *  - First visit, no GPC → banner shown; tags already loading (server gate).
+ *  - Accept → lapin_cookie_consent=accepted; tags keep running.
+ *  - Reject → lapin_cookie_consent=rejected; tags neutralised this page view
+ *             (GA4 ga-disable flag + gtag and UET consent denied + drops _ga*,
+ *             _gcl_* and _uet* cookies and storage) and never loaded again:
+ *             the head gate in lapin-analytics.php checks this cookie in the
+ *             browser, because the edge page cache ignores it server side.
+ *             This is the "Do Not Sell/Share" opt-out.
  *  - Global Privacy Control (navigator.globalPrivacyControl) with no explicit
  *    prior choice → auto-rejected; CA law requires GPC to be honored. Mirrors
- *    the server-side Sec-GPC check in Lapin::tracking_allowed().
+ *    the head gate in lapin-analytics.php.
  *  - Any element with [data-lapin-privacy-choices] (the footer "Your Privacy
  *    Choices" link) re-opens the banner so the opt-out is always reachable.
  *
@@ -31,8 +35,9 @@ $lapin_cookie_privacy_url = home_url( '/privacy-policy/' );
 <div class="lapin-cookie" id="lapin-cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
 	<div class="lapin-cookie__inner">
 		<p class="lapin-cookie__text">
-			We use cookies, including Google Analytics, to understand how this site is used and improve it.
-			You can accept or reject analytics cookies at any time. For California residents, rejecting also
+			We use cookies, including Google Analytics and advertising tags from Google Ads and Microsoft Advertising,
+			to understand how this site is used, measure our advertising, and improve the site.
+			You can accept or reject these cookies at any time. For California residents, rejecting also
 			opts you out of any &ldquo;sale&rdquo; or &ldquo;sharing&rdquo; of personal information, and we honor
 			Global Privacy Control signals.
 			<a class="lapin-cookie__link" href="<?php echo esc_url( $lapin_cookie_privacy_url ); ?>">Privacy Policy</a>.
@@ -150,24 +155,47 @@ $lapin_cookie_privacy_url = home_url( '/privacy-policy/' );
 				var maxAge = 60 * 60 * 24 * 365; // ~12 months
 				document.cookie = COOKIE + '=' + value + ';path=/;max-age=' + maxAge + ';SameSite=Lax';
 			}
-			function dropAnalyticsCookies() {
-				// GA sets _ga / _ga_<id> / _gid on the registrable domain. Expire
-				// them across the current host and its parent to be thorough.
+			function dropTrackingCookies() {
+				// First-party tracking cookies on the registrable domain: GA
+				// (_ga, _ga_<id>, _gid), Google Ads (_gcl_*) and Microsoft UET
+				// (_uetsid, _uetvid, _uetmsclkid). Expire them across the current
+				// host and its parent to be thorough.
 				var host = location.hostname;
 				var domains = ['', host, '.' + host];
 				var parent = host.replace(/^[^.]+\./, '');
 				if (parent !== host) { domains.push(parent, '.' + parent); }
 				document.cookie.split(';').forEach(function (pair) {
 					var name = pair.split('=')[0].trim();
-					if (!/^_ga/.test(name) && name !== '_gid') { return; }
+					if (!/^(_ga|_gid$|_gcl_|_uet)/.test(name)) { return; }
 					domains.forEach(function (d) {
 						document.cookie = name + '=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT' + (d ? ';domain=' + d : '');
 					});
 				});
+				// UET and Google Ads also keep identifiers in localStorage.
+				try {
+					Object.keys(window.localStorage).forEach(function (key) {
+						if (/^(_uet|_gcl_)/.test(key)) { window.localStorage.removeItem(key); }
+					});
+				} catch (err) { /* storage blocked: nothing to clear */ }
 			}
-			function disableGA() {
+			function disableTracking() {
+				// Later page loads: the head gate in lapin-analytics.php reads the
+				// "rejected" cookie and loads nothing. This page view: GA4 kill
+				// switch, then deny consent for the Google and Microsoft tags that
+				// are already running.
 				window['ga-disable-' + GA4_ID] = true;
-				dropAnalyticsCookies();
+				if (typeof window.gtag === 'function') {
+					window.gtag('consent', 'update', {
+						ad_storage: 'denied',
+						ad_user_data: 'denied',
+						ad_personalization: 'denied',
+						analytics_storage: 'denied'
+					});
+				}
+				// Microsoft UET: queued if bat.js hasn't loaded yet, applied if it has.
+				window.uetq = window.uetq || [];
+				window.uetq.push('consent', 'update', { ad_storage: 'denied' });
+				dropTrackingCookies();
 			}
 
 			var consent = getConsent();
@@ -176,11 +204,11 @@ $lapin_cookie_privacy_url = home_url( '/privacy-policy/' );
 			// visitor has made no explicit choice yet.
 			if (!consent && navigator.globalPrivacyControl === true) {
 				writeConsent('rejected');
-				disableGA();
+				disableTracking();
 				consent = 'rejected';
 			}
 
-			if (consent === 'rejected') { disableGA(); }
+			if (consent === 'rejected') { disableTracking(); }
 			if (!consent) { banner.hidden = false; } // first visit → prompt
 
 			banner.addEventListener('click', function (e) {
@@ -188,7 +216,7 @@ $lapin_cookie_privacy_url = home_url( '/privacy-policy/' );
 				if (!btn) { return; }
 				var choice = btn.getAttribute('data-lapin-consent');
 				writeConsent(choice);
-				if (choice === 'rejected') { disableGA(); }
+				if (choice === 'rejected') { disableTracking(); }
 				banner.hidden = true;
 			});
 

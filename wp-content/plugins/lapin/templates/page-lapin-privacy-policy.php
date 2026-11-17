@@ -1,7 +1,8 @@
 <?php
 /**
  * Privacy Policy (/privacy-policy/) — Long Document. Discloses the site's data
- * practices (contact form + Google Analytics 4) and the California CCPA/CPRA
+ * practices (contact form, Google Analytics 4, and Google Ads + Microsoft
+ * Advertising tags incl. call tracking) and the California CCPA/CPRA
  * rights, including the opt-out honored by the cookie banner. The
  * #your-privacy-choices anchor is the target of the footer "Your Privacy
  * Choices" control.
@@ -50,7 +51,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 	<div class="wrap wrap--narrow">
 		<div class="legal prose">
 			<section>
-				<p class="legal-meta">Last updated: July 22, 2026</p>
+				<p class="legal-meta">Last updated: November 17, 2026</p>
 				<p><?php echo esc_html( Lapin::NAME ); ?> (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) respects your privacy. This Privacy Policy explains what information we collect when you visit <?php echo esc_html( wp_parse_url( home_url(), PHP_URL_HOST ) ); ?> or contact us, how we use it, and the rights and choices you have — including the rights of California residents under the California Consumer Privacy Act (CCPA), as amended by the California Privacy Rights Act (CPRA).</p>
 			</section>
 
@@ -60,16 +61,18 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 				<p>When you submit our contact form or email us, we collect the details you choose to provide — typically your name, email address, phone number, and the contents of your message. You control what you send us.</p>
 				<h3>Information collected automatically</h3>
 				<p>When you visit the site, our analytics provider automatically collects standard technical and usage information through cookies and similar technologies, such as your IP address (often truncated), device and browser type, pages viewed, referring pages, and general location inferred from your IP. We use Google Analytics 4 for this purpose.</p>
+				<p>We also use advertising tags from Google Ads and Microsoft Advertising. They record whether a visit from one of our ads leads to an enquiry or a call, and may be used to show our ads to people who have visited the site. When you arrive from one of our Google ads, the phone number shown may be a Google forwarding number so we can tell which ads lead to calls; Google then provides us with call details such as the time and length of the call and the caller&rsquo;s area code.</p>
 			</section>
 
 			<section id="cookies-and-analytics">
 				<h2>Cookies and analytics</h2>
-				<p>Cookies are small files stored on your device. We use them only to measure and improve how the site performs. We do not use cookies for cross-site advertising.</p>
+				<p>Cookies are small files stored on your device. We use them to measure and improve how the site performs and to measure our advertising.</p>
 				<ul>
 					<li><strong>Essential:</strong> required for the site and its forms to work. These are always on.</li>
 					<li><strong>Analytics (Google Analytics 4):</strong> help us understand which pages are useful. These are optional.</li>
+					<li><strong>Advertising (Google Ads and Microsoft Advertising):</strong> measure which ads lead to enquiries and calls, and may be used to show our ads to people who have visited the site. These are optional.</li>
 				</ul>
-				<p>You can accept or reject analytics cookies at any time using the banner on your first visit or the <a href="#your-privacy-choices">Your Privacy Choices</a> control in the footer. If you reject, we disable Google Analytics for your visit and do not set analytics cookies. We also honor Global Privacy Control (GPC) browser signals as a valid opt-out (see <a href="#your-privacy-choices">Your Privacy Choices</a>). You can learn how Google uses data at <a href="https://policies.google.com/technologies/partner-sites" rel="noopener" target="_blank">policies.google.com/technologies/partner-sites</a>.</p>
+				<p>You can accept or reject analytics and advertising cookies at any time using the banner on your first visit or the <a href="#your-privacy-choices">Your Privacy Choices</a> control in the footer. If you reject, we switch off Google Analytics and our advertising tags, remove the cookies they set, and do not load them again on later visits from that browser. We also honor Global Privacy Control (GPC) browser signals as a valid opt-out, unless you have chosen Accept on this site (see <a href="#your-privacy-choices">Your Privacy Choices</a>). You can learn how Google uses data at <a href="https://policies.google.com/technologies/partner-sites" rel="noopener" target="_blank">policies.google.com/technologies/partner-sites</a>, and how Microsoft does at <a href="https://privacy.microsoft.com/privacystatement" rel="noopener" target="_blank">privacy.microsoft.com/privacystatement</a>.</p>
 			</section>
 
 			<section id="how-we-use">
@@ -78,6 +81,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 					<li>To respond to your inquiries and provide our services.</li>
 					<li>To operate, maintain, and improve the site.</li>
 					<li>To understand aggregate usage through analytics.</li>
+					<li>To measure how our advertising performs and, unless you opt out, to show our ads to people who have visited the site.</li>
 					<li>To protect against spam, fraud, and abuse.</li>
 					<li>To comply with legal obligations.</li>
 				</ul>
@@ -85,16 +89,17 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 
 			<section id="how-we-share">
 				<h2>How we share information</h2>
-				<p>We do <strong>not</strong> sell your personal information, and we do not share it for cross-context behavioral advertising. We disclose information only to:</p>
+				<p>We do <strong>not</strong> sell your personal information for money. Our advertising tags from Google and Microsoft may count as &ldquo;sharing&rdquo; for cross-context behavioral advertising under California law, and you can opt out of that at any time (see <a href="#your-privacy-choices">Your Privacy Choices</a>). We disclose information only to:</p>
 				<ul>
 					<li><strong>Service providers</strong> who act on our behalf — for example, Google (analytics) and our web hosting and email providers — bound to use it only to provide their service to us.</li>
+					<li><strong>Advertising partners</strong> (Google and Microsoft), through the advertising tags described above, unless you opt out.</li>
 					<li><strong>Legal and safety</strong> recipients when required by law or to protect our rights, safety, or property.</li>
 				</ul>
 			</section>
 
 			<section id="retention">
 				<h2>Data retention</h2>
-				<p>We keep contact-form messages only as long as needed to respond to and administer your inquiry, then delete or archive them. Analytics data is retained according to our Google Analytics configuration and Google&rsquo;s retention settings.</p>
+				<p>We keep contact-form messages only as long as needed to respond to and administer your inquiry, then delete or archive them. Analytics and advertising data are retained according to our Google Analytics, Google Ads and Microsoft Advertising settings and those providers&rsquo; retention policies.</p>
 			</section>
 
 			<section id="your-privacy-choices">
@@ -108,7 +113,7 @@ require LAPIN_PLUGIN_DIR . 'templates/partials/lapin-header.php';
 					<li><strong>Opt out</strong> of the &ldquo;sale&rdquo; or &ldquo;sharing&rdquo; of personal information.</li>
 					<li><strong>Non-discrimination</strong> for exercising any of these rights.</li>
 				</ul>
-				<p>We do not sell your personal information. Because analytics may be considered &ldquo;sharing&rdquo; under California law, you can opt out at any time by selecting <strong>Reject</strong> in the cookie banner, which you can reopen with the <a href="#your-privacy-choices" data-lapin-privacy-choices>Your Privacy Choices</a> link in the footer. We also treat an enabled <strong>Global Privacy Control</strong> signal as a request to opt out.</p>
+				<p>We do not sell your personal information. Because analytics and advertising tags may be considered &ldquo;sharing&rdquo; under California law, you can opt out at any time by selecting <strong>Reject</strong> in the cookie banner, which you can reopen with the <a href="#your-privacy-choices" data-lapin-privacy-choices>Your Privacy Choices</a> link in the footer. We also treat an enabled <strong>Global Privacy Control</strong> signal as a request to opt out, unless you have chosen <strong>Accept</strong> on this site.</p>
 				<div class="table-scroll">
 					<table>
 						<thead>
