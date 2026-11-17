@@ -34,6 +34,12 @@
  *     real contact form send: Lapin_Contact sets a short-lived lapin_lead cookie
  *     on the success redirect and this script consumes it, so reloads, back
  *     button and shared /contact/?sent=1 links never count again.
+ *
+ *     Legacy events: the agency's (Logical Position) GA4 key events were built
+ *     on events the pre-redesign site sent, so two are sent again here — "submit"
+ *     (contact / form) with each lead, and "click" (telephone) on phone-link taps.
+ *     Without them those key events, and the Google Ads conversions imported
+ *     from them, never fire (found 17.11.26: no data in 28 days).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -86,7 +92,12 @@ $lapin_tracking = array(
 	w.gtag('config', cfg.ga4);
 	w.gtag('config', cfg.ads);
 	w.gtag('config', cfg.adsCall, { 'phone_conversion_number': cfg.phone });
-	if (isLead) { w.gtag('event', 'generate_lead', { 'form_id': 'contact' }); }
+	if (isLead) {
+		w.gtag('event', 'generate_lead', { 'form_id': 'contact' });
+		// Legacy event from the pre-redesign site: Logical Position's GA4 key
+		// event ga4__lp_contact_form_submission__new_ matches on it.
+		w.gtag('event', 'submit', { 'event_category': 'contact', 'event_label': 'form' });
+	}
 	var g = d.createElement('script');
 	g.async = true;
 	g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(cfg.ga4);
@@ -95,5 +106,18 @@ $lapin_tracking = array(
 	// Microsoft UET: the agency's snippet, unchanged apart from the tag id.
 	(function(w,d,t,u,o){w[u]=w[u]||[],o.ts=(new Date).getTime();var n=d.createElement(t); n.src="https://bat.bing.net/bat.js?ti="+o.ti+("uetq"!=u?"&q="+u:""),n.async=1, n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&"loaded"!==s&&"complete"!==s||( o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad"),n.onload=n.onreadystatechange=null)}; var i=d.getElementsByTagName(t)[0];i.parentNode.insertBefore(n,i); })(w,d,"script","uetq",{ti:cfg.uet, enableAutoSpaTracking: true});
 	if (isLead) { w.uetq.push('event', 'submit_lead_form', {}); }
+
+	// Phone taps. Legacy event from the pre-redesign site: Logical Position's GA4
+	// key event ga4__lp_talk_direct matches on click + event_category telephone.
+	// The label is the dialled number, so 310 and 888 taps can be told apart.
+	d.addEventListener('click', function (e) {
+		var a = e.target && e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
+		if (!a || typeof w.gtag !== 'function') { return; }
+		if (readCookie(cfg.consentCookie) === 'rejected') { return; } // Rejected after this page loaded.
+		w.gtag('event', 'click', {
+			'event_category': 'telephone',
+			'event_label': a.getAttribute('href').replace(/^tel:/, '')
+		});
+	}, true);
 })(window, document, <?php echo wp_json_encode( $lapin_tracking ); ?>);
 </script>

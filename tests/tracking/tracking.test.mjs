@@ -93,6 +93,7 @@ const headScript = render('analytics', LIVE, 'home').match(/<script>([\s\S]*?)<\
 
 function runHead({ jar = makeJar(), gpc = false } = {}) {
 	const loaded = [];
+	const clickHandlers = [];
 	const firstScript = { parentNode: { insertBefore: (n) => loaded.push(n.src) } };
 	const document = {
 		get cookie() { return jar.cookie; },
@@ -100,11 +101,16 @@ function runHead({ jar = makeJar(), gpc = false } = {}) {
 		createElement: () => ({}),
 		head: { appendChild: (n) => loaded.push(n.src) },
 		getElementsByTagName: () => [firstScript],
+		addEventListener: (type, fn) => { if (type === 'click') { clickHandlers.push(fn); } },
 	};
 	const window = { navigator: { globalPrivacyControl: gpc } };
 	vm.runInNewContext(headScript, { window, document });
-	const dl = (window.dataLayer || []).map((a) => Array.from(a));
-	return { loaded, dl, window, jar: jar.jar };
+	const dl = () => (window.dataLayer || []).map((a) => Array.from(a));
+	// Simulate a click on a link with the given href (or a non-link element).
+	const click = (href) => clickHandlers.forEach((fn) => fn({
+		target: { closest: (sel) => (href && sel.includes('tel:') && href.startsWith('tel:') ? { getAttribute: () => href } : null) },
+	}));
+	return { loaded, get dl() { return dl(); }, window, jar: jar.jar, click, clickHandlers };
 }
 const hasCall = (dl, ...want) => dl.some((c) => want.every((w, i) => (typeof w === 'object' ? JSON.stringify(c[i]) === JSON.stringify(w) : c[i] === w)));
 
@@ -147,6 +153,48 @@ test('browser, real send: lead events fire once, then never on reload', () => {
 	const reload = runHead({ jar });
 	assert.ok(!hasCall(reload.dl, 'event', 'generate_lead'), 'lead fired again on reload');
 	assert.ok(!(reload.window.uetq || []).includes('submit_lead_form'), 'UET lead fired again');
+});
+
+// Legacy events the pre-redesign site sent; Logical Position's GA4 key events
+// (ga4__lp_contact_form_submission__new_, ga4__lp_talk_direct) match on them.
+test('browser, real send: legacy submit/contact/form event fires once (LP form key event)', () => {
+	const jar = makeJar({ lapin_lead: '1' });
+	const first = runHead({ jar });
+	assert.ok(hasCall(first.dl, 'event', 'submit', { event_category: 'contact', event_label: 'form' }), 'legacy submit event missing');
+	const reload = runHead({ jar });
+	assert.ok(!reload.dl.some((c) => c[0] === 'event' && c[1] === 'submit'), 'legacy submit fired again on reload');
+});
+
+test('browser, ordinary visit: no legacy submit event', () => {
+	assert.ok(!runHead().dl.some((c) => c[0] === 'event' && c[1] === 'submit'));
+});
+
+test('browser, phone link tap: legacy click/telephone event with the number (LP call key event)', () => {
+	const r = runHead();
+	r.click('tel:+13109846952');
+	assert.ok(hasCall(r.dl, 'event', 'click', { event_category: 'telephone', event_label: '+13109846952' }), 'telephone click event missing');
+});
+
+test('browser, other clicks: no telephone event', () => {
+	const r = runHead();
+	r.click('https://example.com/');
+	r.click(null);
+	assert.ok(!r.dl.some((c) => c[0] === 'event' && c[1] === 'click'));
+});
+
+test('browser, Reject clicked after the page loaded: phone taps send nothing', () => {
+	const jar = makeJar();
+	const r = runHead({ jar });
+	jar.cookie = 'lapin_cookie_consent=rejected;path=/;max-age=31536000;SameSite=Lax';
+	r.click('tel:+13109846952');
+	assert.ok(!r.dl.some((c) => c[0] === 'event' && c[1] === 'click'), 'telephone event sent after Reject');
+});
+
+test('browser, opted out: phone taps send nothing', () => {
+	const r = runHead({ jar: makeJar({ lapin_cookie_consent: 'rejected' }) });
+	r.click('tel:+13109846952');
+	assert.equal(r.window.dataLayer, undefined);
+	assert.equal(r.clickHandlers.length, 0, 'click listener registered for an opted-out visitor');
 });
 
 test('browser, /contact/?sent=1 without a real send (bookmark/shared link): no lead', () => {

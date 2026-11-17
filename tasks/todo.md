@@ -744,7 +744,8 @@ the canvas to 414 — the result *looks* like horizontal overflow but is not. Sh
 
 Client forwarded the agency's 04.09.26 snippets: Microsoft UET (ti 56183216), Google Ads
 base tag (AW-706048676) and a Google call-forwarding snippet for 310-984-6952. Branch
-`feat/paid-media-tracking`, local only, not committed or deployed.
+`feat/paid-media-tracking`, merged to master as da04cb2 and **deployed 17.11.26**; Kinsta
+cache purged, all pages verified serving the new code.
 
 **Done**
 - [x] Ads config added to the existing GA4 gtag.js (Google: one Google tag per page), call
@@ -759,16 +760,39 @@ base tag (AW-706048676) and a Google call-forwarding snippet for 310-984-6952. B
       an opted-out cache miss can't cache a tag-free page for everyone.
 - [x] Banner Reject also denies Google Ads + UET consent and clears `_gcl_*` / `_uet*`
       cookies and storage. Banner copy and privacy policy updated to disclose the ad tags
-      (**draft, needs client sign-off**).
+      (**wording approved by the client 17.11.26**).
 - [x] `tests/tracking/tracking.test.mjs` (node, stubs WP, uses Local's PHP): 16 pass on the
       new code, 14 fail on the original. Independent review run twice; findings fixed.
 
-**Before deploy**
-- Client approves the banner + privacy policy wording.
-- Publish the Privacy Policy page on live (slug `privacy-policy` returns 404 today).
-- After deploy: purge the Kinsta cache; verify tags, the opt-out, a test form send and the
-  call swap (`#google-wcc-debug`); run Lighthouse on live (tags only render on live hosts).
+**Verified on live (headless Chrome, 17.11.26):** a normal visit loads gtag.js + bat.js and
+sends GA4, Google Ads and UET hits; with the reject cookie or GPC, zero tracking requests.
+
+**Still open**
+- Publish the Privacy Policy page on live (slug `privacy-policy` returns 404).
+- One real test enquiry: confirm `generate_lead` in GA4 Realtime.
+- Agency: import `generate_lead` into Google Ads (or send a form conversion snippet), the
+  missing onclick snippet, the other snippets, and whether to track the 888 number.
+- Check the call swap (`#google-wcc-debug`) and run Lighthouse on live.
 
 **Not proved:** `flag_lead()` itself (tests plant the cookie); Google/Microsoft network
 behaviour after a consent update; Lighthouse impact.
 **Rollback:** revert the commit and redeploy (no new files under wp-content).
+
+### 17.11.26 (later) · Logical Position's GA4 key events revived
+
+GA4 Admin > Custom events showed why conversions stopped: the agency's key events were
+built on the pre-redesign site and had no data in 28 days.
+
+| LP key event | Matches | Fix |
+|---|---|---|
+| `ga4__lp_contact_form_submission__new_` | `submit` + category contact + label form (old site's code) | Site sends it again with each one-time lead |
+| `ga4__lp_talk_direct` | `click` + category telephone (old site's code) | Site sends it on tel: taps (label = dialled number) |
+| `ga4__lp_micro__contact_form_visit` | page_path starts with `/contact.html` (old URL) | GA4 side: change to `/contact/` |
+| `LP_Contact_Form_TY_Page_2026` | page_view, page_location equals `.../contact/?sent=1...` | GA4 side: didn't fire on the 17.11.26 test enquiry; check full value (GA4 strips `#fragments`) or match `generate_lead` |
+
+- [x] `lapin-analytics.php`: legacy `submit` event with each lead; capture-phase tel: click
+      listener inside the opt-out gate, which also stops if Reject was clicked after load.
+- [x] Tests: 22 pass; each new test fails without its change. Independent review: one low
+      finding (tap after Reject), fixed.
+- [x] Live test enquiry 17.11.26: `generate_lead` = 1 in GA4 Realtime.
+- Agency: once both form events fire, keep only one as a primary conversion in Google Ads.
