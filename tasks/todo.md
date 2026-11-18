@@ -796,3 +796,15 @@ built on the pre-redesign site and had no data in 28 days.
       finding (tap after Reject), fixed.
 - [x] Live test enquiry 17.11.26: `generate_lead` = 1 in GA4 Realtime.
 - Agency: once both form events fire, keep only one as a primary conversion in Google Ads.
+
+### 19.11.26 · Logical Position's ContactFormSubmission event
+
+The agency sent a snippet firing GA4 `ContactFormSubmission` on any click of the "Send
+message" button (their new primary form conversion). Not used as written: it counts clicks
+that never send (empty required fields, Turnstile or rate-limit failures) and misses clicks
+before `load`. Instead the same event (`send_to` G-YDVFENWDSD) fires in the one-time
+genuine-send block, beside `generate_lead` and the legacy `submit`.
+
+- [x] Tests: 24 pass; the new test fails without the change. Independent review passed.
+- Agency: keep only `ContactFormSubmission` as primary in Google Ads (each lead also sends
+  `generate_lead` and `submit`, so more than one primary would count each lead 2-3 times).

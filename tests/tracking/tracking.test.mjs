@@ -169,6 +169,23 @@ test('browser, ordinary visit: no legacy submit event', () => {
 	assert.ok(!runHead().dl.some((c) => c[0] === 'event' && c[1] === 'submit'));
 });
 
+// The agency's GA4 key event (LP, 17.11.26). Their snippet fired on any click of
+// the "Send message" button; here it fires on a genuine send only.
+test('browser, real send: ContactFormSubmission sent to GA4 once, never on reload', () => {
+	const jar = makeJar({ lapin_lead: '1' });
+	const first = runHead({ jar });
+	assert.ok(hasCall(first.dl, 'event', 'ContactFormSubmission', { send_to: 'G-YDVFENWDSD' }), 'ContactFormSubmission missing');
+	assert.equal(first.dl.filter((c) => c[0] === 'event' && c[1] === 'ContactFormSubmission').length, 1, 'sent more than once');
+	const reload = runHead({ jar });
+	assert.ok(!reload.dl.some((c) => c[0] === 'event' && c[1] === 'ContactFormSubmission'), 'sent again on reload');
+});
+
+test('browser, ordinary visit or opted out: no ContactFormSubmission', () => {
+	assert.ok(!runHead().dl.some((c) => c[0] === 'event' && c[1] === 'ContactFormSubmission'));
+	const out = runHead({ jar: makeJar({ lapin_cookie_consent: 'rejected', lapin_lead: '1' }) });
+	assert.equal(out.window.dataLayer, undefined);
+});
+
 test('browser, phone link tap: legacy click/telephone event with the number (LP call key event)', () => {
 	const r = runHead();
 	r.click('tel:+13109846952');

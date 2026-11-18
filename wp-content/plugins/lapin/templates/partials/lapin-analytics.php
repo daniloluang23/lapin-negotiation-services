@@ -97,6 +97,10 @@ $lapin_tracking = array(
 		// Legacy event from the pre-redesign site: Logical Position's GA4 key
 		// event ga4__lp_contact_form_submission__new_ matches on it.
 		w.gtag('event', 'submit', { 'event_category': 'contact', 'event_label': 'form' });
+		// Logical Position's GA4 key event (snippet sent 17.11.26). Their version
+		// fired on any click of the "Send message" button, which also counted
+		// blocked, invalid and failed attempts; this fires on a genuine send only.
+		w.gtag('event', 'ContactFormSubmission', { 'send_to': cfg.ga4 });
 	}
 	var g = d.createElement('script');
 	g.async = true;
